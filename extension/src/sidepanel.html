@@ -96,6 +96,28 @@
       .input-area button:hover {
         background: #1d4ed8;
       }
+      .message.system .dots::after {
+        content: "";
+        animation: dots 1.5s steps(4, end) infinite;
+      }
+      @keyframes dots {
+        0% {
+          content: "";
+        }
+        25% {
+          content: ".";
+        }
+        50% {
+          content: "..";
+        }
+        75% {
+          content: "...";
+        }
+      }
+      .input-area button:disabled {
+        background: #93c5fd;
+        cursor: not-allowed;
+      }
       .footer {
         text-align: center;
         padding: 6px;

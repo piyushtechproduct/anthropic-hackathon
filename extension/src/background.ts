@@ -15,28 +15,43 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 async function handleSearchRequest(prompt: string) {
   try {
     // Step 1: Tell side panel we're processing
-    chrome.runtime.sendMessage({
+    sendToSidePanel({
       type: "STATUS",
       message: "Understanding your request...",
     });
 
     // Step 2: Call backend API
-    const response = await fetch(`${BACKEND_URL}/api/intent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
-    });
+    let response: Response;
+    try {
+      response = await fetch(`${BACKEND_URL}/api/intent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+    } catch {
+      sendToSidePanel({
+        type: "ERROR",
+        message:
+          "Backend server is not running. Start it with: cd backend && uv run uvicorn src.app.main:app --reload",
+      });
+      return;
+    }
 
     if (!response.ok) {
-      throw new Error(`Backend returned ${response.status}`);
+      sendToSidePanel({
+        type: "ERROR",
+        message:
+          "Something went wrong understanding your request. Please try rephrasing.",
+      });
+      return;
     }
 
     const data = await response.json();
 
     // Step 3: Tell side panel we're searching
-    chrome.runtime.sendMessage({
+    sendToSidePanel({
       type: "STATUS",
-      message: "Searching Amazon India...",
+      message: `Searching Amazon India for "${data.raw_query}"...`,
     });
 
     // Step 4: Open search URL in active tab
@@ -52,57 +67,110 @@ async function handleSearchRequest(prompt: string) {
     await waitForTabLoad(tab.id);
     await sleep(2000);
 
-    // Step 6: Send filters to content script
-    chrome.runtime.sendMessage({
+    // Step 6: Apply filters one at a time to handle page reloads
+    const filters = data.filters || [];
+    if (filters.length === 0) {
+      sendToSidePanel({
+        type: "RESULT",
+        data: {
+          filters_applied: [],
+          filters_failed: [],
+          search_url: data.search_url,
+        },
+      });
+      return;
+    }
+
+    sendToSidePanel({
       type: "STATUS",
-      message: `Applying ${data.filters.length} filter(s)...`,
+      message: `Applying ${filters.length} filter(s)...`,
     });
 
-    try {
-      const result = await chrome.tabs.sendMessage(tab.id, {
-        type: "APPLY_FILTERS",
-        filters: data.filters,
+    const applied: string[] = [];
+    const failed: string[] = [];
+
+    for (let i = 0; i < filters.length; i++) {
+      const filter = filters[i];
+      sendToSidePanel({
+        type: "STATUS",
+        message: `Applying filter ${i + 1}/${filters.length}: ${filter.type} → ${filter.value}`,
       });
 
-      // Step 7: Relay result to side panel
-      chrome.runtime.sendMessage({
-        type: "RESULT",
-        data: {
-          filters_applied: result.applied || [],
-          filters_failed: result.failed || [],
-          search_url: data.search_url,
-        },
-      });
-    } catch {
-      // Content script might not be injected yet, inject it manually
-      await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content.js"],
-      });
-      await sleep(500);
+      try {
+        const result = await sendToContentScript(tab.id, {
+          type: "APPLY_ONE_FILTER",
+          filter,
+        });
 
-      const result = await chrome.tabs.sendMessage(tab.id, {
-        type: "APPLY_FILTERS",
-        filters: data.filters,
-      });
+        if (result?.success) {
+          applied.push(`${filter.type}: ${filter.value}`);
+          // Amazon reloads after filter click — wait for the page to settle
+          if (i < filters.length - 1) {
+            await waitForTabLoad(tab.id);
+            await sleep(2000);
+          }
+        } else {
+          failed.push(`${filter.type}: ${filter.value}`);
+        }
+      } catch {
+        // Content script not available — try injecting it
+        try {
+          await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ["content.js"],
+          });
+          await sleep(500);
 
-      chrome.runtime.sendMessage({
-        type: "RESULT",
-        data: {
-          filters_applied: result.applied || [],
-          filters_failed: result.failed || [],
-          search_url: data.search_url,
-        },
-      });
+          const result = await sendToContentScript(tab.id, {
+            type: "APPLY_ONE_FILTER",
+            filter,
+          });
+
+          if (result?.success) {
+            applied.push(`${filter.type}: ${filter.value}`);
+            if (i < filters.length - 1) {
+              await waitForTabLoad(tab.id);
+              await sleep(2000);
+            }
+          } else {
+            failed.push(`${filter.type}: ${filter.value}`);
+          }
+        } catch {
+          failed.push(`${filter.type}: ${filter.value}`);
+        }
+      }
     }
+
+    // Step 7: Send final results to side panel
+    sendToSidePanel({
+      type: "RESULT",
+      data: {
+        filters_applied: applied,
+        filters_failed: failed,
+        search_url: data.search_url,
+      },
+    });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    chrome.runtime.sendMessage({
+    sendToSidePanel({
       type: "ERROR",
       message: `Something went wrong: ${message}`,
     });
   }
+}
+
+async function sendToContentScript(
+  tabId: number,
+  message: unknown,
+): Promise<{ success: boolean; filter: unknown }> {
+  return chrome.tabs.sendMessage(tabId, message);
+}
+
+function sendToSidePanel(message: unknown) {
+  chrome.runtime.sendMessage(message).catch(() => {
+    // Side panel might not be listening yet — safe to ignore
+  });
 }
 
 function waitForTabLoad(tabId: number): Promise<void> {
