@@ -1,5 +1,38 @@
 const BACKEND_URL = "http://localhost:8000";
 
+interface Filter {
+  type: string;
+  value: string;
+}
+
+function extractPriceNumber(value: string): number | null {
+  const cleaned = value.replace(/,/g, "");
+  const match = cleaned.match(/(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+function applyPriceToUrl(
+  searchUrl: string,
+  filters: Filter[],
+): { url: string; remainingFilters: Filter[]; appliedPrice: Filter | null } {
+  const priceFilter = filters.find((f) => f.type === "price");
+  if (!priceFilter) {
+    return { url: searchUrl, remainingFilters: filters, appliedPrice: null };
+  }
+
+  const price = extractPriceNumber(priceFilter.value);
+  if (price === null) {
+    return { url: searchUrl, remainingFilters: filters, appliedPrice: null };
+  }
+
+  const paise = price * 100;
+  const separator = searchUrl.includes("?") ? "&" : "?";
+  const url = `${searchUrl}${separator}rh=p_36%3A-${paise}`;
+  const remainingFilters = filters.filter((f) => f.type !== "price");
+
+  return { url, remainingFilters, appliedPrice: priceFilter };
+}
+
 chrome.action.onClicked.addListener((tab) => {
   chrome.sidePanel.open({ windowId: tab.windowId! });
 });
@@ -69,28 +102,39 @@ async function handleSearchRequest(prompt: string) {
       message: `Searching Amazon India for "${data.raw_query}"...`,
     });
 
-    // Step 4: Open search URL in active tab
+    // Step 4: Apply price filter via URL parameter (more reliable than DOM clicks)
+    const filters: Filter[] = data.filters || [];
+    const {
+      url: searchUrl,
+      remainingFilters,
+      appliedPrice,
+    } = applyPriceToUrl(data.search_url, filters);
+
+    // Step 5: Open search URL in active tab
     const [tab] = await chrome.tabs.query({
       active: true,
       currentWindow: true,
     });
     if (!tab?.id) throw new Error("No active tab found");
 
-    await chrome.tabs.update(tab.id, { url: data.search_url });
+    await chrome.tabs.update(tab.id, { url: searchUrl });
 
-    // Step 5: Wait for page to load
+    // Step 6: Wait for page to load
     await waitForTabLoad(tab.id);
     await sleep(2000);
+    // Track price as already applied (it was embedded in the URL)
+    const applied: string[] = [];
+    if (appliedPrice) {
+      applied.push(`${appliedPrice.type}: ${appliedPrice.value}`);
+    }
 
-    // Step 6: Apply filters one at a time to handle page reloads
-    const filters = data.filters || [];
-    if (filters.length === 0) {
+    if (remainingFilters.length === 0) {
       sendToSidePanel({
         type: "RESULT",
         data: {
-          filters_applied: [],
+          filters_applied: applied,
           filters_failed: [],
-          search_url: data.search_url,
+          search_url: searchUrl,
         },
       });
       return;
@@ -98,17 +142,16 @@ async function handleSearchRequest(prompt: string) {
 
     sendToSidePanel({
       type: "STATUS",
-      message: `Applying ${filters.length} filter(s)...`,
+      message: `Applying ${remainingFilters.length} filter(s)...`,
     });
 
-    const applied: string[] = [];
     const failed: string[] = [];
 
-    for (let i = 0; i < filters.length; i++) {
-      const filter = filters[i];
+    for (let i = 0; i < remainingFilters.length; i++) {
+      const filter = remainingFilters[i];
       sendToSidePanel({
         type: "STATUS",
-        message: `Applying filter ${i + 1}/${filters.length}: ${filter.type} → ${filter.value}`,
+        message: `Applying filter ${i + 1}/${remainingFilters.length}: ${filter.type} → ${filter.value}`,
       });
 
       try {
@@ -120,7 +163,7 @@ async function handleSearchRequest(prompt: string) {
         if (result?.success) {
           applied.push(`${filter.type}: ${filter.value}`);
           // Amazon reloads after filter click — wait for the page to settle
-          if (i < filters.length - 1) {
+          if (i < remainingFilters.length - 1) {
             await waitForTabLoad(tab.id);
             await sleep(2000);
           }
@@ -143,7 +186,7 @@ async function handleSearchRequest(prompt: string) {
 
           if (result?.success) {
             applied.push(`${filter.type}: ${filter.value}`);
-            if (i < filters.length - 1) {
+            if (i < remainingFilters.length - 1) {
               await waitForTabLoad(tab.id);
               await sleep(2000);
             }
@@ -162,7 +205,7 @@ async function handleSearchRequest(prompt: string) {
       data: {
         filters_applied: applied,
         filters_failed: failed,
-        search_url: data.search_url,
+        search_url: searchUrl,
       },
     });
   } catch (error) {
