@@ -3,6 +3,7 @@ const promptInput = document.getElementById("prompt-input") as HTMLInputElement;
 const sendBtn = document.getElementById("send-btn") as HTMLButtonElement;
 
 let isProcessing = false;
+let currentStatusEl: HTMLElement | null = null;
 
 function addMessage(
   text: string,
@@ -43,10 +44,32 @@ promptInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") handleSend();
 });
 
+function removeStatusBubble() {
+  if (currentStatusEl) {
+    currentStatusEl.remove();
+    currentStatusEl = null;
+  }
+}
+
+function setStatus(text: string) {
+  const html = `<span class="spinner"></span>${text}`;
+  if (currentStatusEl) {
+    currentStatusEl.innerHTML = html;
+  } else {
+    const msg = document.createElement("div");
+    msg.className = "message system status";
+    msg.innerHTML = html;
+    messagesContainer.appendChild(msg);
+    currentStatusEl = msg;
+  }
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "STATUS") {
-    addMessage(`${message.message}<span class="dots"></span>`, "system");
+    setStatus(message.message);
   } else if (message.type === "RESULT") {
+    removeStatusBubble();
     setProcessing(false);
     const { filters_applied, filters_failed, search_url } = message.data;
     let html = "";
@@ -66,6 +89,7 @@ chrome.runtime.onMessage.addListener((message) => {
     html += `<br><a href="${search_url}" target="_blank" style="color: inherit; text-decoration: underline;">View on Amazon</a>`;
     addMessage(html, "result");
   } else if (message.type === "ERROR") {
+    removeStatusBubble();
     setProcessing(false);
     addMessage(message.message, "error");
   }

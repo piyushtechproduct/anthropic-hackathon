@@ -4,9 +4,24 @@ chrome.action.onClicked.addListener((tab) => {
   chrome.sidePanel.open({ windowId: tab.windowId! });
 });
 
+const FLOW_TIMEOUT_MS = 30_000;
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "SEARCH_REQUEST") {
-    handleSearchRequest(message.prompt);
+    const timeout = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("TIMEOUT")), FLOW_TIMEOUT_MS),
+    );
+    Promise.race([handleSearchRequest(message.prompt), timeout]).catch(
+      (err) => {
+        if (err instanceof Error && err.message === "TIMEOUT") {
+          sendToSidePanel({
+            type: "ERROR",
+            message:
+              "This is taking too long. The backend might be overloaded — please try again.",
+          });
+        }
+      },
+    );
     sendResponse({ received: true });
   }
   return true;

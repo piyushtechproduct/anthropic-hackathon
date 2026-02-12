@@ -96,23 +96,34 @@
       .input-area button:hover {
         background: #1d4ed8;
       }
-      .message.system .dots::after {
-        content: "";
-        animation: dots 1.5s steps(4, end) infinite;
+      .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid #9ca3af;
+        border-top-color: #374151;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        vertical-align: middle;
+        margin-right: 6px;
       }
-      @keyframes dots {
-        0% {
-          content: "";
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
-        25% {
-          content: ".";
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
         }
-        50% {
-          content: "..";
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        75% {
-          content: "...";
-        }
+      }
+      .message {
+        animation: fadeIn 0.2s ease-out;
       }
       .input-area button:disabled {
         background: #93c5fd;
