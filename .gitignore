@@ -33,3 +33,7 @@ dist/
 .idea/
 *.swp
 *.swo
+
+# Playwright MCP
+.playwright-mcp/
+test-amazon-results.png
