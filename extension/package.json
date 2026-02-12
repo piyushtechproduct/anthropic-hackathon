@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild src/background.ts src/content.ts src/sidepanel.ts --bundle --outdir=dist --format=iife --target=chrome114 && cp src/manifest.json dist/ && cp src/sidepanel.html dist/",
+    "test": "vitest run",
+    "lint": "eslint src/"
   },
   "keywords": [],
   "author": "",

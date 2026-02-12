@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "AI Commerce Agent",
+  "version": "1.0.0",
+  "description": "AI-powered shopping assistant for Amazon India",
+  "permissions": ["activeTab", "scripting", "sidePanel", "storage"],
+  "host_permissions": ["https://www.amazon.in/*"],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.amazon.in/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_title": "Open AI Commerce Agent"
+  }
+}
