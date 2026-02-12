@@ -1,9 +1,13 @@
 import json
+import logging
 import os
+import re
 
 import anthropic
 
 from src.app.models import IntentResponse
+
+logger = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = """You are a shopping intent extraction assistant for Amazon India (amazon.in).
 
@@ -45,6 +49,14 @@ def extract_intent(prompt: str) -> IntentResponse:
     )
 
     response_text = message.content[0].text
-    data = json.loads(response_text)
+    logger.info("Claude raw response: %s", response_text)
+
+    # Strip markdown code fences if present
+    cleaned = response_text.strip()
+    fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", cleaned)
+    if fence_match:
+        cleaned = fence_match.group(1).strip()
+
+    data = json.loads(cleaned)
 
     return IntentResponse(**data)
