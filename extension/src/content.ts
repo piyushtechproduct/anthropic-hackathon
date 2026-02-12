@@ -46,7 +46,6 @@ async function applyFilters(filters: FilterRequest[]): Promise<FilterResult> {
 }
 
 async function waitForSidebar(): Promise<HTMLElement | null> {
-  // Poll for up to 10 seconds
   for (let i = 0; i < 20; i++) {
     const el = document.getElementById("s-refinements");
     if (el) return el;
@@ -59,115 +58,273 @@ async function applyOneFilter(filter: FilterRequest): Promise<boolean> {
   const refinements = document.getElementById("s-refinements");
   if (!refinements) return false;
 
-  // Strategy 1: Find exact or partial text match in filter links
-  const links = refinements.querySelectorAll(
-    "a, span[data-action='s-ref-filter-click']",
-  );
-  for (const el of links) {
-    const text = (el as HTMLElement).innerText?.trim().toLowerCase() || "";
-    if (matchesFilter(text, filter)) {
-      (el as HTMLElement).click();
-      return true;
-    }
-  }
+  // Strategy 1: Use aria-label which is the most reliable selector on Amazon
+  // Amazon uses: aria-label="Apply the filter {value} to narrow results"
+  if (await tryAriaLabelMatch(refinements, filter)) return true;
 
-  // Strategy 2: Find checkbox-style filters (label + input)
-  const labels = refinements.querySelectorAll("label, li");
-  for (const label of labels) {
-    const text = (label as HTMLElement).innerText?.trim().toLowerCase() || "";
-    if (matchesFilter(text, filter)) {
-      const clickTarget =
-        label.querySelector("a") ||
-        label.querySelector("input") ||
-        (label as HTMLElement);
-      (clickTarget as HTMLElement).click();
-      return true;
-    }
-  }
+  // Strategy 2: Scoped section search — find the right section then match text
+  if (await tryScopedSectionMatch(refinements, filter)) return true;
 
-  // Strategy 3: Try "See more" links to expand collapsed filter sections
-  const seeMoreLinks = refinements.querySelectorAll(
-    "a.a-expander-header, span.a-expander-prompt",
-  );
-  for (const link of seeMoreLinks) {
-    const sectionText = link.closest("div")?.textContent?.toLowerCase() || "";
-    if (filter.type === "brand" && sectionText.includes("brand")) {
-      (link as HTMLElement).click();
-      await sleep(800);
-      // Retry after expanding
-      return retryFilterInSection(refinements, filter);
-    }
-  }
+  // Strategy 3: Full sidebar text scan as fallback
+  if (await tryFullSidebarScan(refinements, filter)) return true;
+
+  // Strategy 4: Expand "See more" in relevant section and retry
+  if (await tryExpandAndRetry(refinements, filter)) return true;
 
   return false;
 }
 
-async function retryFilterInSection(
+// Strategy 1: Match via aria-label attribute
+async function tryAriaLabelMatch(
   refinements: HTMLElement,
   filter: FilterRequest,
 ): Promise<boolean> {
-  const links = refinements.querySelectorAll("a, li");
-  for (const el of links) {
-    const text = (el as HTMLElement).innerText?.trim().toLowerCase() || "";
-    if (matchesFilter(text, filter)) {
-      const clickTarget = el.querySelector("a") || (el as HTMLElement);
-      (clickTarget as HTMLElement).click();
+  const allLinks = refinements.querySelectorAll("li a[aria-label]");
+  for (const link of allLinks) {
+    const ariaLabel =
+      link.getAttribute("aria-label")?.toLowerCase().trim() || "";
+    if (ariaLabelMatchesFilter(ariaLabel, filter)) {
+      (link as HTMLElement).click();
       return true;
     }
   }
   return false;
 }
 
-function matchesFilter(text: string, filter: FilterRequest): boolean {
+function ariaLabelMatchesFilter(
+  ariaLabel: string,
+  filter: FilterRequest,
+): boolean {
+  // aria-label format: "Apply the filter {value} to narrow results"
+  const value = filter.value.toLowerCase();
+
+  // Direct match
+  if (ariaLabel.includes(value)) return true;
+
+  // For price: backend says "Under ₹500" but Amazon says "Up to ₹500"
+  if (filter.type === "price") {
+    const priceNum = extractPriceNumber(value);
+    if (priceNum !== null) {
+      // Match "Up to ₹X" format
+      const upToPattern = `up to ₹${formatIndianNumber(priceNum)}`;
+      if (ariaLabel.includes(upToPattern.toLowerCase())) return true;
+
+      // Also try without comma formatting
+      if (ariaLabel.includes(`up to ₹${priceNum}`)) return true;
+    }
+  }
+
+  // For brand: case-insensitive exact match
+  if (filter.type === "brand") {
+    const filterText = `apply the filter ${value} to narrow results`;
+    if (ariaLabel === filterText) return true;
+  }
+
+  // For delivery: map "Prime" → "Get It Today"/"Free Shipping"
+  if (filter.type === "delivery") {
+    if (value.includes("prime") || value.includes("fast")) {
+      if (
+        ariaLabel.includes("get it today") ||
+        ariaLabel.includes("get it by tomorrow")
+      )
+        return true;
+    }
+    if (value.includes("free")) {
+      if (ariaLabel.includes("free shipping")) return true;
+    }
+  }
+
+  // For rating: "4★ & up" or "4 Stars & Up"
+  if (filter.type === "rating") {
+    const num = value.match(/(\d)/);
+    if (num && ariaLabel.includes(`${num[1]} stars & up`)) return true;
+  }
+
+  return false;
+}
+
+// Strategy 2: Find the correct section by ID/heading, then match text within
+async function tryScopedSectionMatch(
+  refinements: HTMLElement,
+  filter: FilterRequest,
+): Promise<boolean> {
+  const sectionId = getSectionIdForFilter(filter.type);
+  if (!sectionId) return false;
+
+  // Try matching by section ID suffix
+  const section =
+    refinements.querySelector(`[id*="${sectionId}"]`) ||
+    refinements.querySelector(`#${sectionId}`);
+  if (!section) return false;
+
+  const links = section.querySelectorAll("li a[href]");
+  for (const link of links) {
+    const text =
+      (link as HTMLElement).textContent?.trim().replace(/\s+/g, " ") || "";
+    if (textMatchesFilter(text.toLowerCase(), filter)) {
+      (link as HTMLElement).click();
+      return true;
+    }
+  }
+  return false;
+}
+
+function getSectionIdForFilter(filterType: string): string | null {
+  const sectionMap: Record<string, string> = {
+    brand: "brandsRefinements",
+    price: "priceRefinements",
+    delivery: "deliveryRefinements",
+    rating: "reviewsRefinements",
+    size: "sizeRefinements",
+    color: "size_two_browse",
+    colour: "size_two_browse",
+    discount: "pct-off",
+  };
+  return sectionMap[filterType.toLowerCase()] || null;
+}
+
+// Strategy 3: Full sidebar scan with text matching
+async function tryFullSidebarScan(
+  refinements: HTMLElement,
+  filter: FilterRequest,
+): Promise<boolean> {
+  const links = refinements.querySelectorAll("li a[href]");
+  for (const link of links) {
+    const text =
+      (link as HTMLElement).textContent?.trim().replace(/\s+/g, " ") || "";
+    if (textMatchesFilter(text.toLowerCase(), filter)) {
+      (link as HTMLElement).click();
+      return true;
+    }
+  }
+  return false;
+}
+
+// Strategy 4: Expand "See more" in the filter section and retry
+async function tryExpandAndRetry(
+  refinements: HTMLElement,
+  filter: FilterRequest,
+): Promise<boolean> {
+  // Find all expander elements
+  const expanders = refinements.querySelectorAll(
+    '[data-action="s-show-more-filter"] a, a.a-expander-header, span.a-expander-prompt',
+  );
+
+  for (const expander of expanders) {
+    const sectionText =
+      expander.closest('[role="group"]')?.textContent?.toLowerCase() ||
+      expander.closest(".a-section")?.textContent?.toLowerCase() ||
+      "";
+
+    // Only expand if the section looks relevant to this filter type
+    const isRelevant =
+      (filter.type === "brand" && sectionText.includes("brand")) ||
+      (filter.type === "size" && sectionText.includes("size")) ||
+      (filter.type === "color" &&
+        (sectionText.includes("colour") || sectionText.includes("color")));
+
+    if (isRelevant) {
+      (expander as HTMLElement).click();
+      await sleep(800);
+
+      // Retry with aria-label and text match after expanding
+      if (await tryAriaLabelMatch(refinements, filter)) return true;
+      if (await tryFullSidebarScan(refinements, filter)) return true;
+    }
+  }
+  return false;
+}
+
+// Text matching logic
+function textMatchesFilter(text: string, filter: FilterRequest): boolean {
   const value = filter.value.toLowerCase();
 
   // Direct substring match
   if (text.includes(value)) return true;
 
-  // For price filters, try to match range patterns like "₹1,000 - ₹5,000"
+  // Price filter matching
   if (filter.type === "price") {
-    if (text.includes("₹") || text.includes("rs")) {
-      const cleaned = value.replace(/[₹,\s]/g, "");
-      const textCleaned = text.replace(/[₹,\s]/g, "");
-      if (textCleaned.includes(cleaned)) return true;
-
-      // Match "under X" against Amazon's "Under ₹X" format
-      const underMatch = value.match(/under\s*(\d+)/);
-      if (underMatch) {
-        const targetPrice = underMatch[1];
-        if (textCleaned.includes(`under${targetPrice}`)) return true;
-      }
-    }
+    return matchPrice(text, value);
   }
 
-  // For rating filters, match patterns like "4 Stars & Up"
+  // Rating filter: "4★ & up" → "4 Stars & Up" or "4 stars & up"
   if (filter.type === "rating") {
-    const ratingNum = value.match(/(\d)/);
-    if (ratingNum && text.includes(ratingNum[1]) && text.includes("up")) {
-      return true;
+    const num = value.match(/(\d)/);
+    if (num) {
+      if (text.includes(`${num[1]} stars`) && text.includes("up")) return true;
+      if (text.includes(`${num[1]} star`) && text.includes("up")) return true;
     }
   }
 
-  // For brand filters, case-insensitive match
+  // Brand filter: case-insensitive word match
   if (filter.type === "brand") {
+    if (text === value) return true;
+    // Match as a word boundary (e.g. "Nike" in text "Nike")
     const words = text.split(/\s+/);
     if (words.some((w) => w === value)) return true;
-    // Also try without splitting (e.g. "Nike" in "Nike Men's Clothing")
-    if (text.startsWith(value + " ") || text === value) return true;
   }
 
-  // For delivery/prime filters
+  // Delivery filter
   if (filter.type === "delivery") {
-    if (value.includes("prime") && text.includes("prime")) return true;
-    if (
-      value.includes("free") &&
-      text.includes("free") &&
-      text.includes("delivery")
-    )
-      return true;
+    if (value.includes("prime") || value.includes("fast")) {
+      if (text.includes("get it today") || text.includes("get it by tomorrow"))
+        return true;
+    }
+    if (value.includes("free") && text.includes("free shipping")) return true;
+  }
+
+  // Color filter
+  if (filter.type === "color" || filter.type === "colour") {
+    if (text === value || text.includes(value)) return true;
   }
 
   return false;
+}
+
+// Price matching — handles the mismatch between backend and Amazon formats
+function matchPrice(text: string, value: string): boolean {
+  const priceNum = extractPriceNumber(value);
+  if (priceNum === null) return false;
+
+  // "Under ₹500" → match "Up to ₹500"
+  if (value.includes("under")) {
+    const formatted = formatIndianNumber(priceNum).toLowerCase();
+    if (text.includes(`up to ₹${formatted}`)) return true;
+    if (text.includes(`up to ₹${priceNum}`)) return true;
+    // Also try matching a range that includes the price: "₹200 - ₹500"
+    const rangeMatch = text.match(/₹[\d,]+\s*-\s*₹([\d,]+)/);
+    if (rangeMatch) {
+      const upperBound = parseInt(rangeMatch[1].replace(/,/g, ""), 10);
+      if (upperBound === priceNum) return true;
+    }
+  }
+
+  // "₹X - ₹Y" format — match if text contains the same range
+  const rangeInValue = value.match(/₹?([\d,]+)\s*-\s*₹?([\d,]+)/);
+  if (rangeInValue) {
+    const low = rangeInValue[1].replace(/,/g, "");
+    const high = rangeInValue[2].replace(/,/g, "");
+    const textClean = text.replace(/,/g, "");
+    if (textClean.includes(low) && textClean.includes(high)) return true;
+  }
+
+  return false;
+}
+
+// Extract numeric price from strings like "Under ₹500", "Under ₹15,000", "₹2000"
+function extractPriceNumber(value: string): number | null {
+  const match = value.replace(/,/g, "").match(/(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+// Format number with Indian comma system: 1000→1,000, 15000→15,000, 100000→1,00,000
+function formatIndianNumber(num: number): string {
+  const str = num.toString();
+  if (str.length <= 3) return str;
+  const last3 = str.slice(-3);
+  const rest = str.slice(0, -3);
+  const formatted = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+  return `${formatted},${last3}`;
 }
 
 function sleep(ms: number): Promise<void> {
