@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild src/background.ts src/content.ts src/sidepanel.ts --bundle --outdir=dist --format=iife --target=chrome114 && cp src/manifest.json dist/ && cp src/sidepanel.html dist/",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/chrome": "^0.1.36",
+    "esbuild": "^0.27.3",
     "eslint": "^10.0.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
