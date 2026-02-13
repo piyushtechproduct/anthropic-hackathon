@@ -136,6 +136,127 @@
         color: #9ca3af;
         background: white;
       }
+      /* Product carousel styles */
+      .carousel-container {
+        width: 100%;
+        max-width: 100%;
+        animation: fadeIn 0.3s ease-out;
+      }
+      .carousel-header {
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+      }
+      .carousel {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #d1d5db transparent;
+      }
+      .carousel::-webkit-scrollbar {
+        height: 4px;
+      }
+      .carousel::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .carousel::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 2px;
+      }
+      .product-card {
+        flex: 0 0 156px;
+        scroll-snap-align: start;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 0.15s;
+      }
+      .product-card:hover {
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+      }
+      .product-card-img {
+        position: relative;
+        width: 156px;
+        height: 156px;
+        background: #f9fafb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .product-card-img img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .platform-badge {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .platform-badge.amazon {
+        background: #ff9900;
+      }
+      .platform-badge.flipkart {
+        background: #2874f0;
+      }
+      .product-card-info {
+        padding: 8px 10px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+      }
+      .product-card-title {
+        font-size: 11px;
+        line-height: 1.3;
+        color: #1f2937;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .product-card-price {
+        font-size: 14px;
+        font-weight: 700;
+        color: #111827;
+      }
+      .product-card-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .rating-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        background: #16a34a;
+        color: white;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 1px 5px;
+        border-radius: 3px;
+      }
+      .review-count {
+        font-size: 10px;
+        color: #6b7280;
+      }
     </style>
   </head>
   <body>

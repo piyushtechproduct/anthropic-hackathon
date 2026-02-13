@@ -1,9 +1,6 @@
-const BACKEND_URL = "http://localhost:8000";
+import type { Filter, Product, PlatformIntent } from "./types";
 
-interface Filter {
-  type: string;
-  value: string;
-}
+const BACKEND_URL = "http://localhost:8000";
 
 function extractPriceNumber(value: string): number | null {
   const cleaned = value.replace(/,/g, "");
@@ -14,6 +11,7 @@ function extractPriceNumber(value: string): number | null {
 function applyPriceToUrl(
   searchUrl: string,
   filters: Filter[],
+  platform: string,
 ): { url: string; remainingFilters: Filter[]; appliedPrice: Filter | null } {
   const priceFilter = filters.find((f) => f.type === "price");
   if (!priceFilter) {
@@ -25,11 +23,19 @@ function applyPriceToUrl(
     return { url: searchUrl, remainingFilters: filters, appliedPrice: null };
   }
 
-  const paise = price * 100;
-  const separator = searchUrl.includes("?") ? "&" : "?";
-  const url = `${searchUrl}${separator}rh=p_36%3A-${paise}`;
-  const remainingFilters = filters.filter((f) => f.type !== "price");
+  let url: string;
+  if (platform === "amazon") {
+    const paise = price * 100;
+    const separator = searchUrl.includes("?") ? "&" : "?";
+    url = `${searchUrl}${separator}rh=p_36%3A-${paise}`;
+  } else if (platform === "flipkart") {
+    const separator = searchUrl.includes("?") ? "&" : "?";
+    url = `${searchUrl}${separator}p%5B%5D=facets.price_range.from%3DMin%26facets.price_range.to%3D${price}`;
+  } else {
+    return { url: searchUrl, remainingFilters: filters, appliedPrice: null };
+  }
 
+  const remainingFilters = filters.filter((f) => f.type !== "price");
   return { url, remainingFilters, appliedPrice: priceFilter };
 }
 
@@ -37,7 +43,7 @@ chrome.action.onClicked.addListener((tab) => {
   chrome.sidePanel.open({ windowId: tab.windowId! });
 });
 
-const FLOW_TIMEOUT_MS = 30_000;
+const FLOW_TIMEOUT_MS = 45_000;
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "SEARCH_REQUEST") {
@@ -60,18 +66,89 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   return true;
 });
 
+// --- Core: process a single platform in a hidden background tab ---
+
+async function processPlatformInHiddenTab(
+  platformIntent: PlatformIntent,
+): Promise<Product[]> {
+  const { platform, search_url, filters } = platformIntent;
+  const { url, remainingFilters } = applyPriceToUrl(
+    search_url,
+    filters,
+    platform,
+  );
+
+  // Open hidden background tab
+  const tab = await chrome.tabs.create({ url, active: false });
+  const tabId = tab.id!;
+
+  try {
+    // Wait for page load
+    await waitForTabLoad(tabId);
+    await sleep(2500);
+
+    // Inject content script
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["content.js"],
+    });
+    await sleep(500);
+
+    // Apply remaining filters one-by-one
+    for (let i = 0; i < remainingFilters.length; i++) {
+      const filter = remainingFilters[i];
+      try {
+        const result = await sendToContentScript(tabId, {
+          type: "APPLY_ONE_FILTER",
+          filter,
+        });
+        if (
+          (result as { success?: boolean })?.success &&
+          i < remainingFilters.length - 1
+        ) {
+          await waitForTabLoad(tabId);
+          await sleep(2000);
+        }
+      } catch {
+        // Filter failed, continue with next
+      }
+    }
+
+    // Wait for final page to settle after last filter
+    if (remainingFilters.length > 0) {
+      await sleep(1500);
+    }
+
+    // Extract products
+    const response = await sendToContentScript(tabId, {
+      type: "EXTRACT_PRODUCTS",
+      count: 10,
+    });
+
+    return (response as { products: Product[] })?.products || [];
+  } finally {
+    // Always close the hidden tab
+    try {
+      await chrome.tabs.remove(tabId);
+    } catch {
+      // Tab might already be closed
+    }
+  }
+}
+
+// --- Main search handler ---
+
 async function handleSearchRequest(prompt: string) {
   try {
-    // Step 1: Tell side panel we're processing
     sendToSidePanel({
       type: "STATUS",
       message: "Understanding your request...",
     });
 
-    // Step 2: Call backend API
+    // Step 1: Call multi-platform intent API
     let response: Response;
     try {
-      response = await fetch(`${BACKEND_URL}/api/intent`, {
+      response = await fetch(`${BACKEND_URL}/api/intent/multi`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
@@ -96,117 +173,72 @@ async function handleSearchRequest(prompt: string) {
 
     const data = await response.json();
 
-    // Step 3: Tell side panel we're searching
+    // Step 2: Search both platforms in parallel using hidden tabs
     sendToSidePanel({
       type: "STATUS",
-      message: `Searching Amazon India for "${data.raw_query}"...`,
+      message: `Searching Amazon & Flipkart for "${data.raw_query}"...`,
     });
 
-    // Step 4: Apply price filter via URL parameter (more reliable than DOM clicks)
-    const filters: Filter[] = data.filters || [];
-    const {
-      url: searchUrl,
-      remainingFilters,
-      appliedPrice,
-    } = applyPriceToUrl(data.search_url, filters);
+    const platformResults = await Promise.allSettled(
+      data.platforms.map((pi: PlatformIntent) =>
+        processPlatformInHiddenTab(pi),
+      ),
+    );
 
-    // Step 5: Open search URL in active tab
-    const [tab] = await chrome.tabs.query({
-      active: true,
-      currentWindow: true,
-    });
-    if (!tab?.id) throw new Error("No active tab found");
-
-    await chrome.tabs.update(tab.id, { url: searchUrl });
-
-    // Step 6: Wait for page to load
-    await waitForTabLoad(tab.id);
-    await sleep(2000);
-    // Track price as already applied (it was embedded in the URL)
-    const applied: string[] = [];
-    if (appliedPrice) {
-      applied.push(`${appliedPrice.type}: ${appliedPrice.value}`);
+    // Collect all products from successful platforms
+    const allProducts: Product[] = [];
+    for (const result of platformResults) {
+      if (result.status === "fulfilled") {
+        allProducts.push(...result.value);
+      }
     }
 
-    if (remainingFilters.length === 0) {
+    if (allProducts.length === 0) {
       sendToSidePanel({
-        type: "RESULT",
-        data: {
-          filters_applied: applied,
-          filters_failed: [],
-          search_url: searchUrl,
-        },
+        type: "ERROR",
+        message:
+          "Could not find products on either platform. Try a different search.",
       });
       return;
     }
 
+    // Step 3: Rank products
     sendToSidePanel({
       type: "STATUS",
-      message: `Applying ${remainingFilters.length} filter(s)...`,
+      message: `Found ${allProducts.length} products. Picking the best ones...`,
     });
 
-    const failed: string[] = [];
+    let rankedProducts: Product[];
 
-    for (let i = 0; i < remainingFilters.length; i++) {
-      const filter = remainingFilters[i];
-      sendToSidePanel({
-        type: "STATUS",
-        message: `Applying filter ${i + 1}/${remainingFilters.length}: ${filter.type} → ${filter.value}`,
-      });
-
+    if (allProducts.length <= 5) {
+      rankedProducts = allProducts;
+    } else {
       try {
-        const result = await sendToContentScript(tab.id, {
-          type: "APPLY_ONE_FILTER",
-          filter,
+        const rankResponse = await fetch(`${BACKEND_URL}/api/rank`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: data.raw_query,
+            products: allProducts,
+          }),
         });
 
-        if (result?.success) {
-          applied.push(`${filter.type}: ${filter.value}`);
-          // Amazon reloads after filter click — wait for the page to settle
-          if (i < remainingFilters.length - 1) {
-            await waitForTabLoad(tab.id);
-            await sleep(2000);
-          }
+        if (rankResponse.ok) {
+          const rankData = await rankResponse.json();
+          rankedProducts = rankData.ranked_products;
         } else {
-          failed.push(`${filter.type}: ${filter.value}`);
+          rankedProducts = fallbackSort(allProducts).slice(0, 5);
         }
       } catch {
-        // Content script not available — try injecting it
-        try {
-          await chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ["content.js"],
-          });
-          await sleep(500);
-
-          const result = await sendToContentScript(tab.id, {
-            type: "APPLY_ONE_FILTER",
-            filter,
-          });
-
-          if (result?.success) {
-            applied.push(`${filter.type}: ${filter.value}`);
-            if (i < remainingFilters.length - 1) {
-              await waitForTabLoad(tab.id);
-              await sleep(2000);
-            }
-          } else {
-            failed.push(`${filter.type}: ${filter.value}`);
-          }
-        } catch {
-          failed.push(`${filter.type}: ${filter.value}`);
-        }
+        rankedProducts = fallbackSort(allProducts).slice(0, 5);
       }
     }
 
-    // Step 7: Send final results to side panel
+    // Step 4: Send products to side panel
     sendToSidePanel({
-      type: "RESULT",
-      data: {
-        filters_applied: applied,
-        filters_failed: failed,
-        search_url: searchUrl,
-      },
+      type: "PRODUCTS",
+      products: rankedProducts,
+      query: data.raw_query,
     });
   } catch (error) {
     const message =
@@ -218,10 +250,28 @@ async function handleSearchRequest(prompt: string) {
   }
 }
 
+// Deterministic fallback: score = (rating * log(reviews + 1)) / price
+function fallbackSort(products: Product[]): Product[] {
+  return [...products].sort((a, b) => {
+    const scoreA = computeScore(a);
+    const scoreB = computeScore(b);
+    return scoreB - scoreA;
+  });
+}
+
+function computeScore(p: Product): number {
+  const r = p.rating ?? 0;
+  const rc = p.review_count ?? 0;
+  if (p.price <= 0) return 0;
+  return (r * Math.log(rc + 1)) / p.price;
+}
+
+// --- Helpers ---
+
 async function sendToContentScript(
   tabId: number,
   message: unknown,
-): Promise<{ success: boolean; filter: unknown }> {
+): Promise<unknown> {
   return chrome.tabs.sendMessage(tabId, message);
 }
 
@@ -235,7 +285,7 @@ function waitForTabLoad(tabId: number): Promise<void> {
   return new Promise((resolve) => {
     const listener = (
       updatedTabId: number,
-      changeInfo: chrome.tabs.TabChangeInfo,
+      changeInfo: { status?: string },
     ) => {
       if (updatedTabId === tabId && changeInfo.status === "complete") {
         chrome.tabs.onUpdated.removeListener(listener);
@@ -243,7 +293,6 @@ function waitForTabLoad(tabId: number): Promise<void> {
       }
     };
     chrome.tabs.onUpdated.addListener(listener);
-    // Timeout after 15 seconds
     setTimeout(() => {
       chrome.tabs.onUpdated.removeListener(listener);
       resolve();

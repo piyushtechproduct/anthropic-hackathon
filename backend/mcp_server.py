@@ -9,7 +9,7 @@ from mcp.server.fastmcp import FastMCP
 # Load .env from project root
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
-from src.app.services import extract_intent  # noqa: E402
+from src.app.services import extract_intent, extract_multi_platform_intent  # noqa: E402
 
 mcp = FastMCP("commerce-agent")
 
@@ -28,6 +28,22 @@ def extract_shopping_intent(prompt: str) -> str:
         prompt: Natural language shopping request
     """
     result = extract_intent(prompt)
+    return json.dumps(result.model_dump(), indent=2)
+
+
+@mcp.tool()
+def extract_multi_platform_shopping_intent(prompt: str) -> str:
+    """Extract structured shopping intent for both Amazon India and Flipkart.
+
+    Takes a user's shopping request and returns a JSON object with:
+    - raw_query: cleaned search terms
+    - platforms: list of platform-specific intents (amazon + flipkart), each with
+      search_url and filters
+
+    Args:
+        prompt: Natural language shopping request
+    """
+    result = extract_multi_platform_intent(prompt)
     return json.dumps(result.model_dump(), indent=2)
 
 
