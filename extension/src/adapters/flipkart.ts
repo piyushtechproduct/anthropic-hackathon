@@ -8,6 +8,7 @@ export class FlipkartAdapter implements PlatformAdapter {
     // Flipkart filter sidebar loads with the page; wait for product cards as a proxy
     for (let i = 0; i < 20; i++) {
       if (document.querySelector("div[data-id]")) return true;
+      if (document.querySelector('a[href*="/p/"]')) return true;
       await sleep(500);
     }
     return false;
@@ -30,7 +31,12 @@ export class FlipkartAdapter implements PlatformAdapter {
 
   async extractProducts(count: number): Promise<Product[]> {
     const products: Product[] = [];
-    const cards = document.querySelectorAll("div[data-id]");
+    let cards = document.querySelectorAll("div[data-id]");
+
+    // Fallback: find cards by locating product link containers
+    if (cards.length === 0) {
+      cards = findProductCards();
+    }
 
     for (const card of cards) {
       if (products.length >= count) break;
@@ -47,33 +53,27 @@ export class FlipkartAdapter implements PlatformAdapter {
 // --- Product extraction for grid layout (fashion/clothing) ---
 
 function extractFromGridLayout(card: Element): Product | null {
-  // Grid layout uses a.CIaYa1 for image links and div.Fo1I0b for brand
+  // Title: structural first (stable), class-based as fallback
   const titleEl =
+    findByStructure(card, "title-grid") ||
     card.querySelector("a.atJtCj") ||
-    card.querySelector("a.WKTcLC") ||
-    findByStructure(card, "title-grid");
+    card.querySelector("a.WKTcLC");
   const title = titleEl?.textContent?.trim() || "";
   if (!title) return null;
 
   const price = extractPrice(card);
   if (price <= 0) return null;
 
-  const linkEl =
-    card.querySelector("a.CIaYa1") ||
-    card.querySelector("a.atJtCj") ||
-    card.querySelector("a[href*='/p/']");
+  // Link: structural (always stable)
+  const linkEl = card.querySelector("a[href*='/p/']");
   const href = linkEl?.getAttribute("href") || "";
   const product_url = href.startsWith("http")
     ? href
     : `https://www.flipkart.com${href}`;
 
-  const imgEl =
-    (card.querySelector("img.MZeksS") as HTMLImageElement) ||
-    (card.querySelector("img.UCc1lI") as HTMLImageElement) ||
-    (card.querySelector("img[src*='flixcart']") as HTMLImageElement);
+  const imgEl = findProductImage(card);
   const image_url = imgEl?.src || "";
 
-  // Grid layout typically doesn't show ratings
   const { rating, reviewCount } = extractRatingAndReviews(card);
 
   return {
@@ -90,27 +90,26 @@ function extractFromGridLayout(card: Element): Product | null {
 // --- Product extraction for list layout (electronics) ---
 
 function extractFromListLayout(card: Element): Product | null {
+  // Title: structural first (stable), class-based as fallback
   const titleEl =
+    findByStructure(card, "title-list") ||
     card.querySelector("div.RG5Slk") ||
-    card.querySelector("a.k7wcnx div.RG5Slk") ||
-    findByStructure(card, "title-list");
+    card.querySelector("a.k7wcnx div.RG5Slk");
   const title = titleEl?.textContent?.trim() || "";
   if (!title) return null;
 
   const price = extractPrice(card);
   if (price <= 0) return null;
 
+  // Link: structural (always stable)
   const linkEl =
-    card.querySelector("a.k7wcnx") || card.querySelector("a[href*='/p/']");
+    card.querySelector("a[href*='/p/']") || card.querySelector("a.k7wcnx");
   const href = linkEl?.getAttribute("href") || "";
   const product_url = href.startsWith("http")
     ? href
     : `https://www.flipkart.com${href}`;
 
-  const imgEl =
-    (card.querySelector("img.UCc1lI") as HTMLImageElement) ||
-    (card.querySelector("img.MZeksS") as HTMLImageElement) ||
-    (card.querySelector("img[src*='flixcart']") as HTMLImageElement);
+  const imgEl = findProductImage(card);
   const image_url = imgEl?.src || "";
 
   const { rating, reviewCount } = extractRatingAndReviews(card);
@@ -129,12 +128,31 @@ function extractFromListLayout(card: Element): Product | null {
 // --- Shared extraction helpers ---
 
 function extractPrice(card: Element): number {
-  // Price class div.hZ3P6w is shared across both layouts
+  // Strategy 1: class-based (fast if classes still match)
   const priceEl =
-    card.querySelector("div.hZ3P6w") || card.querySelector("div.Nx9bqj"); // alternate class name
-  const priceText = priceEl?.textContent?.trim() || "";
-  // Price format: "₹977" or "₹1,299"
-  const cleaned = priceText.replace(/[₹,\s]/g, "");
+    card.querySelector("div.hZ3P6w") || card.querySelector("div.Nx9bqj");
+  if (priceEl) {
+    const p = parsePriceText(priceEl.textContent || "");
+    if (p > 0) return p;
+  }
+
+  // Strategy 2: structural — find elements whose text is ONLY a price "₹X,XXX"
+  const allEls = card.querySelectorAll("*");
+  for (const el of allEls) {
+    // Only leaf-ish elements (skip deeply nested containers)
+    if (el.children.length > 2) continue;
+    const text = el.textContent?.trim() || "";
+    if (/^₹[\d,]+$/.test(text)) {
+      const p = parsePriceText(text);
+      if (p > 0) return p; // First match = sale price (comes before original price in DOM)
+    }
+  }
+
+  return 0;
+}
+
+function parsePriceText(text: string): number {
+  const cleaned = text.replace(/[₹,\s]/g, "");
   const price = parseFloat(cleaned);
   return isNaN(price) ? 0 : price;
 }
@@ -143,7 +161,7 @@ function extractRatingAndReviews(card: Element): {
   rating: number | null;
   reviewCount: number | null;
 } {
-  // Rating badge: div inside span.CjyrHS or div.MKiFS6
+  // Strategy 1: class-based
   const ratingEl =
     card.querySelector("div.MKiFS6") || card.querySelector("span.CjyrHS div");
   let rating: number | null = null;
@@ -153,15 +171,33 @@ function extractRatingAndReviews(card: Element): {
     if (ratingMatch) rating = parseFloat(ratingMatch[1]);
   }
 
-  // Reviews: spans inside span.PvbNMB
+  // Strategy 1b: class-based reviews
   let reviewCount: number | null = null;
   const reviewSpans = card.querySelectorAll("span.PvbNMB span");
   for (const span of reviewSpans) {
     const text = span.textContent?.trim() || "";
     if (text.toLowerCase().includes("rating")) {
-      // "2,72,197 Ratings" → extract number
       const numMatch = text.replace(/,/g, "").match(/(\d+)/);
       if (numMatch) reviewCount = parseInt(numMatch[1], 10);
+    }
+  }
+
+  // Strategy 2: structural fallback — scan for rating/review text patterns
+  if (rating === null) {
+    const allEls = card.querySelectorAll("*");
+    for (const el of allEls) {
+      if (el.children.length > 2) continue;
+      const text = el.textContent?.trim() || "";
+      // Match standalone rating like "4.1" or "3.8"
+      if (rating === null && /^[\d.]+$/.test(text)) {
+        const val = parseFloat(text);
+        if (val >= 1 && val <= 5) rating = val;
+      }
+      // Match "X,XX,XXX Ratings" or "X Reviews"
+      if (reviewCount === null && /rating/i.test(text)) {
+        const numMatch = text.replace(/,/g, "").match(/(\d+)/);
+        if (numMatch) reviewCount = parseInt(numMatch[1], 10);
+      }
     }
   }
 
@@ -194,6 +230,76 @@ function findByStructure(card: Element, type: string): Element | null {
     }
   }
   return null;
+}
+
+function findProductCards(): Element[] {
+  // Group product links by href, then find the lowest common ancestor for each group.
+  // Each product card has multiple a[href*="/p/"] (image link + title link),
+  // so grouping by href and finding the LCA avoids duplicate cards.
+  const links = document.querySelectorAll('a[href*="/p/"]');
+  const byHref = new Map<string, Element[]>();
+
+  for (const link of links) {
+    const href = link.getAttribute("href") || "";
+    if (!href) continue;
+    if (!byHref.has(href)) byHref.set(href, []);
+    byHref.get(href)!.push(link);
+  }
+
+  const seen = new Set<Element>();
+  const cards: Element[] = [];
+
+  for (const [, linkGroup] of byHref) {
+    const lca = findLCA(linkGroup);
+    if (lca && !seen.has(lca)) {
+      seen.add(lca);
+      cards.push(lca);
+    }
+  }
+
+  return cards;
+}
+
+function findLCA(elements: Element[]): Element | null {
+  if (elements.length === 0) return null;
+  if (elements.length === 1) {
+    // Walk up until we find a container with multiple children
+    let el: Element | null = elements[0];
+    for (let i = 0; i < 5; i++) {
+      if (!el?.parentElement) break;
+      el = el.parentElement;
+      if (el.children.length >= 2) return el;
+    }
+    return el;
+  }
+
+  // Collect ancestors of first element
+  const ancestors: Element[] = [];
+  let el: Element | null = elements[0];
+  while (el) {
+    ancestors.push(el);
+    el = el.parentElement;
+  }
+
+  // Find first ancestor shared by all other elements
+  for (let i = 1; i < elements.length; i++) {
+    let current: Element | null = elements[i];
+    while (current) {
+      if (ancestors.includes(current)) return current;
+      current = current.parentElement;
+    }
+  }
+  return elements[0].parentElement;
+}
+
+function findProductImage(card: Element): HTMLImageElement | null {
+  return (
+    (card.querySelector("img[src*='flixcart']") as HTMLImageElement) ||
+    (card.querySelector("img[src*='rukminim']") as HTMLImageElement) ||
+    (card.querySelector("img.MZeksS") as HTMLImageElement) ||
+    (card.querySelector("img.UCc1lI") as HTMLImageElement) ||
+    (card.querySelector("img[src]") as HTMLImageElement)
+  );
 }
 
 // --- Filter application ---
@@ -319,12 +425,10 @@ async function tryPriceFilter(filter: Filter): Promise<boolean> {
     }
   }
 
-  // Fallback: apply price via URL parameter
+  // Fallback: apply price via URL parameter (from and to must be separate p[] params)
   const url = new URL(window.location.href);
-  url.searchParams.set(
-    "p[]",
-    `facets.price_range.from=Min&facets.price_range.to=${priceNum}`,
-  );
+  url.searchParams.append("p[]", "facets.price_range.from=Min");
+  url.searchParams.append("p[]", `facets.price_range.to=${priceNum}`);
   window.location.href = url.toString();
   return true;
 }

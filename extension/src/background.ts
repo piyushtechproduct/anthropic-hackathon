@@ -30,7 +30,7 @@ function applyPriceToUrl(
     url = `${searchUrl}${separator}rh=p_36%3A-${paise}`;
   } else if (platform === "flipkart") {
     const separator = searchUrl.includes("?") ? "&" : "?";
-    url = `${searchUrl}${separator}p%5B%5D=facets.price_range.from%3DMin%26facets.price_range.to%3D${price}`;
+    url = `${searchUrl}${separator}p%5B%5D=facets.price_range.from%3DMin&p%5B%5D=facets.price_range.to%3D${price}`;
   } else {
     return { url: searchUrl, remainingFilters: filters, appliedPrice: null };
   }
@@ -72,11 +72,13 @@ async function processPlatformInHiddenTab(
   platformIntent: PlatformIntent,
 ): Promise<Product[]> {
   const { platform, search_url, filters } = platformIntent;
-  const { url, remainingFilters } = applyPriceToUrl(
+  const { url, remainingFilters, appliedPrice } = applyPriceToUrl(
     search_url,
     filters,
     platform,
   );
+
+  const maxPrice = appliedPrice ? extractPriceNumber(appliedPrice.value) : null;
 
   // Open hidden background tab
   const tab = await chrome.tabs.create({ url, active: false });
@@ -95,29 +97,26 @@ async function processPlatformInHiddenTab(
     await sleep(500);
 
     // Apply remaining filters one-by-one
-    for (let i = 0; i < remainingFilters.length; i++) {
-      const filter = remainingFilters[i];
+    for (const filter of remainingFilters) {
       try {
         const result = await sendToContentScript(tabId, {
           type: "APPLY_ONE_FILTER",
           filter,
         });
-        if (
-          (result as { success?: boolean })?.success &&
-          i < remainingFilters.length - 1
-        ) {
-          await waitForTabLoad(tabId);
-          await sleep(2000);
+        if ((result as { success?: boolean })?.success) {
+          // Filter click may have caused a full-page navigation — wait and re-inject
+          await waitForPossibleNavigation(tabId);
+          await injectContentScript(tabId);
         }
       } catch {
-        // Filter failed, continue with next
+        // Content script might be gone after navigation; re-inject and continue
+        await waitForPossibleNavigation(tabId);
+        await injectContentScript(tabId);
       }
     }
 
-    // Wait for final page to settle after last filter
-    if (remainingFilters.length > 0) {
-      await sleep(1500);
-    }
+    // Safety-net re-inject before extraction
+    await injectContentScript(tabId);
 
     // Extract products
     const response = await sendToContentScript(tabId, {
@@ -125,7 +124,14 @@ async function processPlatformInHiddenTab(
       count: 10,
     });
 
-    return (response as { products: Product[] })?.products || [];
+    let products = (response as { products: Product[] })?.products || [];
+
+    // Enforce price constraint client-side (URL param can be lost after filter navigation)
+    if (maxPrice !== null) {
+      products = products.filter((p) => p.price <= maxPrice);
+    }
+
+    return products;
   } finally {
     // Always close the hidden tab
     try {
@@ -179,21 +185,28 @@ async function handleSearchRequest(prompt: string) {
       message: `Searching Amazon & Flipkart for "${data.raw_query}"...`,
     });
 
+    const platforms: PlatformIntent[] = data.platforms;
     const platformResults = await Promise.allSettled(
-      data.platforms.map((pi: PlatformIntent) =>
-        processPlatformInHiddenTab(pi),
-      ),
+      platforms.map((pi) => processPlatformInHiddenTab(pi)),
     );
 
-    // Collect all products from successful platforms
-    const allProducts: Product[] = [];
-    for (const result of platformResults) {
+    // Separate products by platform
+    const amazonProducts: Product[] = [];
+    const flipkartProducts: Product[] = [];
+    for (let i = 0; i < platforms.length; i++) {
+      const result = platformResults[i];
       if (result.status === "fulfilled") {
-        allProducts.push(...result.value);
+        const name = platforms[i].platform;
+        if (name === "amazon") {
+          amazonProducts.push(...result.value);
+        } else if (name === "flipkart") {
+          flipkartProducts.push(...result.value);
+        }
       }
     }
 
-    if (allProducts.length === 0) {
+    const totalFound = amazonProducts.length + flipkartProducts.length;
+    if (totalFound === 0) {
       sendToSidePanel({
         type: "ERROR",
         message:
@@ -202,36 +215,43 @@ async function handleSearchRequest(prompt: string) {
       return;
     }
 
-    // Step 3: Rank products
+    // Step 3: Pick top 3 per platform, interleave Amazon/Flipkart
     sendToSidePanel({
       type: "STATUS",
-      message: `Found ${allProducts.length} products. Picking the best ones...`,
+      message: `Found ${totalFound} products. Picking the best ones...`,
     });
 
-    let rankedProducts: Product[];
+    const TARGET_PER_PLATFORM = 3;
+    const TOTAL_TARGET = 6;
+    const sortedAmazon = fallbackSort(amazonProducts);
+    const sortedFlipkart = fallbackSort(flipkartProducts);
 
-    if (allProducts.length <= 5) {
-      rankedProducts = allProducts;
-    } else {
-      try {
-        const rankResponse = await fetch(`${BACKEND_URL}/api/rank`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query: data.raw_query,
-            products: allProducts,
-          }),
-        });
+    // Each platform gets up to 3; if one has fewer, the other fills the gap
+    let amazonSlots = Math.min(sortedAmazon.length, TARGET_PER_PLATFORM);
+    let flipkartSlots = Math.min(sortedFlipkart.length, TARGET_PER_PLATFORM);
+    const remaining = TOTAL_TARGET - amazonSlots - flipkartSlots;
+    if (remaining > 0) {
+      // Fill from whichever platform has surplus
+      const amazonExtra = Math.min(
+        sortedAmazon.length - amazonSlots,
+        remaining,
+      );
+      amazonSlots += amazonExtra;
+      flipkartSlots += Math.min(
+        sortedFlipkart.length - flipkartSlots,
+        remaining - amazonExtra,
+      );
+    }
 
-        if (rankResponse.ok) {
-          const rankData = await rankResponse.json();
-          rankedProducts = rankData.ranked_products;
-        } else {
-          rankedProducts = fallbackSort(allProducts).slice(0, 5);
-        }
-      } catch {
-        rankedProducts = fallbackSort(allProducts).slice(0, 5);
-      }
+    const topAmazon = sortedAmazon.slice(0, amazonSlots);
+    const topFlipkart = sortedFlipkart.slice(0, flipkartSlots);
+
+    // Interleave: Amazon first, then Flipkart, alternating
+    const rankedProducts: Product[] = [];
+    const maxLen = Math.max(topAmazon.length, topFlipkart.length);
+    for (let i = 0; i < maxLen; i++) {
+      if (i < topAmazon.length) rankedProducts.push(topAmazon[i]);
+      if (i < topFlipkart.length) rankedProducts.push(topFlipkart[i]);
     }
 
     // Step 4: Send products to side panel
@@ -267,6 +287,33 @@ function computeScore(p: Product): number {
 }
 
 // --- Helpers ---
+
+async function injectContentScript(tabId: number): Promise<void> {
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["content.js"],
+    });
+    await sleep(500);
+  } catch {
+    // Tab may have been closed or is not injectable
+  }
+}
+
+async function waitForPossibleNavigation(tabId: number): Promise<void> {
+  // Brief pause so any navigation triggered by a click can start
+  await sleep(1000);
+  try {
+    const tab = await chrome.tabs.get(tabId);
+    if (tab.status !== "complete") {
+      await waitForTabLoad(tabId);
+    }
+  } catch {
+    // Tab may be gone
+  }
+  // Let the page settle after load
+  await sleep(1500);
+}
 
 async function sendToContentScript(
   tabId: number,
