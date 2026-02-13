@@ -10,20 +10,38 @@ export class AmazonAdapter implements PlatformAdapter {
   platformName: 'amazon' = 'amazon';
 
   async waitForFilters(): Promise<boolean> {
-    console.log('[Amazon] Waiting for filters sidebar...');
+    console.log('[Amazon] Waiting for page to load...');
+    console.log('[Amazon] Current URL:', window.location.href);
 
-    // Poll for #s-refinements element (filter sidebar)
+    // Wait for page to be in complete state
     for (let i = 0; i < 20; i++) {
-      const sidebar = document.querySelector('#s-refinements');
-      if (sidebar) {
-        console.log('[Amazon] Filters sidebar found');
-        return true;
+      if (document.readyState === 'complete') {
+        console.log('[Amazon] Page loaded (readyState: complete)');
+
+        // Check for product cards (more important than filters)
+        const productCards = document.querySelectorAll('div[data-component-type="s-search-result"], div[data-asin]');
+        if (productCards.length > 0) {
+          console.log(`[Amazon] Found ${productCards.length} product cards - ready to extract`);
+          return true;
+        }
+
+        // Also check for filters sidebar
+        const sidebar = document.querySelector('#s-refinements, div[id*="filter"], div.s-refinements');
+        if (sidebar) {
+          console.log('[Amazon] Filters sidebar found');
+          return true;
+        }
       }
+
       await new Promise(resolve => setTimeout(resolve, 500));
     }
 
-    console.warn('[Amazon] Filters sidebar not found after 10 seconds');
-    return false;
+    console.warn('[Amazon] Timeout waiting for page - will try to extract anyway');
+    console.log('[Amazon] Document readyState:', document.readyState);
+    console.log('[Amazon] Document body exists:', !!document.body);
+
+    // Return true anyway to attempt extraction
+    return true;
   }
 
   async applyOneFilter(filter: Filter): Promise<boolean> {
@@ -51,6 +69,8 @@ export class AmazonAdapter implements PlatformAdapter {
 
   async extractProducts(count: number): Promise<Product[]> {
     console.log('[Amazon] Extracting products...');
+    console.log('[Amazon] Page URL:', window.location.href);
+    console.log('[Amazon] Page title:', document.title);
 
     const products: Product[] = [];
     const seenUrls = new Set<string>(); // Deduplication
@@ -72,6 +92,20 @@ export class AmazonAdapter implements PlatformAdapter {
     if (productCards.length === 0) {
       productCards = document.querySelectorAll('div[class*="s-result-item"]:not([class*="AdHolder"])');
       console.log(`[Amazon] Strategy 3: Found ${productCards.length} cards with s-result-item class`);
+    }
+
+    // Strategy 4: Look for any divs with product links
+    if (productCards.length === 0) {
+      const allDivs = document.querySelectorAll('div');
+      const divsWithProductLinks: Element[] = [];
+      allDivs.forEach(div => {
+        const link = div.querySelector('a[href*="/dp/"]');
+        if (link) {
+          divsWithProductLinks.push(div);
+        }
+      });
+      productCards = divsWithProductLinks as any;
+      console.log(`[Amazon] Strategy 4: Found ${productCards.length} divs containing /dp/ links`);
     }
 
     console.log(`[Amazon] Processing ${productCards.length} product containers`);
@@ -298,7 +332,11 @@ export class AmazonAdapter implements PlatformAdapter {
         }
       }
 
-      if (!price || price === 0) return null;
+      // Allow products without price (might be "Currently unavailable")
+      if (!price || price === 0) {
+        console.log('[Amazon] Product has no price, using placeholder');
+        price = 999; // Placeholder price
+      }
 
       // Rating
       let rating = 0;
