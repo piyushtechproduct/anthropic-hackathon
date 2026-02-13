@@ -17,9 +17,18 @@ chrome.action.onClicked.addListener((tab) => {
 // Listen for messages from side panel
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'SEARCH_REQUEST') {
-    handleSearchRequest(message.payload.prompt);
+    // Acknowledge receipt immediately
+    sendResponse({ received: true });
+
+    // Handle search asynchronously (don't wait for it)
+    handleSearchRequest(message.payload.prompt).catch(error => {
+      console.error('[Background] Search error:', error);
+      sendError('An unexpected error occurred. Please try again.');
+    });
+
+    return false; // Synchronous response sent
   }
-  return true; // Keep message channel open for async response
+  return false;
 });
 
 async function handleSearchRequest(prompt: string) {

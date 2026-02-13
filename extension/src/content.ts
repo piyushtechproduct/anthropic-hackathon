@@ -28,57 +28,71 @@ if ((globalThis as any).__aiCommerceContent) {
 
   // Listen for messages from background script
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    // Handle synchronously if no adapter
     if (!adapter) {
       sendResponse({ error: 'No adapter for this platform' });
-      return;
+      return false; // Synchronous response
     }
 
-    (async () => {
-      try {
-        switch (message.type) {
-          case 'APPLY_ONE_FILTER': {
-            const filter: Filter = message.payload.filter;
-
-            // Wait for filters to be ready
-            await adapter.waitForFilters();
-
-            // Apply the filter
-            const success = await adapter.applyOneFilter(filter);
-
-            // Check if navigation occurred (URL changed or page is reloading)
-            const navigationOccurred = await checkForNavigation();
-
-            sendResponse({ success, navigationOccurred });
-            break;
-          }
-
-          case 'EXTRACT_PRODUCTS': {
-            const count: number = message.payload.count || 10;
-
-            // Wait for filters to be ready (ensures page is loaded)
-            await adapter.waitForFilters();
-
-            // Extract products
-            const products = await adapter.extractProducts(count);
-
-            sendResponse({ products });
-            break;
-          }
-
-          default:
-            sendResponse({ error: 'Unknown message type' });
-        }
-      } catch (error) {
-        console.error('[AI Commerce] Content script error:', error);
-        sendResponse({ error: error.message });
-      }
-    })();
+    // Handle async with proper error handling
+    handleMessageAsync(message, adapter, sendResponse).catch(error => {
+      console.error('[AI Commerce] Message handler error:', error);
+      sendResponse({ error: error.message || 'Unknown error' });
+    });
 
     // Return true to indicate async response
     return true;
   });
 
   console.log(`[AI Commerce] Content script loaded for ${adapter?.platformName}`);
+}
+
+/**
+ * Handle messages asynchronously with proper error handling
+ */
+async function handleMessageAsync(
+  message: any,
+  adapter: any,
+  sendResponse: (response: any) => void
+): Promise<void> {
+  try {
+    switch (message.type) {
+      case 'APPLY_ONE_FILTER': {
+        const filter: Filter = message.payload.filter;
+
+        // Wait for filters to be ready
+        await adapter.waitForFilters();
+
+        // Apply the filter
+        const success = await adapter.applyOneFilter(filter);
+
+        // Check if navigation occurred (URL changed or page is reloading)
+        const navigationOccurred = await checkForNavigation();
+
+        sendResponse({ success, navigationOccurred });
+        break;
+      }
+
+      case 'EXTRACT_PRODUCTS': {
+        const count: number = message.payload.count || 10;
+
+        // Wait for filters to be ready (ensures page is loaded)
+        await adapter.waitForFilters();
+
+        // Extract products
+        const products = await adapter.extractProducts(count);
+
+        sendResponse({ products });
+        break;
+      }
+
+      default:
+        sendResponse({ error: 'Unknown message type' });
+    }
+  } catch (error: any) {
+    console.error('[AI Commerce] Content script error:', error);
+    sendResponse({ error: error.message || 'Unknown error occurred' });
+  }
 }
 
 /**
