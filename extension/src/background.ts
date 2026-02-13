@@ -168,15 +168,23 @@ async function processPlatform(platformIntent: PlatformIntent): Promise<Product[
     let products = extractResult.products || [];
     console.log(`[Background] Extracted ${products.length} products from ${platformIntent.platform}`);
 
+    // Log all extracted products with prices for debugging
+    products.forEach((p, i) => {
+      console.log(`[Background] Product ${i + 1}: ${p.title.substring(0, 50)} - ₹${p.price}`);
+    });
+
     // Validate products against filters (especially price)
     const priceFilter = platformIntent.filters.find(f => f.type === 'price');
+    console.log(`[Background] Price filter found:`, priceFilter);
+
     if (priceFilter) {
+      console.log(`[Background] Applying price filter: ${priceFilter.value}`);
       const beforeCount = products.length;
       products = filterProductsByPrice(products, priceFilter.value);
       const afterCount = products.length;
-      if (beforeCount !== afterCount) {
-        console.log(`[Background] Price filter validation: ${beforeCount} → ${afterCount} products (removed ${beforeCount - afterCount} out-of-range)`);
-      }
+      console.log(`[Background] Price filter validation: ${beforeCount} → ${afterCount} products (removed ${beforeCount - afterCount} out-of-range)`);
+    } else {
+      console.warn(`[Background] ⚠️ NO PRICE FILTER FOUND! Filters:`, platformIntent.filters);
     }
 
     return products;
