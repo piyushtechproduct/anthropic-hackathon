@@ -2,6 +2,7 @@
 AI Commerce Agent - FastAPI Backend
 """
 import os
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
@@ -15,8 +16,10 @@ from .models import (
 )
 from .services import extract_intent, extract_multi_platform_intent, rank_products
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from project root
+# Look for .env in parent directories
+env_path = Path(__file__).parent.parent.parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
 
 app = FastAPI(
     title="AI Commerce Agent",

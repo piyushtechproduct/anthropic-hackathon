@@ -5,12 +5,20 @@ import os
 import json
 import re
 from typing import List
+from pathlib import Path
 from anthropic import Anthropic
+from dotenv import load_dotenv
 from .models import IntentResponse, Filter, MultiPlatformIntentResponse, PlatformIntent, Platform, Product
 
+# Load environment variables from project root
+env_path = Path(__file__).parent.parent.parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
 
 # Initialize Anthropic client
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+api_key = os.getenv("ANTHROPIC_API_KEY")
+if not api_key:
+    raise ValueError("ANTHROPIC_API_KEY not found in environment variables")
+client = Anthropic(api_key=api_key)
 MODEL = "claude-sonnet-4-5-20250929"
 
 
