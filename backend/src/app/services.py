@@ -83,7 +83,7 @@ The JSON must have exactly these fields:
 Available filter types:
 - "brand": brand names (e.g., Nike, Samsung)
 - "price": price constraints using "Under ₹X" format (e.g., "Under ₹500")
-- "delivery": fast/prime delivery → {"type": "delivery", "value": "Prime"}
+- "delivery": fast delivery → for Amazon use {"type": "delivery", "value": "Prime"}, for Flipkart use {"type": "delivery", "value": "Flipkart Assured"}
 - "rating": good ratings → {"type": "rating", "value": "4★ & up"}
 - "color": color mentions (e.g., "White", "Blue")
 - "size": size mentions (e.g., "XL", "Size 10")
@@ -92,7 +92,7 @@ Available filter types:
 Rules:
 - Return ONLY the JSON object, no markdown, no explanation
 - Always include both platforms in the response
-- Both platforms get the same filters (they'll be adapted per-platform by the client)
+- Both platforms get the same filters EXCEPT delivery: use "Prime" for Amazon and "Flipkart Assured" for Flipkart
 - Keep raw_query concise — just the core product search terms
 
 Example input: "white nike tshirt under 500"
