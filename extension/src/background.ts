@@ -165,8 +165,21 @@ async function processPlatform(platformIntent: PlatformIntent): Promise<Product[
       payload: { count: 10 }
     });
 
-    console.log(`[Background] Extracted ${extractResult.products?.length || 0} products from ${platformIntent.platform}`);
-    return extractResult.products || [];
+    let products = extractResult.products || [];
+    console.log(`[Background] Extracted ${products.length} products from ${platformIntent.platform}`);
+
+    // Validate products against filters (especially price)
+    const priceFilter = platformIntent.filters.find(f => f.type === 'price');
+    if (priceFilter) {
+      const beforeCount = products.length;
+      products = filterProductsByPrice(products, priceFilter.value);
+      const afterCount = products.length;
+      if (beforeCount !== afterCount) {
+        console.log(`[Background] Price filter validation: ${beforeCount} → ${afterCount} products (removed ${beforeCount - afterCount} out-of-range)`);
+      }
+    }
+
+    return products;
 
   } catch (error) {
     console.error(`[Background] Error processing ${platformIntent.platform}:`, error);
@@ -256,6 +269,63 @@ function applyPriceToUrl(
   // Return URL with price applied and remaining filters
   const remainingFilters = filters.filter(f => f.type !== 'price');
   return { url: modifiedUrl, remainingFilters };
+}
+
+function filterProductsByPrice(products: Product[], priceFilterValue: string): Product[] {
+  // Parse price constraints from filter value
+  let minPrice: number | null = null;
+  let maxPrice: number | null = null;
+
+  const value = priceFilterValue;
+
+  // Format 1: Range "₹300-₹500" or "300-500" or "300 to 500"
+  const rangeMatch = value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i);
+  if (rangeMatch) {
+    minPrice = parseInt(rangeMatch[1]);
+    maxPrice = parseInt(rangeMatch[2]);
+  }
+  // Format 2: Under/Below "Under ₹500"
+  else if (value.match(/under|below/i)) {
+    const match = value.match(/(\d+)/);
+    if (match) {
+      maxPrice = parseInt(match[1]);
+    }
+  }
+  // Format 3: Above/Minimum "₹500+" or "Above 500"
+  else if (value.match(/above|over|\+/i)) {
+    const match = value.match(/(\d+)/);
+    if (match) {
+      minPrice = parseInt(match[1]);
+    }
+  }
+  // Format 4: Just a number (assume maximum)
+  else {
+    const match = value.match(/(\d+)/);
+    if (match) {
+      maxPrice = parseInt(match[1]);
+    }
+  }
+
+  console.log(`[Background] Filtering products by price: min=${minPrice}, max=${maxPrice}`);
+
+  // Filter products
+  return products.filter(product => {
+    const price = product.price;
+
+    // Check minimum
+    if (minPrice !== null && price < minPrice) {
+      console.log(`[Background] Rejected ${product.title.substring(0, 40)}: ₹${price} < min ₹${minPrice}`);
+      return false;
+    }
+
+    // Check maximum
+    if (maxPrice !== null && price > maxPrice) {
+      console.log(`[Background] Rejected ${product.title.substring(0, 40)}: ₹${price} > max ₹${maxPrice}`);
+      return false;
+    }
+
+    return true;
+  });
 }
 
 function waitForTabLoad(tabId: number): Promise<void> {
