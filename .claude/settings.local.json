@@ -1,0 +1,100 @@
+{
+  "permissions": {
+    "allowedCommands": [
+      {
+        "tool": "Bash",
+        "prompt": "run tests",
+        "patterns": [
+          "uv run pytest",
+          "pytest",
+          "npx vitest",
+          "vitest"
+        ]
+      },
+      {
+        "tool": "Bash",
+        "prompt": "run linters",
+        "patterns": [
+          "uv run ruff check",
+          "uv run ruff format",
+          "npx eslint",
+          "npx prettier"
+        ]
+      },
+      {
+        "tool": "Bash",
+        "prompt": "build extension",
+        "patterns": [
+          "npm run build",
+          "esbuild"
+        ]
+      },
+      {
+        "tool": "Bash",
+        "prompt": "git operations",
+        "patterns": [
+          "git add",
+          "git commit",
+          "git push",
+          "git status",
+          "git log",
+          "git diff"
+        ]
+      },
+      {
+        "tool": "Bash",
+        "prompt": "package management",
+        "patterns": [
+          "uv sync",
+          "uv add",
+          "npm install",
+          "npm ci"
+        ]
+      },
+      {
+        "tool": "Bash",
+        "prompt": "start services",
+        "patterns": [
+          "uvicorn",
+          "uv run uvicorn"
+        ]
+      },
+      {
+        "tool": "Bash",
+        "prompt": "api testing",
+        "patterns": [
+          "curl http://localhost:8000",
+          "curl -s http://localhost:8000"
+        ]
+      }
+    ],
+    "allowedMcpOperations": [
+      {
+        "server": "filesystem",
+        "operations": [
+          "read_text_file",
+          "list_directory",
+          "read_multiple_files"
+        ]
+      },
+      {
+        "server": "playwright",
+        "operations": [
+          "browser_navigate",
+          "browser_snapshot",
+          "browser_click",
+          "browser_evaluate",
+          "browser_close",
+          "browser_take_screenshot"
+        ]
+      },
+      {
+        "server": "commerce-agent",
+        "operations": [
+          "extract_shopping_intent",
+          "extract_multi_platform_shopping_intent"
+        ]
+      }
+    ]
+  }
+}
