@@ -53,10 +53,28 @@ export class AmazonAdapter implements PlatformAdapter {
     console.log('[Amazon] Extracting products...');
 
     const products: Product[] = [];
+    const seenUrls = new Set<string>(); // Deduplication
 
-    // Select product cards
-    const productCards = document.querySelectorAll('div[data-component-type="s-search-result"]');
-    console.log(`[Amazon] Found ${productCards.length} product cards`);
+    // Multiple strategies for finding product cards
+    let productCards: NodeListOf<Element>;
+
+    // Strategy 1: Standard data attribute (most reliable)
+    productCards = document.querySelectorAll('div[data-component-type="s-search-result"]');
+    console.log(`[Amazon] Strategy 1: Found ${productCards.length} cards with data-component-type`);
+
+    // Strategy 2: If no data-component-type, try by ASIN attribute
+    if (productCards.length === 0) {
+      productCards = document.querySelectorAll('div[data-asin]:not([data-asin=""])');
+      console.log(`[Amazon] Strategy 2: Found ${productCards.length} cards with data-asin`);
+    }
+
+    // Strategy 3: If still nothing, try generic product containers
+    if (productCards.length === 0) {
+      productCards = document.querySelectorAll('div[class*="s-result-item"]:not([class*="AdHolder"])');
+      console.log(`[Amazon] Strategy 3: Found ${productCards.length} cards with s-result-item class`);
+    }
+
+    console.log(`[Amazon] Processing ${productCards.length} product containers`);
 
     for (const card of Array.from(productCards)) {
       if (products.length >= count) break;
@@ -70,15 +88,16 @@ export class AmazonAdapter implements PlatformAdapter {
         }
 
         const product = this.extractProductFromCard(card as HTMLElement);
-        if (product) {
+        if (product && !seenUrls.has(product.product_url)) {
           products.push(product);
+          seenUrls.add(product.product_url);
         }
       } catch (error) {
         console.warn('[Amazon] Failed to extract product:', error);
       }
     }
 
-    console.log(`[Amazon] Extracted ${products.length} products`);
+    console.log(`[Amazon] Extracted ${products.length} unique products`);
     return products;
   }
 
@@ -201,40 +220,133 @@ export class AmazonAdapter implements PlatformAdapter {
   // Extract product data from a card
   private extractProductFromCard(card: HTMLElement): Product | null {
     try {
-      // Title
-      const titleElem = card.querySelector('h2 a span, h2 span');
-      const title = titleElem?.textContent?.trim();
-      if (!title) return null;
+      // Product URL (most reliable identifier) - try multiple selectors
+      let productUrl = '';
+      const linkSelectors = [
+        'h2 a[href]',
+        'a.a-link-normal[href*="/dp/"]',
+        'a[href*="/dp/"]',
+        'a.s-underline-link-text'
+      ];
 
-      // Product URL
-      const linkElem = card.querySelector('h2 a[href]');
-      let productUrl = linkElem?.getAttribute('href') || '';
+      for (const selector of linkSelectors) {
+        const linkElem = card.querySelector(selector);
+        if (linkElem) {
+          productUrl = linkElem.getAttribute('href') || '';
+          if (productUrl) break;
+        }
+      }
+
+      if (!productUrl) return null;
+
       if (productUrl.startsWith('/')) {
         productUrl = 'https://www.amazon.in' + productUrl;
       }
       if (!productUrl.includes('amazon.in')) return null;
 
-      // Price
-      const priceWhole = card.querySelector('.a-price-whole')?.textContent?.trim() || '0';
-      const priceFraction = card.querySelector('.a-price-fraction')?.textContent?.trim() || '00';
-      const priceText = priceWhole.replace(/,/g, '') + '.' + priceFraction;
-      const price = parseFloat(priceText);
+      // Title - try multiple selectors
+      let title = '';
+      const titleSelectors = [
+        'h2 a span',
+        'h2 span',
+        'h2 a',
+        'h2',
+        'span.a-size-medium',
+        'span.a-size-base-plus'
+      ];
+
+      for (const selector of titleSelectors) {
+        const titleElem = card.querySelector(selector);
+        if (titleElem) {
+          title = titleElem.textContent?.trim() || '';
+          if (title && title.length > 10) break; // Valid title should be longer
+        }
+      }
+
+      if (!title) return null;
+
+      // Price - try multiple strategies
+      let price = 0;
+
+      // Strategy 1: Standard whole + fraction
+      const priceWhole = card.querySelector('.a-price-whole')?.textContent?.trim();
+      const priceFraction = card.querySelector('.a-price-fraction')?.textContent?.trim();
+
+      if (priceWhole) {
+        const priceText = priceWhole.replace(/,/g, '') + '.' + (priceFraction || '00');
+        price = parseFloat(priceText);
+      }
+
+      // Strategy 2: If no price found, scan for ₹ symbol
+      if (!price || price === 0) {
+        const priceContainer = card.querySelector('.a-price, span[class*="price"]');
+        if (priceContainer) {
+          const priceText = priceContainer.textContent || '';
+          const priceMatch = priceText.match(/₹?\s*([0-9,]+)/);
+          if (priceMatch) {
+            price = parseFloat(priceMatch[1].replace(/,/g, ''));
+          }
+        }
+      }
+
+      // Strategy 3: Scan entire card text for ₹
+      if (!price || price === 0) {
+        const cardText = card.textContent || '';
+        const priceMatch = cardText.match(/₹\s*([0-9,]+)/);
+        if (priceMatch) {
+          price = parseFloat(priceMatch[1].replace(/,/g, ''));
+        }
+      }
+
       if (!price || price === 0) return null;
 
       // Rating
-      const ratingElem = card.querySelector('i.a-icon-star-small span, span.a-icon-alt');
-      const ratingText = ratingElem?.textContent?.trim() || '0';
-      const ratingMatch = ratingText.match(/([0-9.]+)/);
-      const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
+      let rating = 0;
+      const ratingSelectors = [
+        'i.a-icon-star-small span',
+        'span.a-icon-alt',
+        'span[aria-label*="out of"]'
+      ];
+
+      for (const selector of ratingSelectors) {
+        const ratingElem = card.querySelector(selector);
+        if (ratingElem) {
+          const ratingText = ratingElem.textContent?.trim() || ratingElem.getAttribute('aria-label') || '0';
+          const ratingMatch = ratingText.match(/([0-9.]+)/);
+          if (ratingMatch) {
+            rating = parseFloat(ratingMatch[1]);
+            if (rating > 0) break;
+          }
+        }
+      }
 
       // Review count
-      const reviewElem = card.querySelector('span[aria-label*="stars"]')?.nextElementSibling;
-      const reviewText = reviewElem?.textContent?.trim() || '0';
-      const reviewCount = this.parseReviewCount(reviewText);
+      let reviewCount = 0;
+      const reviewSelectors = [
+        'span[aria-label*="stars"]',
+        'span.a-size-base'
+      ];
+
+      for (const selector of reviewSelectors) {
+        const reviewElem = card.querySelector(selector);
+        if (reviewElem) {
+          const sibling = reviewElem.nextElementSibling;
+          if (sibling) {
+            const reviewText = sibling.textContent?.trim() || '';
+            reviewCount = this.parseReviewCount(reviewText);
+            if (reviewCount > 0) break;
+          }
+        }
+      }
 
       // Image
-      const imgElem = card.querySelector('img.s-image');
-      const imageUrl = imgElem?.getAttribute('src') || '';
+      let imageUrl = '';
+      const imgElem = card.querySelector('img.s-image, img[data-image-latency]');
+      if (imgElem) {
+        imageUrl = imgElem.getAttribute('src') ||
+                   imgElem.getAttribute('data-src') ||
+                   imgElem.getAttribute('srcset')?.split(' ')[0] || '';
+      }
 
       return {
         title,
