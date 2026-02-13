@@ -243,6 +243,8 @@ function sendMessageToTab(tabId: number, message: any): Promise<any> {
 }
 
 function interleaveProducts(products: Product[]): Product[] {
+  console.log(`[Background] Interleaving ${products.length} total products`);
+
   // Separate by platform
   const amazonProducts = products
     .filter(p => p.platform === 'amazon')
@@ -254,6 +256,10 @@ function interleaveProducts(products: Product[]): Product[] {
     .sort((a, b) => deterministicScore(b) - deterministicScore(a))
     .slice(0, 3);
 
+  console.log(`[Background] After filtering: ${amazonProducts.length} Amazon, ${flipkartProducts.length} Flipkart`);
+  console.log(`[Background] Amazon products:`, amazonProducts.map(p => p.title.substring(0, 50)));
+  console.log(`[Background] Flipkart products:`, flipkartProducts.map(p => p.title.substring(0, 50)));
+
   // Interleave: Amazon, Flipkart, Amazon, Flipkart, ...
   const interleaved: Product[] = [];
   const maxLength = Math.max(amazonProducts.length, flipkartProducts.length);
@@ -261,11 +267,16 @@ function interleaveProducts(products: Product[]): Product[] {
   for (let i = 0; i < maxLength; i++) {
     if (i < amazonProducts.length) {
       interleaved.push(amazonProducts[i]);
+      console.log(`[Background] Added Amazon product ${i + 1}: ${amazonProducts[i].title.substring(0, 50)}`);
     }
     if (i < flipkartProducts.length) {
       interleaved.push(flipkartProducts[i]);
+      console.log(`[Background] Added Flipkart product ${i + 1}: ${flipkartProducts[i].title.substring(0, 50)}`);
     }
   }
+
+  console.log(`[Background] Final interleaved: ${interleaved.length} products`);
+  console.log(`[Background] Order:`, interleaved.map(p => `${p.platform}:${p.title.substring(0, 30)}`));
 
   return interleaved;
 }
