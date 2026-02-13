@@ -91,12 +91,6 @@ function formatPrice(price: number): string {
   }).format(price);
 }
 
-function formatReviewCount(count: number): string {
-  if (count >= 100000) return `${(count / 100000).toFixed(1)}L`;
-  if (count >= 1000) return `${(count / 1000).toFixed(1)}K`;
-  return count.toString();
-}
-
 function renderProductCarousel(products: Product[], query: string) {
   const container = document.createElement("div");
   container.className = "carousel-container";
@@ -149,7 +143,7 @@ function renderProductCarousel(products: Product[], query: string) {
     price.textContent = formatPrice(product.price);
     info.appendChild(price);
 
-    // Rating + review count
+    // Rating
     const meta = document.createElement("div");
     meta.className = "product-card-meta";
 
@@ -160,16 +154,7 @@ function renderProductCarousel(products: Product[], query: string) {
       meta.appendChild(ratingPill);
     }
 
-    if (product.review_count) {
-      const reviews = document.createElement("span");
-      reviews.className = "review-count";
-      reviews.textContent = `${formatReviewCount(product.review_count)} reviews`;
-      meta.appendChild(reviews);
-    }
-
-    if (product.rating || product.review_count) {
-      info.appendChild(meta);
-    }
+    info.appendChild(meta);
 
     card.appendChild(info);
     carousel.appendChild(card);

@@ -24,7 +24,10 @@ export class AmazonAdapter implements PlatformAdapter {
     return false;
   }
 
-  async extractProducts(count: number): Promise<Product[]> {
+  async extractProducts(
+    count: number,
+    _ratingMap?: Record<string, number>,
+  ): Promise<Product[]> {
     const products: Product[] = [];
     const cards = document.querySelectorAll(
       'div[data-component-type="s-search-result"]',
@@ -53,7 +56,9 @@ export class AmazonAdapter implements PlatformAdapter {
 
       const ratingText =
         card
-          .querySelector("i.a-icon-star-small span, i.a-icon-star span")
+          .querySelector(
+            "i.a-icon-star-mini span, i.a-icon-star-small span, i.a-icon-star span",
+          )
           ?.textContent?.trim() || "";
       const ratingMatch = ratingText.match(/([\d.]+)\s*out of/);
       const rating = ratingMatch ? parseFloat(ratingMatch[1]) : null;

@@ -39,6 +39,32 @@ function applyPriceToUrl(
   return { url, remainingFilters, appliedPrice: priceFilter };
 }
 
+async function fetchFlipkartRatings(
+  url: string,
+): Promise<Record<string, number>> {
+  const map: Record<string, number> = {};
+  try {
+    const resp = await fetch(url);
+    const html = await resp.text();
+    const pidRegex = /"pid":"([^"]+)"/g;
+    const pids: { id: string; index: number }[] = [];
+    let m: RegExpExecArray | null;
+    while ((m = pidRegex.exec(html)) !== null) {
+      pids.push({ id: m[1], index: m.index });
+    }
+    for (const { id, index } of pids) {
+      const block = html.slice(index, index + 1500);
+      const ratingMatch = block.match(/"averageRating":([\d.]+)/);
+      if (ratingMatch) {
+        map[id] = parseFloat(ratingMatch[1]);
+      }
+    }
+  } catch {
+    // Network error — return empty map, ratings will be missing
+  }
+  return map;
+}
+
 chrome.action.onClicked.addListener((tab) => {
   chrome.sidePanel.open({ windowId: tab.windowId! });
 });
@@ -84,6 +110,10 @@ async function processPlatformInHiddenTab(
   const tab = await chrome.tabs.create({ url, active: false });
   const tabId = tab.id!;
 
+  // For Flipkart, start fetching ratings from the background in parallel with tab load
+  const ratingMapPromise =
+    platform === "flipkart" ? fetchFlipkartRatings(url) : Promise.resolve({});
+
   try {
     // Wait for page load
     await waitForTabLoad(tabId);
@@ -118,10 +148,14 @@ async function processPlatformInHiddenTab(
     // Safety-net re-inject before extraction
     await injectContentScript(tabId);
 
+    // Wait for the rating map (should already be resolved by now)
+    const ratingMap = await ratingMapPromise;
+
     // Extract products
     const response = await sendToContentScript(tabId, {
       type: "EXTRACT_PRODUCTS",
       count: 10,
+      ratingMap,
     });
 
     let products = (response as { products: Product[] })?.products || [];

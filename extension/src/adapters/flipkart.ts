@@ -29,7 +29,10 @@ export class FlipkartAdapter implements PlatformAdapter {
     return false;
   }
 
-  async extractProducts(count: number): Promise<Product[]> {
+  async extractProducts(
+    count: number,
+    ratingMap?: Record<string, number>,
+  ): Promise<Product[]> {
     const products: Product[] = [];
     let cards = document.querySelectorAll("div[data-id]");
 
@@ -43,7 +46,16 @@ export class FlipkartAdapter implements PlatformAdapter {
 
       const product =
         extractFromGridLayout(card) || extractFromListLayout(card);
-      if (product) products.push(product);
+      if (product) {
+        // If DOM-based rating extraction failed, use the background-fetched rating map
+        if (product.rating === null && ratingMap) {
+          const pid = card.getAttribute("data-id");
+          if (pid && pid in ratingMap) {
+            product.rating = ratingMap[pid];
+          }
+        }
+        products.push(product);
+      }
     }
 
     return products;

@@ -53,7 +53,7 @@ if (!(globalThis as any).__aiCommerceContent) {
 
     if (message.type === "EXTRACT_PRODUCTS") {
       adapter
-        .extractProducts(message.count || 10)
+        .extractProducts(message.count || 10, message.ratingMap)
         .then((products) => sendResponse({ products }));
       return true;
     }
