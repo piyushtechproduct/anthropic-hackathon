@@ -35,9 +35,6 @@ export class FlipkartAdapter implements PlatformAdapter {
     for (const card of cards) {
       if (products.length >= count) break;
 
-      // Skip ad/sponsored cards
-      if (card.querySelector("[data-tkid]")) continue;
-
       const product =
         extractFromGridLayout(card) || extractFromListLayout(card);
       if (product) products.push(product);

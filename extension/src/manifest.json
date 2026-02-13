@@ -11,12 +11,6 @@
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://www.amazon.in/*", "https://www.flipkart.com/*"],
-      "js": ["content.js"]
-    }
-  ],
   "action": {
     "default_title": "Open AI Commerce Agent"
   }

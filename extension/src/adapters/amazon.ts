@@ -33,10 +33,17 @@ export class AmazonAdapter implements PlatformAdapter {
     for (const card of cards) {
       if (products.length >= count) break;
 
-      // Skip sponsored results that are ads
-      if (card.querySelector(".s-label-popover-default")) continue;
+      // Skip sponsored results (use /sspa/ link detection)
+      if (card.querySelector('a[href*="/sspa/"]')) continue;
 
-      const title = card.querySelector("h2 a span")?.textContent?.trim() || "";
+      // Title: prefer h2.a-size-base-plus, fall back to any h2 with meaningful text
+      const titleEl =
+        card.querySelector("h2.a-size-base-plus") ||
+        card.querySelector("h2.a-size-medium") ||
+        Array.from(card.querySelectorAll("h2")).find(
+          (h) => (h.textContent?.trim().length || 0) > 10,
+        );
+      const title = titleEl?.textContent?.trim() || "";
       if (!title) continue;
 
       const priceWhole =
@@ -62,7 +69,9 @@ export class AmazonAdapter implements PlatformAdapter {
       const imgEl = card.querySelector("img.s-image") as HTMLImageElement;
       const image_url = imgEl?.src || "";
 
-      const linkEl = card.querySelector("h2 a") as HTMLAnchorElement;
+      // Product URL: prefer /dp/ links for canonical product pages
+      const linkEl = (card.querySelector('a[href*="/dp/"]') ||
+        card.querySelector("h2 a")) as HTMLAnchorElement;
       const href = linkEl?.getAttribute("href") || "";
       const product_url = href.startsWith("http")
         ? href
