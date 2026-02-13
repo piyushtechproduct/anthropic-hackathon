@@ -59,9 +59,10 @@ async def extract_shopping_intent(request: IntentRequest):
 async def extract_multi_platform_shopping_intent(request: IntentRequest):
     """
     Extract shopping intent for multiple platforms (Amazon + Flipkart).
+    Supports conversational context via conversation_history field.
     """
     try:
-        return extract_multi_platform_intent(request.prompt)
+        return extract_multi_platform_intent(request.prompt, request.conversation_history)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Multi-platform intent extraction failed: {str(e)}")
 

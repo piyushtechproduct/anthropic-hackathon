@@ -92,14 +92,17 @@ Example output:
     )
 
 
-def extract_multi_platform_intent(prompt: str) -> MultiPlatformIntentResponse:
+def extract_multi_platform_intent(prompt: str, conversation_history: List[str] = None) -> MultiPlatformIntentResponse:
     """
     Extract shopping intent for multiple platforms (Amazon + Flipkart).
+    Maintains conversational context from previous searches.
     Returns per-platform search URLs and filters.
     """
     system_prompt = """You are an e-commerce intent extraction system for Amazon India and Flipkart.
 
-Given a natural language shopping query, extract intent for BOTH platforms:
+IMPORTANT: You maintain conversational context. When a user refines their search (e.g., "show me white ones" after searching for "shoes"), combine the current query with previous context to understand the full intent.
+
+Given a natural language shopping query (and optional conversation history), extract intent for BOTH platforms:
 
 Return JSON with:
 - raw_query: Core product search term (same for both platforms)
@@ -146,13 +149,23 @@ Example output:
   ]
 }"""
 
+    # Build conversation messages with history
+    messages = []
+
+    # Add conversation history if provided
+    if conversation_history:
+        for prev_prompt in conversation_history[-3:]:  # Last 3 exchanges for context
+            messages.append({"role": "user", "content": prev_prompt})
+            messages.append({"role": "assistant", "content": "Understood. I'll extract the shopping intent."})
+
+    # Add current prompt
+    messages.append({"role": "user", "content": prompt})
+
     response = client.messages.create(
         model=MODEL,
         max_tokens=2048,
         system=system_prompt,
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
+        messages=messages
     )
 
     # Extract and clean response

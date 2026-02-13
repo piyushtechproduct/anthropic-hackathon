@@ -8,6 +8,9 @@ let messagesContainer: HTMLDivElement;
 let promptInput: HTMLTextAreaElement;
 let sendBtn: HTMLButtonElement;
 
+// Conversation history for context
+const conversationHistory: string[] = [];
+
 // Initialize on DOM load
 window.addEventListener('DOMContentLoaded', () => {
   // Get DOM elements
@@ -36,15 +39,27 @@ function handleSend() {
 
   // Display user message
   addMessage('user', prompt);
+
+  // Add to conversation history
+  conversationHistory.push(prompt);
+
+  // Keep only last 5 prompts for context (to avoid token limits)
+  if (conversationHistory.length > 5) {
+    conversationHistory.shift();
+  }
+
   promptInput.value = '';
 
   // Disable input while processing
   setInputEnabled(false);
 
-  // Send message to background script
+  // Send message to background script with conversation history
   chrome.runtime.sendMessage({
     type: 'SEARCH_REQUEST',
-    payload: { prompt }
+    payload: {
+      prompt,
+      conversation_history: conversationHistory.slice(0, -1) // Exclude current prompt
+    }
   });
 }
 

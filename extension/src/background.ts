@@ -20,8 +20,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Acknowledge receipt immediately
     sendResponse({ received: true });
 
-    // Handle search asynchronously (don't wait for it)
-    handleSearchRequest(message.payload.prompt).catch(error => {
+    // Handle search asynchronously with conversation history
+    handleSearchRequest(
+      message.payload.prompt,
+      message.payload.conversation_history || []
+    ).catch(error => {
       console.error('[Background] Search error:', error);
       sendError('An unexpected error occurred. Please try again.');
     });
@@ -31,15 +34,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return false;
 });
 
-async function handleSearchRequest(prompt: string) {
+async function handleSearchRequest(prompt: string, conversation_history: string[] = []) {
   try {
-    // Step 1: Extract intent from backend
-    sendStatus('Understanding your request...');
+    // Step 1: Extract intent from backend with conversation context
+    if (conversation_history.length > 0) {
+      console.log(`[Background] Using conversation context: ${conversation_history.length} previous prompts`);
+      sendStatus('Understanding your request (with context)...');
+    } else {
+      sendStatus('Understanding your request...');
+    }
 
     const intentResponse = await fetch(`${BACKEND_URL}/api/intent/multi`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt })
+      body: JSON.stringify({
+        prompt,
+        conversation_history
+      })
     });
 
     if (!intentResponse.ok) {

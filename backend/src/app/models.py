@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 class IntentRequest(BaseModel):
     """Request model for intent extraction"""
     prompt: str = Field(..., description="Natural language shopping query")
+    conversation_history: List[str] = Field(default_factory=list, description="Previous user prompts for conversational context")
 
 
 class Filter(BaseModel):
