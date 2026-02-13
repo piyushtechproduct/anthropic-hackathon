@@ -12,13 +12,22 @@ export class FlipkartAdapter implements PlatformAdapter {
   async waitForFilters(): Promise<boolean> {
     console.log('[Flipkart] Waiting for product grid...');
 
-    // Poll for product grid (Flipkart uses various container classes)
+    // Poll for product grid with multiple selector strategies
     for (let i = 0; i < 20; i++) {
-      const productGrid = document.querySelector('div._1YokD2, div._75nlfW, div[class*="DOjaWF"]');
-      if (productGrid) {
-        console.log('[Flipkart] Product grid found');
+      // Strategy 1: Look for product links
+      const productLinks = document.querySelectorAll('a[href*="/p/"]');
+      if (productLinks.length > 0) {
+        console.log('[Flipkart] Product grid found (via product links)');
         return true;
       }
+
+      // Strategy 2: Look for common container classes
+      const productGrid = document.querySelector('div._1YokD2, div._75nlfW, div[class*="DOjaWF"], div[class*="_1AtVbE"]');
+      if (productGrid) {
+        console.log('[Flipkart] Product grid found (via container)');
+        return true;
+      }
+
       await new Promise(resolve => setTimeout(resolve, 500));
     }
 
@@ -52,32 +61,63 @@ export class FlipkartAdapter implements PlatformAdapter {
     console.log('[Flipkart] Extracting products...');
 
     const products: Product[] = [];
+    const seenUrls = new Set<string>(); // Deduplication
 
-    // Flipkart uses div[data-id] for product cards
-    const productCards = document.querySelectorAll('div[data-id], div[class*="_1AtVbE"], div[class*="cPHDOP"]');
-    console.log(`[Flipkart] Found ${productCards.length} product cards`);
+    // Multiple strategies for finding product cards
+    let productCards: NodeListOf<Element>;
+
+    // Strategy 1: div[data-id] (most reliable)
+    productCards = document.querySelectorAll('div[data-id]');
+    console.log(`[Flipkart] Strategy 1: Found ${productCards.length} cards with data-id`);
+
+    // Strategy 2: If no data-id, look for product links
+    if (productCards.length === 0) {
+      const links = document.querySelectorAll('a[href*="/p/"]');
+      console.log(`[Flipkart] Strategy 2: Found ${links.length} product links`);
+
+      // Find parent containers of product links
+      const containers = new Set<Element>();
+      links.forEach(link => {
+        // Go up 3-5 levels to find the product card container
+        let parent = link.parentElement;
+        for (let i = 0; i < 5; i++) {
+          if (parent && (parent.tagName === 'DIV' || parent.tagName === 'ARTICLE')) {
+            containers.add(parent);
+            break;
+          }
+          parent = parent?.parentElement || null;
+        }
+      });
+      productCards = document.querySelectorAll('dummy'); // Empty nodelist
+      if (containers.size > 0) {
+        productCards = Array.from(containers) as any;
+      }
+    }
+
+    console.log(`[Flipkart] Processing ${productCards.length} product containers`);
 
     for (const card of Array.from(productCards)) {
       if (products.length >= count) break;
 
       try {
-        // Skip ads (look for 'Ad' badge or sponsored indicators)
-        const adBadge = card.querySelector('div._2BxJo8, div[class*="Ad"]');
+        // Skip ads
+        const adBadge = card.querySelector('div._2BxJo8, div[class*="Ad"], span[class*="ad"]');
         if (adBadge && adBadge.textContent?.toLowerCase().includes('ad')) {
           console.log('[Flipkart] Skipping ad result');
           continue;
         }
 
         const product = this.extractProductFromCard(card as HTMLElement);
-        if (product) {
+        if (product && !seenUrls.has(product.product_url)) {
           products.push(product);
+          seenUrls.add(product.product_url);
         }
       } catch (error) {
         console.warn('[Flipkart] Failed to extract product:', error);
       }
     }
 
-    console.log(`[Flipkart] Extracted ${products.length} products`);
+    console.log(`[Flipkart] Extracted ${products.length} unique products`);
     return products;
   }
 
@@ -203,41 +243,112 @@ export class FlipkartAdapter implements PlatformAdapter {
   // Extract product data from a card
   private extractProductFromCard(card: HTMLElement): Product | null {
     try {
-      // Title - multiple possible selectors
-      const titleElem = card.querySelector('a[class*="_1fQZEK"], a[class*="IRpwTa"], div[class*="_4rR01T"]');
-      const title = titleElem?.textContent?.trim();
-      if (!title) return null;
-
-      // Product URL
+      // Product URL (most reliable identifier)
       const linkElem = card.querySelector('a[href*="/p/"]');
       let productUrl = linkElem?.getAttribute('href') || '';
+      if (!productUrl) return null;
+
       if (productUrl.startsWith('/')) {
         productUrl = 'https://www.flipkart.com' + productUrl;
       }
       if (!productUrl.includes('flipkart.com')) return null;
 
-      // Price - Flipkart uses ₹ symbol
-      const priceElem = card.querySelector('div[class*="_30jeq3"], div[class*="_3I9_wc"]');
-      const priceText = priceElem?.textContent?.trim() || '0';
-      const priceMatch = priceText.match(/[0-9,]+/);
-      if (!priceMatch) return null;
-      const price = parseFloat(priceMatch[0].replace(/,/g, ''));
+      // Title - try multiple selectors
+      let title = '';
+      const titleSelectors = [
+        'a[class*="_1fQZEK"]',
+        'a[class*="IRpwTa"]',
+        'div[class*="_4rR01T"]',
+        'a[title]',
+        'div[class*="title"]'
+      ];
+
+      for (const selector of titleSelectors) {
+        const elem = card.querySelector(selector);
+        if (elem) {
+          title = elem.textContent?.trim() || elem.getAttribute('title') || '';
+          if (title) break;
+        }
+      }
+      if (!title) return null;
+
+      // Price - look for ₹ symbol anywhere in the card
+      let price = 0;
+      const priceSelectors = [
+        'div[class*="_30jeq3"]',
+        'div[class*="_3I9_wc"]',
+        'div[class*="price"]'
+      ];
+
+      for (const selector of priceSelectors) {
+        const elem = card.querySelector(selector);
+        if (elem) {
+          const priceText = elem.textContent?.trim() || '';
+          const priceMatch = priceText.match(/₹?\s*([0-9,]+)/);
+          if (priceMatch) {
+            price = parseFloat(priceMatch[1].replace(/,/g, ''));
+            if (price > 0) break;
+          }
+        }
+      }
+
+      // If no price selector worked, scan all text for ₹ pattern
+      if (price === 0) {
+        const cardText = card.textContent || '';
+        const priceMatch = cardText.match(/₹\s*([0-9,]+)/);
+        if (priceMatch) {
+          price = parseFloat(priceMatch[1].replace(/,/g, ''));
+        }
+      }
+
       if (!price || price === 0) return null;
 
-      // Rating
-      const ratingElem = card.querySelector('div[class*="_3LWZlK"], div[class*="hGSR34"]');
-      const ratingText = ratingElem?.textContent?.trim() || '0';
-      const ratingMatch = ratingText.match(/([0-9.]+)/);
-      const rating = ratingMatch ? parseFloat(ratingMatch[1]) : 0;
+      // Rating - try multiple selectors
+      let rating = 0;
+      const ratingSelectors = [
+        'div[class*="_3LWZlK"]',
+        'div[class*="hGSR34"]',
+        'span[class*="rating"]',
+        'div[class*="rating"]'
+      ];
 
-      // Review count - often in format "(1,234)" or "1,234 Ratings"
-      const reviewElem = card.querySelector('span[class*="_2_R_DZ"], span[class*="ratings"]');
-      const reviewText = reviewElem?.textContent?.trim() || '0';
-      const reviewCount = this.parseReviewCount(reviewText);
+      for (const selector of ratingSelectors) {
+        const elem = card.querySelector(selector);
+        if (elem) {
+          const ratingText = elem.textContent?.trim() || '';
+          const ratingMatch = ratingText.match(/([0-9.]+)/);
+          if (ratingMatch) {
+            rating = parseFloat(ratingMatch[1]);
+            if (rating > 0) break;
+          }
+        }
+      }
 
-      // Image
-      const imgElem = card.querySelector('img[class*="_396cs4"], img[loading="eager"], img[loading="lazy"]');
-      const imageUrl = imgElem?.getAttribute('src') || '';
+      // Review count
+      let reviewCount = 0;
+      const reviewSelectors = [
+        'span[class*="_2_R_DZ"]',
+        'span[class*="ratings"]',
+        'span[class*="review"]'
+      ];
+
+      for (const selector of reviewSelectors) {
+        const elem = card.querySelector(selector);
+        if (elem) {
+          const reviewText = elem.textContent?.trim() || '';
+          reviewCount = this.parseReviewCount(reviewText);
+          if (reviewCount > 0) break;
+        }
+      }
+
+      // Image - try multiple sources
+      let imageUrl = '';
+      const imgElem = card.querySelector('img');
+      if (imgElem) {
+        imageUrl = imgElem.getAttribute('src') ||
+                   imgElem.getAttribute('data-src') ||
+                   imgElem.getAttribute('srcset')?.split(' ')[0] || '';
+      }
 
       return {
         title,
