@@ -214,27 +214,35 @@ function applyPriceToUrl(
   // Parse different price formats
   const value = priceFilter.value;
 
-  // Format 1: Range "₹300-₹500" or "300-500" or "300 to 500"
-  const rangeMatch = value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i);
-  if (rangeMatch) {
-    minPrice = parseInt(rangeMatch[1]);
-    maxPrice = parseInt(rangeMatch[2]);
+  // Format 1: "between X and Y"
+  const betweenMatch = value.match(/between\s+₹?(\d+)\s+and\s+₹?(\d+)/i);
+  if (betweenMatch) {
+    minPrice = parseInt(betweenMatch[1]);
+    maxPrice = parseInt(betweenMatch[2]);
   }
-  // Format 2: Under/Below "Under ₹500" or "Below 500"
+  // Format 2: Range "₹300-₹500" or "300-500" or "300 to 500"
+  else if (value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i)) {
+    const rangeMatch = value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i);
+    if (rangeMatch) {
+      minPrice = parseInt(rangeMatch[1]);
+      maxPrice = parseInt(rangeMatch[2]);
+    }
+  }
+  // Format 3: Under/Below "Under ₹500" or "Below 500"
   else if (value.match(/under|below/i)) {
     const match = value.match(/(\d+)/);
     if (match) {
       maxPrice = parseInt(match[1]);
     }
   }
-  // Format 3: Above/Minimum "₹500+" or "Above 500"
+  // Format 4: Above/Minimum "₹500+" or "Above 500"
   else if (value.match(/above|over|\+/i)) {
     const match = value.match(/(\d+)/);
     if (match) {
       minPrice = parseInt(match[1]);
     }
   }
-  // Format 4: Just a number (assume maximum)
+  // Format 5: Just a number (assume maximum)
   else {
     const match = value.match(/(\d+)/);
     if (match) {
@@ -278,13 +286,21 @@ function filterProductsByPrice(products: Product[], priceFilterValue: string): P
 
   const value = priceFilterValue;
 
-  // Format 1: Range "₹300-₹500" or "300-500" or "300 to 500"
-  const rangeMatch = value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i);
-  if (rangeMatch) {
-    minPrice = parseInt(rangeMatch[1]);
-    maxPrice = parseInt(rangeMatch[2]);
+  // Format 1: "between X and Y"
+  const betweenMatch = value.match(/between\s+₹?(\d+)\s+and\s+₹?(\d+)/i);
+  if (betweenMatch) {
+    minPrice = parseInt(betweenMatch[1]);
+    maxPrice = parseInt(betweenMatch[2]);
   }
-  // Format 2: Under/Below "Under ₹500"
+  // Format 2: Range "₹300-₹500" or "300-500" or "300 to 500"
+  else if (value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i)) {
+    const rangeMatch = value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i);
+    if (rangeMatch) {
+      minPrice = parseInt(rangeMatch[1]);
+      maxPrice = parseInt(rangeMatch[2]);
+    }
+  }
+  // Format 3: Under/Below "Under ₹500"
   else if (value.match(/under|below/i)) {
     const match = value.match(/(\d+)/);
     if (match) {
