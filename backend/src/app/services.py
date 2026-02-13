@@ -119,6 +119,17 @@ Filter types:
 - brand, price, rating, color, size, discount (same for both platforms)
 - delivery: Use "Prime" for Amazon, "Flipkart Assured" for Flipkart
 
+IMPORTANT - Price Filter Formats:
+- Single limit: "Under ₹500" or "Below ₹1000"
+- Range: "₹300-₹500" or "₹1000-₹2000"
+- Minimum: "Above ₹500" or "₹500+"
+
+Examples:
+- "under 500" → {"type": "price", "value": "Under ₹500"}
+- "300 to 500" → {"type": "price", "value": "₹300-₹500"}
+- "between 1000 and 2000" → {"type": "price", "value": "₹1000-₹2000"}
+- "above 1000" → {"type": "price", "value": "₹1000+"}
+
 Return valid JSON only, no markdown fences.
 
 Example input: "white nike tshirt under 500 fast delivery"
@@ -144,6 +155,28 @@ Example output:
         {"type": "color", "value": "White"},
         {"type": "price", "value": "Under ₹500"},
         {"type": "delivery", "value": "Flipkart Assured"}
+      ]
+    }
+  ]
+}
+
+Example input: "cap in the range of 300 to 500"
+Example output:
+{
+  "raw_query": "cap",
+  "platforms": [
+    {
+      "platform": "amazon",
+      "search_url": "https://www.amazon.in/s?k=cap",
+      "filters": [
+        {"type": "price", "value": "₹300-₹500"}
+      ]
+    },
+    {
+      "platform": "flipkart",
+      "search_url": "https://www.flipkart.com/search?q=cap",
+      "filters": [
+        {"type": "price", "value": "₹300-₹500"}
       ]
     }
   ]

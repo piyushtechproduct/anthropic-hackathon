@@ -195,25 +195,63 @@ function applyPriceToUrl(
     return { url: baseUrl, remainingFilters: filters };
   }
 
-  // Extract price value (e.g., "Under ₹500" -> 500)
-  const match = priceFilter.value.match(/(\d+)/);
-  if (!match) {
+  let minPrice: number | null = null;
+  let maxPrice: number | null = null;
+
+  // Parse different price formats
+  const value = priceFilter.value;
+
+  // Format 1: Range "₹300-₹500" or "300-500" or "300 to 500"
+  const rangeMatch = value.match(/₹?(\d+)\s*(?:-|to)\s*₹?(\d+)/i);
+  if (rangeMatch) {
+    minPrice = parseInt(rangeMatch[1]);
+    maxPrice = parseInt(rangeMatch[2]);
+  }
+  // Format 2: Under/Below "Under ₹500" or "Below 500"
+  else if (value.match(/under|below/i)) {
+    const match = value.match(/(\d+)/);
+    if (match) {
+      maxPrice = parseInt(match[1]);
+    }
+  }
+  // Format 3: Above/Minimum "₹500+" or "Above 500"
+  else if (value.match(/above|over|\+/i)) {
+    const match = value.match(/(\d+)/);
+    if (match) {
+      minPrice = parseInt(match[1]);
+    }
+  }
+  // Format 4: Just a number (assume maximum)
+  else {
+    const match = value.match(/(\d+)/);
+    if (match) {
+      maxPrice = parseInt(match[1]);
+    }
+  }
+
+  console.log(`[Background] Price filter: ${value} → min: ${minPrice}, max: ${maxPrice}`);
+
+  if (!minPrice && !maxPrice) {
+    console.warn('[Background] Could not parse price filter:', value);
     return { url: baseUrl, remainingFilters: filters };
   }
 
-  const price = parseInt(match[1]);
   let modifiedUrl = baseUrl;
+  const separator = baseUrl.includes('?') ? '&' : '?';
 
   if (platform === 'amazon') {
-    // Amazon: rh=p_36%3A-<paise>
-    const paise = price * 100;
-    const separator = baseUrl.includes('?') ? '&' : '?';
-    modifiedUrl = `${baseUrl}${separator}rh=p_36%3A-${paise}`;
+    // Amazon URL format: rh=p_36%3A{min_paise}-{max_paise}
+    const minPaise = minPrice ? minPrice * 100 : 0;
+    const maxPaise = maxPrice ? maxPrice * 100 : '';
+    modifiedUrl = `${baseUrl}${separator}rh=p_36%3A${minPaise}-${maxPaise}`;
   } else if (platform === 'flipkart') {
-    // Flipkart: p[]=facets.price_range.from=Min&p[]=facets.price_range.to=<price>
-    const separator = baseUrl.includes('?') ? '&' : '?';
-    modifiedUrl = `${baseUrl}${separator}p%5B%5D=facets.price_range.from%3DMin&p%5B%5D=facets.price_range.to%3D${price}`;
+    // Flipkart URL format: p[]=facets.price_range.from={min}&p[]=facets.price_range.to={max}
+    const min = minPrice || 'Min';
+    const max = maxPrice || 'Max';
+    modifiedUrl = `${baseUrl}${separator}p%5B%5D=facets.price_range.from%3D${min}&p%5B%5D=facets.price_range.to%3D${max}`;
   }
+
+  console.log(`[Background] Modified URL for ${platform}:`, modifiedUrl);
 
   // Return URL with price applied and remaining filters
   const remainingFilters = filters.filter(f => f.type !== 'price');
