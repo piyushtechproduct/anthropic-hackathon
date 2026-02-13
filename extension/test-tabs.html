@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extension Tab Test</title>
+</head>
+<body>
+    <h1>Extension Tab Test</h1>
+    <button id="testBtn">Test Create Amazon Tab</button>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('testBtn').addEventListener('click', async () => {
+            const output = document.getElementById('output');
+            output.innerHTML = 'Creating tab...<br>';
+
+            try {
+                // Test tab creation
+                const tab = await chrome.tabs.create({
+                    url: 'https://www.amazon.in/s?k=nike+shoes',
+                    active: false
+                });
+                output.innerHTML += `✅ Tab created: ${tab.id}<br>`;
+
+                // Wait a bit
+                await new Promise(r => setTimeout(r, 3000));
+                output.innerHTML += `Waiting for load...<br>`;
+
+                // Try to inject content script
+                await chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    files: ['content.js']
+                });
+                output.innerHTML += `✅ Content script injected<br>`;
+
+                // Close tab
+                await chrome.tabs.remove(tab.id);
+                output.innerHTML += `✅ Tab closed<br>`;
+
+            } catch (error) {
+                output.innerHTML += `❌ Error: ${error.message}<br>`;
+            }
+        });
+    </script>
+</body>
+</html>

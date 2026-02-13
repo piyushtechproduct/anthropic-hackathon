@@ -60,11 +60,21 @@ async function handleSearchRequest(prompt: string) {
     // Step 3: Collect successful results
     const allProducts: Product[] = [];
 
-    for (const result of platformResults) {
-      if (result.status === 'fulfilled' && result.value.length > 0) {
-        allProducts.push(...result.value);
+    for (let i = 0; i < platformResults.length; i++) {
+      const result = platformResults[i];
+      const platformName = intent.platforms[i].platform;
+
+      if (result.status === 'fulfilled') {
+        console.log(`[Background] ${platformName} returned ${result.value.length} products`);
+        if (result.value.length > 0) {
+          allProducts.push(...result.value);
+        }
+      } else {
+        console.error(`[Background] ${platformName} failed:`, result.reason);
       }
     }
+
+    console.log(`[Background] Total products from all platforms: ${allProducts.length}`);
 
     if (allProducts.length === 0) {
       sendError('No products found. Please try a different search.');
