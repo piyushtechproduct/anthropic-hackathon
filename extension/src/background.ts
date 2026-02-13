@@ -91,28 +91,36 @@ async function processPlatform(platformIntent: PlatformIntent): Promise<Product[
   let tabId: number | null = null;
 
   try {
+    console.log(`[Background] Processing ${platformIntent.platform}...`);
+
     // Apply price filter to URL
     const { url, remainingFilters } = applyPriceToUrl(
       platformIntent.search_url,
       platformIntent.filters,
       platformIntent.platform
     );
+    console.log(`[Background] ${platformIntent.platform} URL:`, url);
+    console.log(`[Background] ${platformIntent.platform} remaining filters:`, remainingFilters);
 
     // Create hidden background tab
     const tab = await chrome.tabs.create({ url, active: false });
     tabId = tab.id!;
+    console.log(`[Background] Created tab ${tabId} for ${platformIntent.platform}`);
 
     // Wait for tab to finish loading
     await waitForTabLoad(tabId);
+    console.log(`[Background] Tab ${tabId} loaded`);
 
     // Inject content script
     await chrome.scripting.executeScript({
       target: { tabId },
       files: ['content.js']
     });
+    console.log(`[Background] Content script injected into tab ${tabId}`);
 
     // Apply remaining filters one by one
     for (const filter of remainingFilters) {
+      console.log(`[Background] Applying filter on ${platformIntent.platform}:`, filter);
       const result = await sendMessageToTab(tabId, {
         type: 'APPLY_ONE_FILTER',
         payload: { filter }
@@ -120,6 +128,7 @@ async function processPlatform(platformIntent: PlatformIntent): Promise<Product[
 
       if (result.navigationOccurred) {
         // Page reloaded - wait and re-inject
+        console.log(`[Background] Navigation occurred, re-injecting content script`);
         await waitForTabLoad(tabId);
         await chrome.scripting.executeScript({
           target: { tabId },
@@ -129,18 +138,24 @@ async function processPlatform(platformIntent: PlatformIntent): Promise<Product[
     }
 
     // Extract products
+    console.log(`[Background] Extracting products from ${platformIntent.platform}...`);
     const extractResult = await sendMessageToTab(tabId, {
       type: 'EXTRACT_PRODUCTS',
       payload: { count: 10 }
     });
 
+    console.log(`[Background] Extracted ${extractResult.products?.length || 0} products from ${platformIntent.platform}`);
     return extractResult.products || [];
 
+  } catch (error) {
+    console.error(`[Background] Error processing ${platformIntent.platform}:`, error);
+    return [];
   } finally {
     // Always close the hidden tab
     if (tabId) {
       try {
         await chrome.tabs.remove(tabId);
+        console.log(`[Background] Closed tab ${tabId}`);
       } catch (e) {
         // Tab might already be closed
       }

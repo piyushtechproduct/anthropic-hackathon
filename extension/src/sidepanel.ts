@@ -4,24 +4,30 @@
 
 import type { Product, Message } from './types';
 
-const messagesContainer = document.getElementById('messages') as HTMLDivElement;
-const promptInput = document.getElementById('prompt-input') as HTMLTextAreaElement;
-const sendBtn = document.getElementById('send-btn') as HTMLButtonElement;
+let messagesContainer: HTMLDivElement;
+let promptInput: HTMLTextAreaElement;
+let sendBtn: HTMLButtonElement;
 
-// Display welcome message on load
+// Initialize on DOM load
 window.addEventListener('DOMContentLoaded', () => {
+  // Get DOM elements
+  messagesContainer = document.getElementById('messages') as HTMLDivElement;
+  promptInput = document.getElementById('prompt-input') as HTMLTextAreaElement;
+  sendBtn = document.getElementById('send-btn') as HTMLButtonElement;
+
+  // Display welcome message
   addMessage('system', 'Welcome! 👋 Tell me what you\'re looking for, and I\'ll search Amazon and Flipkart for you.');
-});
 
-// Send button click
-sendBtn.addEventListener('click', handleSend);
+  // Send button click
+  sendBtn.addEventListener('click', handleSend);
 
-// Enter key to send (Shift+Enter for newline)
-promptInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    handleSend();
-  }
+  // Enter key to send (Shift+Enter for newline)
+  promptInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  });
 });
 
 function handleSend() {
