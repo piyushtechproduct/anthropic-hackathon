@@ -33,6 +33,10 @@ jobs:
       - name: Test
         run: uv run pytest -v
 
+      - name: Test (generated)
+        run: uv run pytest tests/generated/ -v
+        continue-on-error: true
+
   extension:
     name: Extension (TypeScript)
     runs-on: ubuntu-latest
@@ -61,3 +65,7 @@ jobs:
           test -f dist/sidepanel.js
           test -f dist/manifest.json
           test -f dist/sidepanel.html
+
+      - name: Test (generated)
+        run: npx vitest run tests/generated/
+        continue-on-error: true

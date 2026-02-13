@@ -1,0 +1,1236 @@
+- generic [ref=e3]:
+  - generic [ref=e7]:
+    - generic [ref=e9]:
+      - link "Flipkart" [ref=e10] [cursor=pointer]:
+        - /url: /
+        - img "Flipkart" [ref=e11]
+      - link "Explore Plus" [ref=e12] [cursor=pointer]:
+        - /url: /plus
+        - text: Explore Plus
+        - img [ref=e13]
+    - generic [ref=e16]:
+      - textbox "Search for products, brands and more" [ref=e18]: white nike tshirt
+      - button [ref=e19] [cursor=pointer]:
+        - img [ref=e20]
+    - link "Login" [ref=e28] [cursor=pointer]:
+      - /url: /account/login?ret=/search%3Fq%3Dwhite%2Bnike%2Btshirt
+    - link "Become a Seller" [ref=e30] [cursor=pointer]:
+      - /url: https://seller.flipkart.com/sell-online/?utm_source=fkwebsite&utm_medium=websitedirect
+      - generic [ref=e31]: Become a Seller
+    - generic [ref=e33] [cursor=pointer]:
+      - generic [ref=e36]: More
+      - img [ref=e37]
+    - link "Cart" [ref=e42] [cursor=pointer]:
+      - /url: /viewcart?exploreMode=true&preference=FLIPKART
+      - img [ref=e43]
+      - generic [ref=e45]: Cart
+  - generic [ref=e50]:
+    - generic [ref=e51] [cursor=pointer]:
+      - text: Electronics
+      - img [ref=e52]
+    - generic [ref=e54] [cursor=pointer]:
+      - text: TVs & Appliances
+      - img [ref=e55]
+    - generic [ref=e57] [cursor=pointer]:
+      - text: Men
+      - img [ref=e58]
+    - generic [ref=e60] [cursor=pointer]:
+      - text: Women
+      - img [ref=e61]
+    - generic [ref=e63] [cursor=pointer]:
+      - text: Baby & Kids
+      - img [ref=e64]
+    - generic [ref=e66] [cursor=pointer]:
+      - text: Home & Furniture
+      - img [ref=e67]
+    - generic [ref=e69] [cursor=pointer]:
+      - text: Sports, Books & More
+      - img [ref=e70]
+    - link "Flights" [ref=e72] [cursor=pointer]:
+      - /url: /travel/flights?otracker=nmenu_Flights
+    - link "Offer Zone" [ref=e73] [cursor=pointer]:
+      - /url: /offers-list/top-deals?screen=dynamic&pk=themeViews%3DDT-OMU-A2%3ADT-OMU~widgetType%3DdealCard~contentType%3Dneo&otracker=nmenu_offer-zone
+  - generic [ref=e74]:
+    - generic [ref=e75]:
+      - generic [ref=e79]:
+        - generic [ref=e82]: Filters
+        - generic [ref=e84]:
+          - generic [ref=e85]: CATEGORIES
+          - generic [ref=e87]:
+            - img [ref=e89] [cursor=pointer]
+            - link "Clothing and Accessories" [ref=e91] [cursor=pointer]:
+              - /url: /clothing-and-accessories/pr?sid=clo&q=white+nike+tshirt&otracker=categorytree
+          - generic [ref=e93]:
+            - img [ref=e95] [cursor=pointer]
+            - link "Topwear" [ref=e97] [cursor=pointer]:
+              - /url: /clothing-and-accessories/topwear/pr?sid=clo,ash&q=white+nike+tshirt&otracker=categorytree
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - img [ref=e101] [cursor=pointer]
+              - link "T-shirts" [ref=e103] [cursor=pointer]:
+                - /url: /clothing-and-accessories/topwear/tshirts/pr?sid=clo,ash,ank&q=white+nike+tshirt&otracker=categorytree
+            - generic [ref=e104]:
+              - link "Kids' T-shirts" [ref=e105] [cursor=pointer]:
+                - /url: /clothing-and-accessories/topwear/tshirts/kids-tshirts/pr?sid=clo,ash,ank,pgi&q=white+nike+tshirt&otracker=categorytree
+              - link "Women's T-shirts" [ref=e106] [cursor=pointer]:
+                - /url: /clothing-and-accessories/topwear/tshirts/womens-tshirts/pr?sid=clo,ash,ank,loi&q=white+nike+tshirt&otracker=categorytree
+              - link "Men's T-shirts" [ref=e107] [cursor=pointer]:
+                - /url: /clothing-and-accessories/topwear/tshirts/mens-tshirts/pr?sid=clo,ash,ank,edy&q=white+nike+tshirt&otracker=categorytree
+        - generic [ref=e108]:
+          - generic [ref=e110]: Price
+          - generic [ref=e127]:
+            - generic [ref=e128]: .
+            - generic [ref=e129]: .
+            - generic [ref=e130]: .
+            - generic [ref=e131]: .
+            - generic [ref=e132]: .
+            - generic [ref=e133]: .
+            - generic: .
+          - generic [ref=e134]:
+            - combobox [ref=e136]:
+              - option "Min" [selected]
+              - option "₹250"
+              - option "₹300"
+              - option "₹500"
+              - option "₹700"
+              - option "₹1000"
+            - generic [ref=e137]: to
+            - combobox [ref=e139]:
+              - option "₹250"
+              - option "₹300"
+              - option "₹500"
+              - option "₹700"
+              - option "₹1000"
+              - option "₹1000+" [selected]
+        - generic [ref=e141] [cursor=pointer]:
+          - generic [ref=e142]: Brand
+          - img [ref=e143]
+        - generic [ref=e146] [cursor=pointer]:
+          - generic [ref=e147]: Gender
+          - img [ref=e148]
+        - generic [ref=e151] [cursor=pointer]:
+          - generic [ref=e152]: Discount
+          - img [ref=e153]
+        - generic [ref=e156] [cursor=pointer]:
+          - generic [ref=e157]: Size
+          - img [ref=e158]
+        - generic [ref=e161] [cursor=pointer]:
+          - generic [ref=e162]: fabric
+          - img [ref=e163]
+        - generic [ref=e166] [cursor=pointer]:
+          - generic [ref=e167]: Pattern
+          - img [ref=e168]
+        - generic [ref=e171] [cursor=pointer]:
+          - generic [ref=e172]: Occasion
+          - img [ref=e173]
+        - generic [ref=e176] [cursor=pointer]:
+          - generic [ref=e177]: Color
+          - img [ref=e178]
+        - generic [ref=e180]:
+          - generic [ref=e181] [cursor=pointer]:
+            - generic [ref=e182]: Customer Ratings
+            - img [ref=e183]
+          - generic [ref=e186]:
+            - generic "4★ & above" [ref=e187] [cursor=pointer]:
+              - generic [ref=e191]: 4★ & above
+            - generic "3★ & above" [ref=e192] [cursor=pointer]:
+              - generic [ref=e196]: 3★ & above
+        - generic [ref=e197]:
+          - img [ref=e202] [cursor=pointer]
+          - generic [ref=e204] [cursor=pointer]: "?"
+        - generic [ref=e206] [cursor=pointer]:
+          - generic [ref=e207]: Sleeve Type
+          - img [ref=e208]
+        - generic [ref=e211] [cursor=pointer]:
+          - generic [ref=e212]: Fit
+          - img [ref=e213]
+        - generic [ref=e216] [cursor=pointer]:
+          - generic [ref=e217]: New Arrivals
+          - img [ref=e218]
+        - generic [ref=e221] [cursor=pointer]:
+          - generic [ref=e222]: Type
+          - img [ref=e223]
+        - generic [ref=e225]:
+          - generic [ref=e226] [cursor=pointer]:
+            - generic [ref=e227]: Offers
+            - img [ref=e228]
+          - generic [ref=e231]:
+            - generic "Special Price" [ref=e232] [cursor=pointer]:
+              - generic [ref=e236]: Special Price
+            - generic "Buy More, Save More" [ref=e237] [cursor=pointer]:
+              - generic [ref=e241]: Buy More, Save More
+        - generic [ref=e243] [cursor=pointer]:
+          - generic [ref=e244]: Age/Size
+          - img [ref=e245]
+        - generic [ref=e248] [cursor=pointer]:
+          - generic [ref=e249]: Availability
+          - img [ref=e250]
+      - generic [ref=e252]:
+        - generic [ref=e255]:
+          - generic [ref=e256]:
+            - generic [ref=e257]:
+              - link "Home" [ref=e258] [cursor=pointer]:
+                - /url: /
+              - img [ref=e259]
+            - generic [ref=e261]:
+              - link "Clothing and Accessories" [ref=e262] [cursor=pointer]:
+                - /url: /clothing-and-accessories/pr?sid=clo&marketplace=FLIPKART
+              - img [ref=e263]
+            - generic [ref=e265]:
+              - link "Topwear" [ref=e266] [cursor=pointer]:
+                - /url: /clothing-and-accessories/topwear/pr?sid=clo,ash&marketplace=FLIPKART
+              - img [ref=e267]
+            - link "T-shirts" [ref=e270] [cursor=pointer]:
+              - /url: /clothing-and-accessories/topwear/tshirts/pr?sid=clo,ash,ank&marketplace=FLIPKART
+          - generic [ref=e271]: Showing 1 – 40 of 476 results for "white nike tshirt"
+          - generic [ref=e272]:
+            - generic [ref=e273]: Sort By
+            - generic [ref=e274]: Relevance
+            - generic [ref=e275] [cursor=pointer]: Popularity
+            - generic [ref=e276] [cursor=pointer]: Price -- Low to High
+            - generic [ref=e277] [cursor=pointer]: Price -- High to Low
+            - generic [ref=e278] [cursor=pointer]: Newest First
+        - generic [ref=e280]:
+          - generic [ref=e282]:
+            - link [ref=e283] [cursor=pointer]:
+              - /url: /puma-solid-men-round-neck-white-t-shirt/p/itm6e5605be23b80?pid=TSHGDRJYENHDJAC3&lid=LSTTSHGDRJYENHDJAC3SX8DVR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_1&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDKQ2UadqsR9YCgc5sUnC-o1WYABxRuUv9PL_6BUJfd19A%3D%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e290]
+            - generic [ref=e292]:
+              - img [ref=e294]
+              - generic [ref=e297]: PUMA
+              - link "Crew Neck Tee set -Pk of 2 Men Solid Round Neck Cotton ..." [ref=e298] [cursor=pointer]:
+                - /url: /puma-solid-men-round-neck-white-t-shirt/p/itm6e5605be23b80?pid=TSHGDRJYENHDJAC3&lid=LSTTSHGDRJYENHDJAC3SX8DVR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_1&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDKQ2UadqsR9YCgc5sUnC-o1WYABxRuUv9PL_6BUJfd19A%3D%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - link "₹977 ₹1,499 34% off" [ref=e299] [cursor=pointer]:
+                - /url: /puma-solid-men-round-neck-white-t-shirt/p/itm6e5605be23b80?pid=TSHGDRJYENHDJAC3&lid=LSTTSHGDRJYENHDJAC3SX8DVR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_1&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDKQ2UadqsR9YCgc5sUnC-o1WYABxRuUv9PL_6BUJfd19A%3D%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e300]:
+                  - generic [ref=e301]: ₹977
+                  - generic [ref=e302]: ₹1,499
+                  - generic [ref=e303]: 34% off
+              - generic [ref=e306]: Buy 2 items, save extra 5%
+          - generic [ref=e308]:
+            - link [ref=e309] [cursor=pointer]:
+              - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm16a9848b65e23?pid=TSHHFCS74JD96PPR&lid=LSTTSHHFCS74JD96PPRPCDCKH&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_2&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDKDkiWMuN9aLMnghJQkkDTayT4sVmjZzANG2Q3eA1OGYYQEIsITtCzc4bHaOMTqL08%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e316]
+            - generic [ref=e318]:
+              - img [ref=e320]
+              - generic [ref=e323]: NIKE
+              - link "Men Solid Polo Neck Pure Cotton White T-Shirt" [ref=e324] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm16a9848b65e23?pid=TSHHFCS74JD96PPR&lid=LSTTSHHFCS74JD96PPRPCDCKH&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_2&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDKDkiWMuN9aLMnghJQkkDTayT4sVmjZzANG2Q3eA1OGYYQEIsITtCzc4bHaOMTqL08%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e326]
+              - link "₹3,595 ₹4,495 20% off" [ref=e327] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm16a9848b65e23?pid=TSHHFCS74JD96PPR&lid=LSTTSHHFCS74JD96PPRPCDCKH&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_2&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDKDkiWMuN9aLMnghJQkkDTayT4sVmjZzANG2Q3eA1OGYYQEIsITtCzc4bHaOMTqL08%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e328]:
+                  - generic [ref=e329]: ₹3,595
+                  - generic [ref=e330]: ₹4,495
+                  - generic [ref=e331]: 20% off
+          - generic [ref=e333]:
+            - link [ref=e334] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmd86cf83accd21?pid=TSHHFCS6W993EQ3F&lid=LSTTSHHFCS6W993EQ3FTCAERR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_3&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFCS6W993EQ3F.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e341]
+            - generic [ref=e343]:
+              - generic [ref=e344]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e345] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmd86cf83accd21?pid=TSHHFCS6W993EQ3F&lid=LSTTSHHFCS6W993EQ3FTCAERR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_3&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFCS6W993EQ3F.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e347]
+              - link "₹1,404 ₹1,495 6% off" [ref=e348] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmd86cf83accd21?pid=TSHHFCS6W993EQ3F&lid=LSTTSHHFCS6W993EQ3FTCAERR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_3&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFCS6W993EQ3F.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e349]:
+                  - generic [ref=e350]: ₹1,404
+                  - generic [ref=e351]: ₹1,495
+                  - generic [ref=e352]: 6% off
+              - generic [ref=e355]: Only few left
+          - generic [ref=e357]:
+            - link [ref=e358] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2787349c62a79?pid=TSHGYEH4JMMVU4XC&lid=LSTTSHGYEH4JMMVU4XCXNPP3H&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_4&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGYEH4JMMVU4XC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e365]
+            - generic [ref=e367]:
+              - generic [ref=e368]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e369] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2787349c62a79?pid=TSHGYEH4JMMVU4XC&lid=LSTTSHGYEH4JMMVU4XCXNPP3H&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_4&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGYEH4JMMVU4XC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e371]
+              - link "₹1,216 ₹1,295 6% off" [ref=e372] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2787349c62a79?pid=TSHGYEH4JMMVU4XC&lid=LSTTSHGYEH4JMMVU4XCXNPP3H&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_4&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGYEH4JMMVU4XC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e373]:
+                  - generic [ref=e374]: ₹1,216
+                  - generic [ref=e375]: ₹1,295
+                  - generic [ref=e376]: 6% off
+              - generic [ref=e379]: Only 1 left
+        - generic [ref=e381]:
+          - generic [ref=e383]:
+            - link [ref=e384] [cursor=pointer]:
+              - /url: /souled-store-colorblock-men-round-neck-white-t-shirt/p/itm724a54aebe100?pid=TSHHDCYYHSBGNP3F&lid=LSTTSHHDCYYHSBGNP3FBPGWM0&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_5&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDLMQP3HRnZKsXclw1Suxp9z3sm4GZ5kFBmOAdepULD1ijRKtQQVWB8eNWYNLe7VuyQ%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e391]
+            - generic [ref=e393]:
+              - img [ref=e395]
+              - generic [ref=e398]: The Souled Store
+              - link "Men Colorblock Round Neck Pure Cotton White T-Shirt" [ref=e399] [cursor=pointer]:
+                - /url: /souled-store-colorblock-men-round-neck-white-t-shirt/p/itm724a54aebe100?pid=TSHHDCYYHSBGNP3F&lid=LSTTSHHDCYYHSBGNP3FBPGWM0&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_5&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDLMQP3HRnZKsXclw1Suxp9z3sm4GZ5kFBmOAdepULD1ijRKtQQVWB8eNWYNLe7VuyQ%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e401]
+              - link "₹1,098 ₹1,099" [ref=e402] [cursor=pointer]:
+                - /url: /souled-store-colorblock-men-round-neck-white-t-shirt/p/itm724a54aebe100?pid=TSHHDCYYHSBGNP3F&lid=LSTTSHHDCYYHSBGNP3FBPGWM0&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_5&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDLMQP3HRnZKsXclw1Suxp9z3sm4GZ5kFBmOAdepULD1ijRKtQQVWB8eNWYNLe7VuyQ%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e403]:
+                  - generic [ref=e404]: ₹1,098
+                  - generic [ref=e405]: ₹1,099
+              - generic [ref=e408]: Buy 2 items, save extra 5%
+          - generic [ref=e410]:
+            - link [ref=e411] [cursor=pointer]:
+              - /url: /u-s-polo-assn-printed-men-round-neck-white-t-shirt/p/itmddfabaeb98d0b?pid=TSHGZYGSH3Y8HSNX&lid=LSTTSHGZYGSH3Y8HSNXHFJ2YI&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_6&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDJJDsuQ2h8s2FAOaAgGkabVX7qxL5nwK94IZ08F4RzyZmaRs4JL222ZRV-dN99QnxU%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e418]
+            - generic [ref=e420]:
+              - img [ref=e422]
+              - generic [ref=e425]: U.S. POLO ASSN.
+              - link "Men Printed Round Neck Pure Cotton White T-Shirt" [ref=e426] [cursor=pointer]:
+                - /url: /u-s-polo-assn-printed-men-round-neck-white-t-shirt/p/itmddfabaeb98d0b?pid=TSHGZYGSH3Y8HSNX&lid=LSTTSHGZYGSH3Y8HSNXHFJ2YI&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_6&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDJJDsuQ2h8s2FAOaAgGkabVX7qxL5nwK94IZ08F4RzyZmaRs4JL222ZRV-dN99QnxU%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e428]
+              - link "₹646 ₹699 7% off" [ref=e429] [cursor=pointer]:
+                - /url: /u-s-polo-assn-printed-men-round-neck-white-t-shirt/p/itmddfabaeb98d0b?pid=TSHGZYGSH3Y8HSNX&lid=LSTTSHGZYGSH3Y8HSNXHFJ2YI&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_6&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDJJDsuQ2h8s2FAOaAgGkabVX7qxL5nwK94IZ08F4RzyZmaRs4JL222ZRV-dN99QnxU%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e430]:
+                  - generic [ref=e431]: ₹646
+                  - generic [ref=e432]: ₹699
+                  - generic [ref=e433]: 7% off
+              - generic [ref=e436]: Buy 2 items, save extra 5%
+          - generic [ref=e438]:
+            - link [ref=e439] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmfba71b9805014?pid=TSHHG9EAMPPZR4FM&lid=LSTTSHHG9EAMPPZR4FMZZKMP3&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_7&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHG9EAMPPZR4FM.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e446]
+            - generic [ref=e448]:
+              - generic [ref=e449]: NIKE
+              - link "Men Solid Round Neck Pure Cotton White T-Shirt" [ref=e450] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmfba71b9805014?pid=TSHHG9EAMPPZR4FM&lid=LSTTSHHG9EAMPPZR4FMZZKMP3&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_7&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHG9EAMPPZR4FM.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e452]
+              - link "₹1,216 ₹1,295 6% off" [ref=e453] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmfba71b9805014?pid=TSHHG9EAMPPZR4FM&lid=LSTTSHHG9EAMPPZR4FMZZKMP3&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_7&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHG9EAMPPZR4FM.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e454]:
+                  - generic [ref=e455]: ₹1,216
+                  - generic [ref=e456]: ₹1,295
+                  - generic [ref=e457]: 6% off
+              - generic [ref=e460]: Only few left
+          - generic [ref=e462]:
+            - link [ref=e463] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmcdd9db246b6c5?pid=TSHFUZFKHGUXFRGF&lid=LSTTSHFUZFKHGUXFRGFZMWXCF&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_8&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFUZFKHGUXFRGF.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e470]
+            - generic [ref=e472]:
+              - generic [ref=e473]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e474] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmcdd9db246b6c5?pid=TSHFUZFKHGUXFRGF&lid=LSTTSHFUZFKHGUXFRGFZMWXCF&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_8&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFUZFKHGUXFRGF.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e476]
+              - link "₹1,592 ₹1,695 6% off" [ref=e477] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmcdd9db246b6c5?pid=TSHFUZFKHGUXFRGF&lid=LSTTSHFUZFKHGUXFRGFZMWXCF&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_8&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFUZFKHGUXFRGF.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e478]:
+                  - generic [ref=e479]: ₹1,592
+                  - generic [ref=e480]: ₹1,695
+                  - generic [ref=e481]: 6% off
+              - generic [ref=e484]: Only 3 left
+        - generic [ref=e486]:
+          - generic [ref=e488]:
+            - link [ref=e489] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmd86cf83accd21?pid=TSHHFCS6ZRFAYKAY&lid=LSTTSHHFCS6ZRFAYKAYS3FF1F&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_9&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFCS6ZRFAYKAY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e496]
+            - generic [ref=e498]:
+              - generic [ref=e499]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e500] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmd86cf83accd21?pid=TSHHFCS6ZRFAYKAY&lid=LSTTSHHFCS6ZRFAYKAYS3FF1F&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_9&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFCS6ZRFAYKAY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e502]
+              - link "₹1,404 ₹1,495 6% off" [ref=e503] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmd86cf83accd21?pid=TSHHFCS6ZRFAYKAY&lid=LSTTSHHFCS6ZRFAYKAYS3FF1F&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_9&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFCS6ZRFAYKAY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e504]:
+                  - generic [ref=e505]: ₹1,404
+                  - generic [ref=e506]: ₹1,495
+                  - generic [ref=e507]: 6% off
+              - generic [ref=e510]: Only few left
+          - generic [ref=e512]:
+            - link [ref=e513] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm588f8276eb5e0?pid=TSHHA8HFYQ3XTNRX&lid=LSTTSHHA8HFYQ3XTNRXFBZWJR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_10&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHA8HFYQ3XTNRX.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e520]
+            - generic [ref=e522]:
+              - generic [ref=e523]: NIKE
+              - link "Men Solid Round Neck Pure Cotton White T-Shirt" [ref=e524] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm588f8276eb5e0?pid=TSHHA8HFYQ3XTNRX&lid=LSTTSHHA8HFYQ3XTNRXFBZWJR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_10&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHA8HFYQ3XTNRX.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e526]
+              - link "₹1,316 ₹2,195 40% off" [ref=e527] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm588f8276eb5e0?pid=TSHHA8HFYQ3XTNRX&lid=LSTTSHHA8HFYQ3XTNRXFBZWJR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_10&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHA8HFYQ3XTNRX.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e528]:
+                  - generic [ref=e529]: ₹1,316
+                  - generic [ref=e530]: ₹2,195
+                  - generic [ref=e531]: 40% off
+              - generic [ref=e534]: Only few left
+          - generic [ref=e536]:
+            - link [ref=e537] [cursor=pointer]:
+              - /url: /souled-store-printed-men-round-neck-white-t-shirt/p/itm10de0594605c0?pid=TSHFY2G5XYVZYE8A&lid=LSTTSHFY2G5XYVZYE8AAZSASO&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_11&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDIt7gIctRR4LC_yTAdeMW3ocS0a8IsODtVx_y4XeRq0BgaKg8hQxVtMHqLTdaqeDbc%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e544]
+            - generic [ref=e546]:
+              - img [ref=e548]
+              - generic [ref=e551]: The Souled Store
+              - link "Superman Men Printed Round Neck Cotton Blend White T-Sh..." [ref=e552] [cursor=pointer]:
+                - /url: /souled-store-printed-men-round-neck-white-t-shirt/p/itm10de0594605c0?pid=TSHFY2G5XYVZYE8A&lid=LSTTSHFY2G5XYVZYE8AAZSASO&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_11&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDIt7gIctRR4LC_yTAdeMW3ocS0a8IsODtVx_y4XeRq0BgaKg8hQxVtMHqLTdaqeDbc%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e554]
+              - link "₹749 ₹999 25% off" [ref=e555] [cursor=pointer]:
+                - /url: /souled-store-printed-men-round-neck-white-t-shirt/p/itm10de0594605c0?pid=TSHFY2G5XYVZYE8A&lid=LSTTSHFY2G5XYVZYE8AAZSASO&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_11&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDIt7gIctRR4LC_yTAdeMW3ocS0a8IsODtVx_y4XeRq0BgaKg8hQxVtMHqLTdaqeDbc%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e556]:
+                  - generic [ref=e557]: ₹749
+                  - generic [ref=e558]: ₹999
+                  - generic [ref=e559]: 25% off
+          - generic [ref=e561]:
+            - link [ref=e562] [cursor=pointer]:
+              - /url: /souled-store-printed-typography-men-polo-neck-white-t-shirt/p/itm57bc336aa82e5?pid=TSHGTG78W5YZGPXM&lid=LSTTSHGTG78W5YZGPXMSQHRKW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_12&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDJQR5M0xS5EFN-7M7C4zWH2flmOlnBq4YGUz9K7ihZczh7zrT4gkWAkPCdPBnPCejA%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e569]
+            - generic [ref=e571]:
+              - img [ref=e573]
+              - generic [ref=e576]: The Souled Store
+              - link "Men Printed, Typography Polo Neck Pure Cotton White T-S..." [ref=e577] [cursor=pointer]:
+                - /url: /souled-store-printed-typography-men-polo-neck-white-t-shirt/p/itm57bc336aa82e5?pid=TSHGTG78W5YZGPXM&lid=LSTTSHGTG78W5YZGPXMSQHRKW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_12&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDJQR5M0xS5EFN-7M7C4zWH2flmOlnBq4YGUz9K7ihZczh7zrT4gkWAkPCdPBnPCejA%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e579]
+              - link "₹1,298 ₹1,299" [ref=e580] [cursor=pointer]:
+                - /url: /souled-store-printed-typography-men-polo-neck-white-t-shirt/p/itm57bc336aa82e5?pid=TSHGTG78W5YZGPXM&lid=LSTTSHGTG78W5YZGPXMSQHRKW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_12&otracker=search&fm=organic&iid=en_PjEVFe2GqwrFBAh-u5O4CtqKdb3AjmoBsA7pWtHGrDJQR5M0xS5EFN-7M7C4zWH2flmOlnBq4YGUz9K7ihZczh7zrT4gkWAkPCdPBnPCejA%3D&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e581]:
+                  - generic [ref=e582]: ₹1,298
+                  - generic [ref=e583]: ₹1,299
+              - generic [ref=e586]: Buy 2 items, save extra 5%
+        - generic [ref=e588]:
+          - generic [ref=e590]:
+            - link [ref=e591] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm0231b9e39e721?pid=TSHFRXU3277E7YB9&lid=LSTTSHFRXU3277E7YB91LVZQK&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_13&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFRXU3277E7YB9.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e598]
+            - generic [ref=e600]:
+              - generic [ref=e601]: NIKE
+              - link "Men Printed Round Neck Cotton Blend White T-Shirt" [ref=e602] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm0231b9e39e721?pid=TSHFRXU3277E7YB9&lid=LSTTSHFRXU3277E7YB91LVZQK&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_13&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFRXU3277E7YB9.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e604]
+              - link "₹1,489 ₹1,795 17% off" [ref=e605] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm0231b9e39e721?pid=TSHFRXU3277E7YB9&lid=LSTTSHFRXU3277E7YB91LVZQK&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_13&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFRXU3277E7YB9.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e606]:
+                  - generic [ref=e607]: ₹1,489
+                  - generic [ref=e608]: ₹1,795
+                  - generic [ref=e609]: 17% off
+              - generic [ref=e612]: Only 3 left
+          - generic [ref=e614]:
+            - link [ref=e615] [cursor=pointer]:
+              - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm7806420a27880?pid=TSHG98AU6Z2APHW8&lid=LSTTSHG98AU6Z2APHW8R9AZHM&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_14&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHG98AU6Z2APHW8.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e622]
+            - generic [ref=e624]:
+              - generic [ref=e625]: NIKE
+              - link "Court Men Solid Polo Neck Polyester White T-Shirt" [ref=e626] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm7806420a27880?pid=TSHG98AU6Z2APHW8&lid=LSTTSHG98AU6Z2APHW8R9AZHM&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_14&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHG98AU6Z2APHW8.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e628]
+              - link "₹1,780 ₹1,895 6% off" [ref=e629] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm7806420a27880?pid=TSHG98AU6Z2APHW8&lid=LSTTSHG98AU6Z2APHW8R9AZHM&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_14&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHG98AU6Z2APHW8.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e630]:
+                  - generic [ref=e631]: ₹1,780
+                  - generic [ref=e632]: ₹1,895
+                  - generic [ref=e633]: 6% off
+              - generic [ref=e636]: Only few left
+          - generic [ref=e638]:
+            - link [ref=e639] [cursor=pointer]:
+              - /url: /nike-typography-men-round-neck-white-t-shirt/p/itmd9909fa8d959c?pid=TSHGZ8QHXEDXGCRN&lid=LSTTSHGZ8QHXEDXGCRNDCZYZ4&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_15&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGZ8QHXEDXGCRN.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e646]
+            - generic [ref=e648]:
+              - generic [ref=e649]: NIKE
+              - link "Men Typography Round Neck Pure Cotton White T-Shirt" [ref=e650] [cursor=pointer]:
+                - /url: /nike-typography-men-round-neck-white-t-shirt/p/itmd9909fa8d959c?pid=TSHGZ8QHXEDXGCRN&lid=LSTTSHGZ8QHXEDXGCRNDCZYZ4&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_15&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGZ8QHXEDXGCRN.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e652]
+              - link "₹1,316 ₹2,195 40% off" [ref=e653] [cursor=pointer]:
+                - /url: /nike-typography-men-round-neck-white-t-shirt/p/itmd9909fa8d959c?pid=TSHGZ8QHXEDXGCRN&lid=LSTTSHGZ8QHXEDXGCRNDCZYZ4&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_15&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGZ8QHXEDXGCRN.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e654]:
+                  - generic [ref=e655]: ₹1,316
+                  - generic [ref=e656]: ₹2,195
+                  - generic [ref=e657]: 40% off
+              - generic [ref=e660]: Hot Deal
+          - generic [ref=e662]:
+            - link [ref=e663] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2839948aa0ebd?pid=TSHH2ED4EPFXVD8B&lid=LSTTSHH2ED4EPFXVD8BVFYIHF&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_16&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH2ED4EPFXVD8B.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e670]
+            - generic [ref=e672]:
+              - generic [ref=e673]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e674] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2839948aa0ebd?pid=TSHH2ED4EPFXVD8B&lid=LSTTSHH2ED4EPFXVD8BVFYIHF&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_16&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH2ED4EPFXVD8B.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e676]
+              - link "₹1,536 ₹2,195 30% off" [ref=e677] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2839948aa0ebd?pid=TSHH2ED4EPFXVD8B&lid=LSTTSHH2ED4EPFXVD8BVFYIHF&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_16&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH2ED4EPFXVD8B.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e678]:
+                  - generic [ref=e679]: ₹1,536
+                  - generic [ref=e680]: ₹2,195
+                  - generic [ref=e681]: 30% off
+              - generic [ref=e684]: Hot Deal
+        - generic [ref=e686]:
+          - generic [ref=e688]:
+            - link [ref=e689] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm9acc933e8f8e5?pid=TSHHAVUVQZCHMZAZ&lid=LSTTSHHAVUVQZCHMZAZNROJJT&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_17&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHAVUVQZCHMZAZ.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e696]
+            - generic [ref=e698]:
+              - generic [ref=e699]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e700] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm9acc933e8f8e5?pid=TSHHAVUVQZCHMZAZ&lid=LSTTSHHAVUVQZCHMZAZNROJJT&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_17&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHAVUVQZCHMZAZ.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e702]
+              - link "₹1,316 ₹2,195 40% off" [ref=e703] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm9acc933e8f8e5?pid=TSHHAVUVQZCHMZAZ&lid=LSTTSHHAVUVQZCHMZAZNROJJT&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_17&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHAVUVQZCHMZAZ.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e704]:
+                  - generic [ref=e705]: ₹1,316
+                  - generic [ref=e706]: ₹2,195
+                  - generic [ref=e707]: 40% off
+              - generic [ref=e710]: Only few left
+          - generic [ref=e712]:
+            - link [ref=e713] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itmf6fe36134cd29?pid=TSHHCTZFKCRY5NGE&lid=LSTTSHHCTZFKCRY5NGEYBUHVW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_18&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFKCRY5NGE.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e720]
+            - generic [ref=e722]:
+              - generic [ref=e723]: NIKE
+              - link "Men Printed Round Neck Cotton Blend White T-Shirt" [ref=e724] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itmf6fe36134cd29?pid=TSHHCTZFKCRY5NGE&lid=LSTTSHHCTZFKCRY5NGEYBUHVW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_18&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFKCRY5NGE.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e726]
+              - link "₹1,536 ₹2,195 30% off" [ref=e727] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itmf6fe36134cd29?pid=TSHHCTZFKCRY5NGE&lid=LSTTSHHCTZFKCRY5NGEYBUHVW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_18&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFKCRY5NGE.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e728]:
+                  - generic [ref=e729]: ₹1,536
+                  - generic [ref=e730]: ₹2,195
+                  - generic [ref=e731]: 30% off
+              - generic [ref=e734]: Hot Deal
+          - generic [ref=e736]:
+            - link [ref=e737] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm6821e74fe3ed1?pid=TSHH9M7WT5FFWUEM&lid=LSTTSHH9M7WT5FFWUEM7UWKYP&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_19&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WT5FFWUEM.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e744]
+            - generic [ref=e746]:
+              - generic [ref=e747]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e748] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm6821e74fe3ed1?pid=TSHH9M7WT5FFWUEM&lid=LSTTSHH9M7WT5FFWUEM7UWKYP&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_19&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WT5FFWUEM.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e750]
+              - link "₹1,592 ₹1,695 6% off" [ref=e751] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm6821e74fe3ed1?pid=TSHH9M7WT5FFWUEM&lid=LSTTSHH9M7WT5FFWUEM7UWKYP&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_19&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WT5FFWUEM.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e752]:
+                  - generic [ref=e753]: ₹1,592
+                  - generic [ref=e754]: ₹1,695
+                  - generic [ref=e755]: 6% off
+              - generic [ref=e758]: Only few left
+          - generic [ref=e760]:
+            - link [ref=e761] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4af2312a84ae0?pid=TSHHH2XQPZRKQ2SC&lid=LSTTSHHH2XQPZRKQ2SCDJKTLD&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_20&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHH2XQPZRKQ2SC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e768]
+            - generic [ref=e770]:
+              - generic [ref=e771]: NIKE
+              - link "Men Solid Round Neck Pure Cotton White T-Shirt" [ref=e772] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4af2312a84ae0?pid=TSHHH2XQPZRKQ2SC&lid=LSTTSHHH2XQPZRKQ2SCDJKTLD&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_20&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHH2XQPZRKQ2SC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e774]
+              - link "₹1,076 ₹1,795 40% off" [ref=e775] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4af2312a84ae0?pid=TSHHH2XQPZRKQ2SC&lid=LSTTSHHH2XQPZRKQ2SCDJKTLD&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_20&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHH2XQPZRKQ2SC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e776]:
+                  - generic [ref=e777]: ₹1,076
+                  - generic [ref=e778]: ₹1,795
+                  - generic [ref=e779]: 40% off
+              - generic [ref=e782]: Only few left
+        - generic [ref=e784]:
+          - generic [ref=e786]:
+            - link [ref=e787] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm7ef3e3c1bebd4?pid=TSHHCTZFJBFUWPUH&lid=LSTTSHHCTZFJBFUWPUHDN5UWE&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_21&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFJBFUWPUH.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e794]
+            - generic [ref=e796]:
+              - generic [ref=e797]: NIKE
+              - link "Men Printed Round Neck Pure Cotton White T-Shirt" [ref=e798] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm7ef3e3c1bebd4?pid=TSHHCTZFJBFUWPUH&lid=LSTTSHHCTZFJBFUWPUHDN5UWE&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_21&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFJBFUWPUH.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e800]
+              - link "₹1,536 ₹2,195 30% off" [ref=e801] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm7ef3e3c1bebd4?pid=TSHHCTZFJBFUWPUH&lid=LSTTSHHCTZFJBFUWPUHDN5UWE&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_21&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFJBFUWPUH.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e802]:
+                  - generic [ref=e803]: ₹1,536
+                  - generic [ref=e804]: ₹2,195
+                  - generic [ref=e805]: 30% off
+              - generic [ref=e808]: Hot Deal
+          - generic [ref=e810]:
+            - link [ref=e811] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4d0bdd180f3b9?pid=TSHHE28DVCFZZGKY&lid=LSTTSHHE28DVCFZZGKYLMPTSL&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_22&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHE28DVCFZZGKY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e818]
+            - generic [ref=e820]:
+              - generic [ref=e821]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e822] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4d0bdd180f3b9?pid=TSHHE28DVCFZZGKY&lid=LSTTSHHE28DVCFZZGKYLMPTSL&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_22&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHE28DVCFZZGKY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e824]
+              - link "₹1,686 ₹1,795 6% off" [ref=e825] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4d0bdd180f3b9?pid=TSHHE28DVCFZZGKY&lid=LSTTSHHE28DVCFZZGKYLMPTSL&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_22&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHE28DVCFZZGKY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e826]:
+                  - generic [ref=e827]: ₹1,686
+                  - generic [ref=e828]: ₹1,795
+                  - generic [ref=e829]: 6% off
+              - generic [ref=e832]: Only 1 left
+          - generic [ref=e834]:
+            - link [ref=e835] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itma73ddc0a3f7a3?pid=TSHH9M7WYVYEFT4V&lid=LSTTSHH9M7WYVYEFT4VZ5PBZJ&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_23&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WYVYEFT4V.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e842]
+            - generic [ref=e844]:
+              - generic [ref=e845]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e846] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itma73ddc0a3f7a3?pid=TSHH9M7WYVYEFT4V&lid=LSTTSHH9M7WYVYEFT4VZ5PBZJ&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_23&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WYVYEFT4V.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e848]
+              - link "₹1,874 ₹1,995 6% off" [ref=e849] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itma73ddc0a3f7a3?pid=TSHH9M7WYVYEFT4V&lid=LSTTSHH9M7WYVYEFT4VZ5PBZJ&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_23&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WYVYEFT4V.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e850]:
+                  - generic [ref=e851]: ₹1,874
+                  - generic [ref=e852]: ₹1,995
+                  - generic [ref=e853]: 6% off
+              - generic [ref=e856]: Only 1 left
+          - generic [ref=e858]:
+            - link [ref=e859] [cursor=pointer]:
+              - /url: /nike-typography-men-round-neck-white-t-shirt/p/itmd9909fa8d959c?pid=TSHGZ8QHDEJUENDW&lid=LSTTSHGZ8QHDEJUENDW8HDKFW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_24&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGZ8QHDEJUENDW.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e866]
+            - generic [ref=e868]:
+              - generic [ref=e869]: NIKE
+              - link "Men Typography Round Neck Pure Cotton White T-Shirt" [ref=e870] [cursor=pointer]:
+                - /url: /nike-typography-men-round-neck-white-t-shirt/p/itmd9909fa8d959c?pid=TSHGZ8QHDEJUENDW&lid=LSTTSHGZ8QHDEJUENDW8HDKFW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_24&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGZ8QHDEJUENDW.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e872]
+              - link "₹1,316 ₹2,195 40% off" [ref=e873] [cursor=pointer]:
+                - /url: /nike-typography-men-round-neck-white-t-shirt/p/itmd9909fa8d959c?pid=TSHGZ8QHDEJUENDW&lid=LSTTSHGZ8QHDEJUENDW8HDKFW&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_24&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGZ8QHDEJUENDW.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e874]:
+                  - generic [ref=e875]: ₹1,316
+                  - generic [ref=e876]: ₹2,195
+                  - generic [ref=e877]: 40% off
+              - generic [ref=e880]: Hot Deal
+        - generic [ref=e882]:
+          - generic [ref=e884]:
+            - link [ref=e885] [cursor=pointer]:
+              - /url: /nike-solid-women-round-neck-white-t-shirt/p/itm579490726d016?pid=TSHHCMYNFZZAZCVY&lid=LSTTSHHCMYNFZZAZCVYYKJZKV&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_25&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNFZZAZCVY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e892]
+            - generic [ref=e894]:
+              - generic [ref=e895]: NIKE
+              - link "Women Solid Round Neck Pure Cotton White T-Shirt" [ref=e896] [cursor=pointer]:
+                - /url: /nike-solid-women-round-neck-white-t-shirt/p/itm579490726d016?pid=TSHHCMYNFZZAZCVY&lid=LSTTSHHCMYNFZZAZCVYYKJZKV&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_25&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNFZZAZCVY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e898]
+              - link "₹1,536 ₹2,195 30% off" [ref=e899] [cursor=pointer]:
+                - /url: /nike-solid-women-round-neck-white-t-shirt/p/itm579490726d016?pid=TSHHCMYNFZZAZCVY&lid=LSTTSHHCMYNFZZAZCVYYKJZKV&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_25&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNFZZAZCVY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e900]:
+                  - generic [ref=e901]: ₹1,536
+                  - generic [ref=e902]: ₹2,195
+                  - generic [ref=e903]: 30% off
+              - generic [ref=e906]: Hot Deal
+          - generic [ref=e908]:
+            - link [ref=e909] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2839948aa0ebd?pid=TSHH2ED42GFUCYTY&lid=LSTTSHH2ED42GFUCYTYJDIOUR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_26&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH2ED42GFUCYTY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e916]
+            - generic [ref=e918]:
+              - generic [ref=e919]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e920] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2839948aa0ebd?pid=TSHH2ED42GFUCYTY&lid=LSTTSHH2ED42GFUCYTYJDIOUR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_26&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH2ED42GFUCYTY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e922]
+              - link "₹1,536 ₹2,195 30% off" [ref=e923] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2839948aa0ebd?pid=TSHH2ED42GFUCYTY&lid=LSTTSHH2ED42GFUCYTYJDIOUR&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_26&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH2ED42GFUCYTY.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e924]:
+                  - generic [ref=e925]: ₹1,536
+                  - generic [ref=e926]: ₹2,195
+                  - generic [ref=e927]: 30% off
+              - generic [ref=e930]: Only few left
+          - generic [ref=e932]:
+            - link [ref=e933] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itmf6fe36134cd29?pid=TSHHCTZFKXDER8NV&lid=LSTTSHHCTZFKXDER8NVJWLPDC&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_27&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFKXDER8NV.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e940]
+            - generic [ref=e942]:
+              - generic [ref=e943]: NIKE
+              - link "Men Printed Round Neck Cotton Blend White T-Shirt" [ref=e944] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itmf6fe36134cd29?pid=TSHHCTZFKXDER8NV&lid=LSTTSHHCTZFKXDER8NVJWLPDC&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_27&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFKXDER8NV.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e946]
+              - link "₹1,536 ₹2,195 30% off" [ref=e947] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itmf6fe36134cd29?pid=TSHHCTZFKXDER8NV&lid=LSTTSHHCTZFKXDER8NVJWLPDC&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_27&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFKXDER8NV.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e948]:
+                  - generic [ref=e949]: ₹1,536
+                  - generic [ref=e950]: ₹2,195
+                  - generic [ref=e951]: 30% off
+              - generic [ref=e954]: Hot Deal
+          - generic [ref=e956]:
+            - link [ref=e957] [cursor=pointer]:
+              - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm7806420a27880?pid=TSHG98AU8FENDJKH&lid=LSTTSHG98AU8FENDJKH56XK9L&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_28&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHG98AU8FENDJKH.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e964]
+            - generic [ref=e966]:
+              - generic [ref=e967]: NIKE
+              - link "Court Men Solid Polo Neck Polyester White T-Shirt" [ref=e968] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm7806420a27880?pid=TSHG98AU8FENDJKH&lid=LSTTSHG98AU8FENDJKH56XK9L&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_28&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHG98AU8FENDJKH.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e970]
+              - link "₹1,780 ₹1,895 6% off" [ref=e971] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm7806420a27880?pid=TSHG98AU8FENDJKH&lid=LSTTSHG98AU8FENDJKH56XK9L&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_28&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHG98AU8FENDJKH.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e972]:
+                  - generic [ref=e973]: ₹1,780
+                  - generic [ref=e974]: ₹1,895
+                  - generic [ref=e975]: 6% off
+              - generic [ref=e978]: Only few left
+        - generic [ref=e980]:
+          - generic [ref=e982]:
+            - link [ref=e983] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmeb860cc636e2b?pid=TSHGSYH2CDMKRVCN&lid=LSTTSHGSYH2CDMKRVCNQ0N454&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_29&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGSYH2CDMKRVCN.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e990]
+            - generic [ref=e992]:
+              - generic [ref=e993]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e994] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmeb860cc636e2b?pid=TSHGSYH2CDMKRVCN&lid=LSTTSHGSYH2CDMKRVCNQ0N454&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_29&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGSYH2CDMKRVCN.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e996]
+              - link "₹1,592 ₹1,695 6% off" [ref=e997] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmeb860cc636e2b?pid=TSHGSYH2CDMKRVCN&lid=LSTTSHGSYH2CDMKRVCNQ0N454&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_29&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGSYH2CDMKRVCN.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e998]:
+                  - generic [ref=e999]: ₹1,592
+                  - generic [ref=e1000]: ₹1,695
+                  - generic [ref=e1001]: 6% off
+              - generic [ref=e1004]: Only few left
+          - generic [ref=e1006]:
+            - link [ref=e1007] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm9acc933e8f8e5?pid=TSHHAVUVEZUTPUB4&lid=LSTTSHHAVUVEZUTPUB4POXN70&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_30&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHAVUVEZUTPUB4.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1014]
+            - generic [ref=e1016]:
+              - generic [ref=e1017]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e1018] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm9acc933e8f8e5?pid=TSHHAVUVEZUTPUB4&lid=LSTTSHHAVUVEZUTPUB4POXN70&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_30&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHAVUVEZUTPUB4.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1020]
+              - link "₹1,316 ₹2,195 40% off" [ref=e1021] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm9acc933e8f8e5?pid=TSHHAVUVEZUTPUB4&lid=LSTTSHHAVUVEZUTPUB4POXN70&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_30&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHAVUVEZUTPUB4.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1022]:
+                  - generic [ref=e1023]: ₹1,316
+                  - generic [ref=e1024]: ₹2,195
+                  - generic [ref=e1025]: 40% off
+              - generic [ref=e1028]: Hot Deal
+          - generic [ref=e1030]:
+            - link [ref=e1031] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm47a6cee85b4c5?pid=TSHGFGY8CDZWZNQK&lid=LSTTSHGFGY8CDZWZNQK4DEERS&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_31&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGFGY8CDZWZNQK.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1038]
+            - generic [ref=e1040]:
+              - generic [ref=e1041]: NIKE
+              - link "Men Printed Round Neck Cotton Blend White T-Shirt" [ref=e1042] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm47a6cee85b4c5?pid=TSHGFGY8CDZWZNQK&lid=LSTTSHGFGY8CDZWZNQK4DEERS&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_31&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGFGY8CDZWZNQK.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1044]
+              - link "₹1,621 ₹2,495 35% off" [ref=e1045] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm47a6cee85b4c5?pid=TSHGFGY8CDZWZNQK&lid=LSTTSHGFGY8CDZWZNQK4DEERS&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_31&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHGFGY8CDZWZNQK.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1046]:
+                  - generic [ref=e1047]: ₹1,621
+                  - generic [ref=e1048]: ₹2,495
+                  - generic [ref=e1049]: 35% off
+              - generic [ref=e1052]: Only 1 left
+          - generic [ref=e1054]:
+            - link [ref=e1055] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm6c17848223cf5?pid=TSHFRXU3TDBUFYY9&lid=LSTTSHFRXU3TDBUFYY9X6JR1E&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_32&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFRXU3TDBUFYY9.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1062]
+            - generic [ref=e1064]:
+              - generic [ref=e1065]: NIKE
+              - link "Men Printed Round Neck Cotton Blend White T-Shirt" [ref=e1066] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm6c17848223cf5?pid=TSHFRXU3TDBUFYY9&lid=LSTTSHFRXU3TDBUFYY9X6JR1E&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_32&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFRXU3TDBUFYY9.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1068]
+              - link "₹1,865 ₹2,195 15% off" [ref=e1069] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm6c17848223cf5?pid=TSHFRXU3TDBUFYY9&lid=LSTTSHFRXU3TDBUFYY9X6JR1E&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_32&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHFRXU3TDBUFYY9.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1070]:
+                  - generic [ref=e1071]: ₹1,865
+                  - generic [ref=e1072]: ₹2,195
+                  - generic [ref=e1073]: 15% off
+              - generic [ref=e1076]: Only 2 left
+        - generic [ref=e1078]:
+          - generic [ref=e1080]:
+            - link [ref=e1081] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm6821e74fe3ed1?pid=TSHH9M7WEHX9WKRU&lid=LSTTSHH9M7WEHX9WKRUVECNPK&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_33&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WEHX9WKRU.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1088]
+            - generic [ref=e1090]:
+              - generic [ref=e1091]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e1092] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm6821e74fe3ed1?pid=TSHH9M7WEHX9WKRU&lid=LSTTSHH9M7WEHX9WKRUVECNPK&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_33&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WEHX9WKRU.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1094]
+              - link "₹1,592 ₹1,695 6% off" [ref=e1095] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm6821e74fe3ed1?pid=TSHH9M7WEHX9WKRU&lid=LSTTSHH9M7WEHX9WKRUVECNPK&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_33&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHH9M7WEHX9WKRU.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1096]:
+                  - generic [ref=e1097]: ₹1,592
+                  - generic [ref=e1098]: ₹1,695
+                  - generic [ref=e1099]: 6% off
+              - generic [ref=e1102]: Only few left
+          - generic [ref=e1104]:
+            - link [ref=e1105] [cursor=pointer]:
+              - /url: /nike-boys-girls-solid-pure-cotton-regular-t-shirt/p/itm0987ab5305d9f?pid=KTBHCTSUGYKZEH7S&lid=LSTKTBHCTSUGYKZEH7SNXPYEU&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_34&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.KTBHCTSUGYKZEH7S.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1112]
+            - generic [ref=e1114]:
+              - generic [ref=e1115]: NIKE
+              - link "Boys & Girls Solid Pure Cotton Regular T Shirt" [ref=e1116] [cursor=pointer]:
+                - /url: /nike-boys-girls-solid-pure-cotton-regular-t-shirt/p/itm0987ab5305d9f?pid=KTBHCTSUGYKZEH7S&lid=LSTKTBHCTSUGYKZEH7SNXPYEU&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_34&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.KTBHCTSUGYKZEH7S.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - generic [ref=e1117]: White, Pack of 1
+              - img [ref=e1119]
+              - link "₹906 ₹1,295 30% off" [ref=e1120] [cursor=pointer]:
+                - /url: /nike-boys-girls-solid-pure-cotton-regular-t-shirt/p/itm0987ab5305d9f?pid=KTBHCTSUGYKZEH7S&lid=LSTKTBHCTSUGYKZEH7SNXPYEU&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_34&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.KTBHCTSUGYKZEH7S.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1121]:
+                  - generic [ref=e1122]: ₹906
+                  - generic [ref=e1123]: ₹1,295
+                  - generic [ref=e1124]: 30% off
+              - generic [ref=e1127]: Only 3 left
+          - generic [ref=e1129]:
+            - link [ref=e1130] [cursor=pointer]:
+              - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm7ef3e3c1bebd4?pid=TSHHCTZFSYPGFDFR&lid=LSTTSHHCTZFSYPGFDFROOYGVV&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_35&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFSYPGFDFR.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1137]
+            - generic [ref=e1139]:
+              - generic [ref=e1140]: NIKE
+              - link "Men Printed Round Neck Pure Cotton White T-Shirt" [ref=e1141] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm7ef3e3c1bebd4?pid=TSHHCTZFSYPGFDFR&lid=LSTTSHHCTZFSYPGFDFROOYGVV&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_35&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFSYPGFDFR.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1143]
+              - link "₹1,536 ₹2,195 30% off" [ref=e1144] [cursor=pointer]:
+                - /url: /nike-printed-men-round-neck-white-t-shirt/p/itm7ef3e3c1bebd4?pid=TSHHCTZFSYPGFDFR&lid=LSTTSHHCTZFSYPGFDFROOYGVV&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_35&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCTZFSYPGFDFR.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1145]:
+                  - generic [ref=e1146]: ₹1,536
+                  - generic [ref=e1147]: ₹2,195
+                  - generic [ref=e1148]: 30% off
+              - generic [ref=e1151]: Hot Deal
+          - generic [ref=e1153]:
+            - link [ref=e1154] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4d0bdd180f3b9?pid=TSHHE28BU7GZRKYV&lid=LSTTSHHE28BU7GZRKYVVURLDB&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_36&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHE28BU7GZRKYV.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1161]
+            - generic [ref=e1163]:
+              - generic [ref=e1164]: NIKE
+              - link "Men Solid Round Neck Cotton Blend White T-Shirt" [ref=e1165] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4d0bdd180f3b9?pid=TSHHE28BU7GZRKYV&lid=LSTTSHHE28BU7GZRKYVVURLDB&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_36&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHE28BU7GZRKYV.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1167]
+              - link "₹1,686 ₹1,795 6% off" [ref=e1168] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm4d0bdd180f3b9?pid=TSHHE28BU7GZRKYV&lid=LSTTSHHE28BU7GZRKYVVURLDB&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_36&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHE28BU7GZRKYV.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1169]:
+                  - generic [ref=e1170]: ₹1,686
+                  - generic [ref=e1171]: ₹1,795
+                  - generic [ref=e1172]: 6% off
+              - generic [ref=e1175]: Only few left
+        - generic [ref=e1177]:
+          - generic [ref=e1179]:
+            - link [ref=e1180] [cursor=pointer]:
+              - /url: /nike-solid-women-round-neck-white-t-shirt/p/itm579490726d016?pid=TSHHCMYNZM49PG3H&lid=LSTTSHHCMYNZM49PG3HEYTNF0&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_37&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNZM49PG3H.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1187]
+            - generic [ref=e1189]:
+              - generic [ref=e1190]: NIKE
+              - link "Women Solid Round Neck Pure Cotton White T-Shirt" [ref=e1191] [cursor=pointer]:
+                - /url: /nike-solid-women-round-neck-white-t-shirt/p/itm579490726d016?pid=TSHHCMYNZM49PG3H&lid=LSTTSHHCMYNZM49PG3HEYTNF0&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_37&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNZM49PG3H.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1193]
+              - link "₹1,536 ₹2,195 30% off" [ref=e1194] [cursor=pointer]:
+                - /url: /nike-solid-women-round-neck-white-t-shirt/p/itm579490726d016?pid=TSHHCMYNZM49PG3H&lid=LSTTSHHCMYNZM49PG3HEYTNF0&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_37&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNZM49PG3H.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1195]:
+                  - generic [ref=e1196]: ₹1,536
+                  - generic [ref=e1197]: ₹2,195
+                  - generic [ref=e1198]: 30% off
+              - generic [ref=e1201]: Hot Deal
+          - generic [ref=e1203]:
+            - link [ref=e1204] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmb138ca98d7f2f?pid=TSHHCMYNH8JBMYNC&lid=LSTTSHHCMYNH8JBMYNCRVLACJ&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_38&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNH8JBMYNC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1211]
+            - generic [ref=e1213]:
+              - generic [ref=e1214]: NIKE
+              - link "Men Solid Round Neck Polyester White T-Shirt" [ref=e1215] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmb138ca98d7f2f?pid=TSHHCMYNH8JBMYNC&lid=LSTTSHHCMYNH8JBMYNCRVLACJ&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_38&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNH8JBMYNC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1217]
+              - link "₹2,344 ₹2,495 6% off" [ref=e1218] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmb138ca98d7f2f?pid=TSHHCMYNH8JBMYNC&lid=LSTTSHHCMYNH8JBMYNCRVLACJ&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_38&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHCMYNH8JBMYNC.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1219]:
+                  - generic [ref=e1220]: ₹2,344
+                  - generic [ref=e1221]: ₹2,495
+                  - generic [ref=e1222]: 6% off
+              - generic [ref=e1225]: Only few left
+          - generic [ref=e1227]:
+            - link [ref=e1228] [cursor=pointer]:
+              - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm344fcefcc1f26?pid=TSHHFSCNDRQMMTBT&lid=LSTTSHHFSCNDRQMMTBTNNR1EA&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_39&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFSCNDRQMMTBT.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1235]
+            - generic [ref=e1237]:
+              - generic [ref=e1238]: NIKE
+              - link "Men Solid Polo Neck Polyester White T-Shirt" [ref=e1239] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm344fcefcc1f26?pid=TSHHFSCNDRQMMTBT&lid=LSTTSHHFSCNDRQMMTBTNNR1EA&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_39&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFSCNDRQMMTBT.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1241]
+              - link "₹1,835 ₹2,295 20% off" [ref=e1242] [cursor=pointer]:
+                - /url: /nike-solid-men-polo-neck-white-t-shirt/p/itm344fcefcc1f26?pid=TSHHFSCNDRQMMTBT&lid=LSTTSHHFSCNDRQMMTBTNNR1EA&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_39&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHFSCNDRQMMTBT.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1243]:
+                  - generic [ref=e1244]: ₹1,835
+                  - generic [ref=e1245]: ₹2,295
+                  - generic [ref=e1246]: 20% off
+              - generic [ref=e1249]: Only few left
+          - generic [ref=e1251]:
+            - link [ref=e1252] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm428f17a2116e0?pid=TSHHA8HGHWFYQTPA&lid=LSTTSHHA8HGHWFYQTPAGBEGB9&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_40&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHA8HGHWFYQTPA.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1259]
+            - generic [ref=e1261]:
+              - generic [ref=e1262]: NIKE
+              - link "Men Solid Round Neck Pure Cotton White T-Shirt" [ref=e1263] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm428f17a2116e0?pid=TSHHA8HGHWFYQTPA&lid=LSTTSHHA8HGHWFYQTPAGBEGB9&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_40&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHA8HGHWFYQTPA.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+              - img [ref=e1265]
+              - link "₹1,616 ₹2,695 40% off" [ref=e1266] [cursor=pointer]:
+                - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm428f17a2116e0?pid=TSHHA8HGHWFYQTPA&lid=LSTTSHHA8HGHWFYQTPAGBEGB9&marketplace=FLIPKART&q=white+nike+tshirt&store=clo%2Fash%2Fank&srno=s_1_40&otracker=search&fm=organic&iid=2db25e6a-af53-4601-8921-e4fde2db46ec.TSHHA8HGHWFYQTPA.SEARCH&ppt=None&ppn=None&ssid=dkv57jgnvk0000001770943431016&qH=bc7b586c4c196be0&ov_redirect=true
+                - generic [ref=e1267]:
+                  - generic [ref=e1268]: ₹1,616
+                  - generic [ref=e1269]: ₹2,695
+                  - generic [ref=e1270]: 40% off
+              - generic [ref=e1273]: Only 5 left
+        - generic [ref=e1276]:
+          - generic [ref=e1277]: Page 1 of 12
+          - navigation [ref=e1278]:
+            - link "1" [ref=e1279] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=1
+            - link "2" [ref=e1280] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=2
+            - link "3" [ref=e1281] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=3
+            - link "4" [ref=e1282] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=4
+            - link "5" [ref=e1283] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=5
+            - link "6" [ref=e1284] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=6
+            - link "7" [ref=e1285] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=7
+            - link "8" [ref=e1286] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=8
+            - link "9" [ref=e1287] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=9
+            - link "10" [ref=e1288] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=10
+            - link "Next" [ref=e1289] [cursor=pointer]:
+              - /url: /search?q=white+nike+tshirt&page=2
+        - generic [ref=e1291]:
+          - text: Did you find what you were looking for?
+          - generic [ref=e1292]:
+            - generic [ref=e1293] [cursor=pointer]: "Yes"
+            - generic [ref=e1294] [cursor=pointer]: "No"
+    - generic [ref=e1296]:
+      - generic [ref=e1297]: Reviews for Popular T Shirts
+      - generic [ref=e1298]:
+        - generic [ref=e1299]:
+          - generic [ref=e1301]:
+            - img "NIKE Solid Men Round Neck White T-Shirt"
+          - generic [ref=e1302]:
+            - link "1. NIKE Solid Men Round Neck W... 4.1 999 Ratings&85 Reviews ₹1,216 6% off" [ref=e1303] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm2787349c62a79?pid=TSHGYEH4JMMVU4XC&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1305]: 1. NIKE Solid Men Round Neck W...
+              - generic [ref=e1306]:
+                - generic [ref=e1307]:
+                  - text: "4.1"
+                  - img [ref=e1308]
+                - generic [ref=e1309]:
+                  - text: 999 Ratings
+                  - generic [ref=e1310]: "&85 Reviews"
+              - generic [ref=e1312]:
+                - generic [ref=e1313]: ₹1,216
+                - generic [ref=e1314]: 6% off
+            - list [ref=e1315]:
+              - listitem [ref=e1316]: Fabric:Cotton Blend
+              - listitem [ref=e1317]: RegularFit Round NeckT-shirt
+              - listitem [ref=e1318]: Pattern:Solid
+        - generic [ref=e1319]:
+          - generic [ref=e1320]: Most Helpful Review
+          - generic [ref=e1322]:
+            - generic [ref=e1323]:
+              - generic [ref=e1324]:
+                - text: "5"
+                - img [ref=e1325]
+              - paragraph [ref=e1326]: Brilliant
+            - generic [ref=e1330]: Tshirt is good and comfortable..
+            - generic [ref=e1332]:
+              - paragraph [ref=e1333]: Varoon kumar Gautam
+              - img [ref=e1334]
+              - paragraph [ref=e1338]: Certified Buyer
+              - paragraph [ref=e1339]: May, 2021
+        - generic [ref=e1340]:
+          - generic [ref=e1341]: Recent Review
+          - generic [ref=e1343]:
+            - generic [ref=e1344]:
+              - generic [ref=e1345]:
+                - text: "5"
+                - img [ref=e1346]
+              - paragraph [ref=e1347]: Classy product
+            - generic [ref=e1351]: Thank you flipkart. Nice product.
+            - generic [ref=e1353]:
+              - paragraph [ref=e1354]: Mohasin Molla
+              - img [ref=e1355]
+              - paragraph [ref=e1359]: Certified Buyer
+              - paragraph [ref=e1360]: Dec, 2022
+      - generic [ref=e1361]:
+        - generic [ref=e1362]:
+          - generic [ref=e1364]:
+            - img "PUMA Solid Men Round Neck White T-Shirt"
+          - generic [ref=e1365]:
+            - link "2. PUMA Solid Men Round Neck W... 3.8 739 Ratings&40 Reviews ₹977 34% off" [ref=e1366] [cursor=pointer]:
+              - /url: /puma-solid-men-round-neck-white-t-shirt/p/itm6e5605be23b80?pid=TSHGDRJYENHDJAC3&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1368]: 2. PUMA Solid Men Round Neck W...
+              - generic [ref=e1369]:
+                - generic [ref=e1370]:
+                  - text: "3.8"
+                  - img [ref=e1371]
+                - generic [ref=e1372]:
+                  - text: 739 Ratings
+                  - generic [ref=e1373]: "&40 Reviews"
+              - generic [ref=e1375]:
+                - generic [ref=e1376]: ₹977
+                - generic [ref=e1377]: 34% off
+            - list [ref=e1378]:
+              - listitem [ref=e1379]: Fabric:Cotton Blend
+              - listitem [ref=e1380]: RegularFit Round NeckT-shirt
+              - listitem [ref=e1381]: Pattern:Solid
+        - generic [ref=e1382]:
+          - generic [ref=e1383]: Most Helpful Review
+          - generic [ref=e1385]:
+            - generic [ref=e1386]:
+              - generic [ref=e1387]:
+                - text: "4"
+                - img [ref=e1388]
+              - paragraph [ref=e1389]: Very Good
+            - generic [ref=e1393]: Best product for the price point
+            - generic [ref=e1395]:
+              - paragraph [ref=e1396]: Aditya Yadav
+              - img [ref=e1397]
+              - paragraph [ref=e1401]: Certified Buyer
+              - paragraph [ref=e1402]: Oct, 2024
+        - generic [ref=e1403]:
+          - generic [ref=e1404]: Recent Review
+          - generic [ref=e1406]:
+            - generic [ref=e1407]:
+              - generic [ref=e1408]:
+                - text: "4"
+                - img [ref=e1409]
+              - paragraph [ref=e1410]: Very Good
+            - generic [ref=e1414]: Best product for the price point
+            - generic [ref=e1416]:
+              - paragraph [ref=e1417]: Aditya Yadav
+              - img [ref=e1418]
+              - paragraph [ref=e1422]: Certified Buyer
+              - paragraph [ref=e1423]: Oct, 2024
+      - generic [ref=e1424]:
+        - generic [ref=e1425]:
+          - generic [ref=e1427]:
+            - img "NIKE Solid Men Round Neck White T-Shirt"
+          - generic [ref=e1428]:
+            - link "3. NIKE Solid Men Round Neck W... 4.4 15 Ratings&2 Reviews ₹1,316 40% off" [ref=e1429] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itm588f8276eb5e0?pid=TSHHA8HFYQ3XTNRX&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1431]: 3. NIKE Solid Men Round Neck W...
+              - generic [ref=e1432]:
+                - generic [ref=e1433]:
+                  - text: "4.4"
+                  - img [ref=e1434]
+                - generic [ref=e1435]:
+                  - text: 15 Ratings
+                  - generic [ref=e1436]: "&2 Reviews"
+              - generic [ref=e1438]:
+                - generic [ref=e1439]: ₹1,316
+                - generic [ref=e1440]: 40% off
+            - list [ref=e1441]:
+              - listitem [ref=e1442]: Fabric:Pure Cotton
+              - listitem [ref=e1443]: RegularFit Round NeckT-shirt
+              - listitem [ref=e1444]: Pattern:Solid
+        - generic [ref=e1445]:
+          - generic [ref=e1446]: Most Helpful Review
+          - generic [ref=e1448]:
+            - generic [ref=e1449]:
+              - generic [ref=e1450]:
+                - text: "5"
+                - img [ref=e1451]
+              - paragraph [ref=e1452]: Terrific purchase
+            - generic [ref=e1456]: Very good t shirt
+            - generic [ref=e1458]:
+              - paragraph [ref=e1459]: Tadar Raju
+              - img [ref=e1460]
+              - paragraph [ref=e1464]: Certified Buyer
+              - paragraph [ref=e1465]: 4 months ago
+        - generic [ref=e1466]:
+          - generic [ref=e1467]: Recent Review
+          - generic [ref=e1469]:
+            - generic [ref=e1470]:
+              - generic [ref=e1471]:
+                - text: "5"
+                - img [ref=e1472]
+              - paragraph [ref=e1473]: Terrific purchase
+            - generic [ref=e1477]: Very good t shirt
+            - generic [ref=e1479]:
+              - paragraph [ref=e1480]: Tadar Raju
+              - img [ref=e1481]
+              - paragraph [ref=e1485]: Certified Buyer
+              - paragraph [ref=e1486]: 4 months ago
+      - generic [ref=e1487]:
+        - generic [ref=e1488]:
+          - generic [ref=e1490]:
+            - img "NIKE Solid Men Round Neck White T-Shirt"
+          - generic [ref=e1491]:
+            - link "4. NIKE Solid Men Round Neck W... 4.2 342 Ratings&24 Reviews ₹1,592 6% off" [ref=e1492] [cursor=pointer]:
+              - /url: /nike-solid-men-round-neck-white-t-shirt/p/itmcdd9db246b6c5?pid=TSHFUZFKHGUXFRGF&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1494]: 4. NIKE Solid Men Round Neck W...
+              - generic [ref=e1495]:
+                - generic [ref=e1496]:
+                  - text: "4.2"
+                  - img [ref=e1497]
+                - generic [ref=e1498]:
+                  - text: 342 Ratings
+                  - generic [ref=e1499]: "&24 Reviews"
+              - generic [ref=e1501]:
+                - generic [ref=e1502]: ₹1,592
+                - generic [ref=e1503]: 6% off
+            - list [ref=e1504]:
+              - listitem [ref=e1505]: Fabric:Polyester
+              - listitem [ref=e1506]: RegularFit Round NeckT-shirt
+              - listitem [ref=e1507]: Pattern:Solid
+        - generic [ref=e1508]:
+          - generic [ref=e1509]: Most Helpful Review
+          - generic [ref=e1511]:
+            - generic [ref=e1512]:
+              - generic [ref=e1513]:
+                - text: "4"
+                - img [ref=e1514]
+              - paragraph [ref=e1515]: Very Good
+            - generic [ref=e1519]: Great stuff , cheap price , met all the expectations
+            - generic [ref=e1521]:
+              - paragraph [ref=e1522]: Sherin Selvanose
+              - img [ref=e1523]
+              - paragraph [ref=e1527]: Certified Buyer
+              - paragraph [ref=e1528]: Feb, 2021
+        - generic [ref=e1529]:
+          - generic [ref=e1530]: Recent Review
+          - generic [ref=e1532]:
+            - generic [ref=e1533]:
+              - generic [ref=e1534]:
+                - text: "5"
+                - img [ref=e1535]
+              - paragraph [ref=e1536]: Brilliant
+            - generic [ref=e1540]: Great superb and comfort good material Nike original .
+            - generic [ref=e1542]:
+              - paragraph [ref=e1543]: Flipkart Customer
+              - img [ref=e1544]
+              - paragraph [ref=e1548]: Certified Buyer
+              - paragraph [ref=e1549]: Feb, 2024
+      - generic [ref=e1550]:
+        - generic [ref=e1551]:
+          - generic [ref=e1553]:
+            - img "The Souled Store Printed, Typography Men Polo Neck White T-Shirt"
+          - generic [ref=e1554]:
+            - link "5. The Souled Store Printed, T... 4.1 102 Ratings&5 Reviews ₹1,298" [ref=e1555] [cursor=pointer]:
+              - /url: /souled-store-printed-typography-men-polo-neck-white-t-shirt/p/itm57bc336aa82e5?pid=TSHGTG78W5YZGPXM&marketplace=FLIPKART&ov_redirect=true
+              - generic [ref=e1557]: 5. The Souled Store Printed, T...
+              - generic [ref=e1558]:
+                - generic [ref=e1559]:
+                  - text: "4.1"
+                  - img [ref=e1560]
+                - generic [ref=e1561]:
+                  - text: 102 Ratings
+                  - generic [ref=e1562]: "&5 Reviews"
+              - generic [ref=e1565]: ₹1,298
+            - list [ref=e1566]:
+              - listitem [ref=e1567]: Fabric:Pure Cotton
+              - listitem [ref=e1568]: OversizedFit Polo NeckT-shirt
+              - listitem [ref=e1569]: Pattern:Printed, Typography
+        - generic [ref=e1570]:
+          - generic [ref=e1571]: Most Helpful Review
+          - generic [ref=e1573]:
+            - generic [ref=e1574]:
+              - generic [ref=e1575]:
+                - text: "5"
+                - img [ref=e1576]
+              - paragraph [ref=e1577]: Worth every penny
+            - generic [ref=e1581]: Awesome T-Shirt. Looks cool!
+            - generic [ref=e1583]:
+              - paragraph [ref=e1584]: Somendra Sharma
+              - img [ref=e1585]
+              - paragraph [ref=e1589]: Certified Buyer
+              - paragraph [ref=e1590]: 6 months ago
+        - generic [ref=e1591]:
+          - generic [ref=e1592]: Recent Review
+          - generic [ref=e1594]:
+            - generic [ref=e1595]:
+              - generic [ref=e1596]:
+                - text: "5"
+                - img [ref=e1597]
+              - paragraph [ref=e1598]: Worth every penny
+            - generic [ref=e1602]: Awesome T-Shirt. Looks cool!
+            - generic [ref=e1604]:
+              - paragraph [ref=e1605]: Somendra Sharma
+              - img [ref=e1606]
+              - paragraph [ref=e1610]: Certified Buyer
+              - paragraph [ref=e1611]: 6 months ago
+  - contentinfo [ref=e1612]:
+    - generic [ref=e1614]:
+      - generic [ref=e1615]:
+        - generic [ref=e1616]:
+          - generic [ref=e1617]: ABOUT
+          - link "Contact Us" [ref=e1618] [cursor=pointer]:
+            - /url: /helpcentre?otracker=footer_navlinks
+          - link "About Us" [ref=e1619] [cursor=pointer]:
+            - /url: https://corporate.flipkart.net/corporate-home
+          - link "Careers" [ref=e1620] [cursor=pointer]:
+            - /url: https://flipkart.turbohire.co/careerpage/4d757ba0-3d57-448a-b82c-238ed87ac90f
+          - link "Flipkart Stories" [ref=e1621] [cursor=pointer]:
+            - /url: http://stories.flipkart.com/?otracker=footer_navlinks
+          - link "Press" [ref=e1622] [cursor=pointer]:
+            - /url: http://stories.flipkart.com/category/top-stories/news/
+          - link "Corporate Information" [ref=e1623] [cursor=pointer]:
+            - /url: /corporate-information
+        - generic [ref=e1624]:
+          - generic [ref=e1625]: GROUP COMPANIES
+          - link "Myntra" [ref=e1626] [cursor=pointer]:
+            - /url: https://www.myntra.com/
+          - link "Cleartrip" [ref=e1627] [cursor=pointer]:
+            - /url: https://www.cleartrip.com/
+          - link "Shopsy" [ref=e1628] [cursor=pointer]:
+            - /url: https://www.shopsy.in/
+        - generic [ref=e1629]:
+          - generic [ref=e1630]: HELP
+          - link "Payments" [ref=e1631] [cursor=pointer]:
+            - /url: /pages/payments
+          - link "Shipping" [ref=e1632] [cursor=pointer]:
+            - /url: /pages/shipping
+          - link "Cancellation & Returns" [ref=e1633] [cursor=pointer]:
+            - /url: /helpcentre?catalog=55c9c6edb000002e002c1701&view=CATALOG
+          - link "FAQ" [ref=e1634] [cursor=pointer]:
+            - /url: /helpcentre?catalog=55c9c8e2b0000023002c1702&view=CATALOG
+        - generic [ref=e1635]:
+          - generic [ref=e1636]: CONSUMER POLICY
+          - link "Cancellation & Returns" [ref=e1637] [cursor=pointer]:
+            - /url: /pages/returnpolicy?otracker=footer_navlinks
+          - link "Terms Of Use" [ref=e1638] [cursor=pointer]:
+            - /url: /pages/terms?otracker=footer_navlinks
+          - link "Security" [ref=e1639] [cursor=pointer]:
+            - /url: /pages/paymentsecurity?otracker=footer_navlinks
+          - link "Privacy" [ref=e1640] [cursor=pointer]:
+            - /url: /pages/privacypolicy?otracker=footer_navlinks
+          - link "Sitemap" [ref=e1641] [cursor=pointer]:
+            - /url: /sitemap?otracker=footer_navlinks
+          - link "Grievance Redressal" [ref=e1642] [cursor=pointer]:
+            - /url: /pages/grievance-redressal-mechanism?otracker=footer_navlinks
+          - link "EPR Compliance" [ref=e1643] [cursor=pointer]:
+            - /url: /pages/ewaste-compliance-tnc?otracker=footer_navlinks
+          - link "FSSAI Food Safety Connect App" [ref=e1644] [cursor=pointer]:
+            - /url: https://fssai.gov.in/cms/food-safety-connect.php
+        - generic [ref=e1646]:
+          - generic [ref=e1647]: "Mail Us:"
+          - generic [ref=e1650]:
+            - paragraph [ref=e1651]: Flipkart Internet Private Limited,
+            - paragraph [ref=e1652]: Buildings Alyssa, Begonia &
+            - paragraph [ref=e1653]: Clove Embassy Tech Village,
+            - paragraph [ref=e1654]: Outer Ring Road, Devarabeesanahalli Village,
+            - paragraph [ref=e1655]: Bengaluru, 560103,
+            - paragraph [ref=e1656]: Karnataka, India
+          - generic [ref=e1657]: Social
+          - generic [ref=e1658]:
+            - link [ref=e1660] [cursor=pointer]:
+              - /url: https://www.facebook.com/flipkart
+              - img [ref=e1661]
+            - link [ref=e1663] [cursor=pointer]:
+              - /url: https://www.twitter.com/flipkart
+              - img [ref=e1664]
+            - link [ref=e1666] [cursor=pointer]:
+              - /url: https://www.youtube.com/flipkart
+              - img [ref=e1667]
+            - link [ref=e1669] [cursor=pointer]:
+              - /url: https://www.instagram.com/flipkart
+              - img [ref=e1670]
+        - generic [ref=e1672]:
+          - generic [ref=e1673]: "Registered Office Address:"
+          - generic [ref=e1676]:
+            - paragraph [ref=e1677]: Flipkart Internet Private Limited,
+            - paragraph [ref=e1678]: Buildings Alyssa, Begonia &
+            - paragraph [ref=e1679]: Clove Embassy Tech Village,
+            - paragraph [ref=e1680]: Outer Ring Road, Devarabeesanahalli Village,
+            - paragraph [ref=e1681]: Bengaluru, 560103,
+            - paragraph [ref=e1682]: Karnataka, India
+            - paragraph [ref=e1683]: "CIN : U51109KA2012PTC066107"
+            - paragraph [ref=e1684]:
+              - text: "Telephone:"
+              - link "044-45614700" [ref=e1685] [cursor=pointer]:
+                - /url: tel:044-45614700
+              - text: /
+              - link "044-67415800" [ref=e1686] [cursor=pointer]:
+                - /url: tel:044-67415800
+      - generic [ref=e1688]:
+        - generic [ref=e1689]:
+          - img [ref=e1690]
+          - link "Become a Seller" [ref=e1691] [cursor=pointer]:
+            - /url: https://seller.flipkart.com/?utm_source=fkwebsite&utm_medium=websitedirect
+        - generic [ref=e1692]:
+          - img [ref=e1693]
+          - link "Advertise" [ref=e1694] [cursor=pointer]:
+            - /url: https://brands.flipkart.com
+        - generic [ref=e1695]:
+          - img [ref=e1696]
+          - link "Gift Cards" [ref=e1697] [cursor=pointer]:
+            - /url: /the-gift-card-store?otracker=footer_navlinks
+        - generic [ref=e1698]:
+          - img [ref=e1699]
+          - link "Help Center" [ref=e1700] [cursor=pointer]:
+            - /url: /helpcentre?otracker=footer_navlinks
+        - generic [ref=e1701]: © 2007-2026 Flipkart.com
+        - img [ref=e1703]

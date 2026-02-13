@@ -1,5 +1,6 @@
 import type { Filter, Product } from "../types";
 import type { PlatformAdapter } from "./types";
+import { extractPriceNumber, parsePriceText } from "./utils";
 
 export class FlipkartAdapter implements PlatformAdapter {
   platformName = "flipkart" as const;
@@ -161,12 +162,6 @@ function extractPrice(card: Element): number {
   }
 
   return 0;
-}
-
-function parsePriceText(text: string): number {
-  const cleaned = text.replace(/[₹,\s]/g, "");
-  const price = parseFloat(cleaned);
-  return isNaN(price) ? 0 : price;
 }
 
 function extractRatingAndReviews(card: Element): {
@@ -443,12 +438,6 @@ async function tryPriceFilter(filter: Filter): Promise<boolean> {
   url.searchParams.append("p[]", `facets.price_range.to=${priceNum}`);
   window.location.href = url.toString();
   return true;
-}
-
-function extractPriceNumber(value: string): number | null {
-  const cleaned = value.replace(/,/g, "");
-  const match = cleaned.match(/(\d+)/);
-  return match ? parseInt(match[1], 10) : null;
 }
 
 async function tryTextFallback(filter: Filter): Promise<boolean> {

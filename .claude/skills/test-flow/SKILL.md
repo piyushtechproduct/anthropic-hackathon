@@ -50,10 +50,30 @@ Use Playwright MCP tools to test the FastAPI Swagger docs interactively.
 15. Take a snapshot to verify it loads an Amazon search results page
 16. Take a screenshot and save it as `test-amazon-results.png`
 
-## Phase 4: Cleanup
+## Phase 4: Generated Test Suite
 
-17. Close the browser
-18. Print a summary table of all test results:
+Run all generated tests from `backend/tests/generated/` and `extension/tests/generated/`.
+
+17. Run backend generated tests:
+    ```bash
+    cd backend && uv run pytest tests/generated/ -v --tb=short
+    ```
+    - Capture pass/fail count from output
+    - Report overall status (PASS if all pass, FAIL otherwise)
+    - If no test files exist in `backend/tests/generated/`, report SKIP (not FAIL)
+
+18. Run extension generated tests:
+    ```bash
+    cd extension && npx vitest run tests/generated/
+    ```
+    - Capture pass/fail count from output
+    - Report overall status (PASS if all pass, FAIL otherwise)
+    - If no test files exist in `extension/tests/generated/`, report SKIP (not FAIL)
+
+## Phase 5: Cleanup
+
+19. Close the browser
+20. Print a summary table of all test results:
 
 ```
 | #  | Test                        | Status | Details          |
@@ -64,4 +84,6 @@ Use Playwright MCP tools to test the FastAPI Swagger docs interactively.
 | 4  | Swagger try-it-out          | PASS   | ...              |
 | 5  | Swagger response valid      | PASS   | ...              |
 | 6  | Amazon search page loads    | PASS   | ...              |
+| 7  | Backend generated tests     | PASS   | 56/56 passed     |
+| 8  | Extension generated tests   | PASS   | 50/50 passed     |
 ```
